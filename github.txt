@@ -1,0 +1,72 @@
+commit 84818affd76811bfec029f8ad35f47ca628e634e
+Author: Akiri Jones <aj1974@rit.edu>
+Date:   Tue Feb 11 19:34:48 2025 -0500
+
+    Readded Name
+
+commit c9e95a23cad70a0f576f1421af0cb591564127b8
+Merge: 1112ed7 e7673f0
+Author: Sebastian Canakis <scanakis@Sebastians-MacBook-Pro-3.local>
+Date:   Tue Feb 11 19:32:05 2025 -0500
+
+    Merge branch 'main' of https://github.com/RIT-SWEN-261-05/team-project-team-3c
+
+commit 1112ed7a17e6d31aa36cc39f1ce37c67dae74432
+Author: Sebastian Canakis <scanakis@Sebastians-MacBook-Pro-3.local>
+Date:   Tue Feb 11 19:28:10 2025 -0500
+
+    added my name: SEb
+
+commit e7673f06b8734611bff7f8f4698ebef7ce2c1631
+Author: DigitalCitys <giulia.spier@gmail.com>
+Date:   Tue Feb 11 19:27:44 2025 -0500
+
+    Added Giulia Spier
+
+commit 4ad58c1a92d875ed3ef555e29865c72515e38283
+Author: Sebastian Canakis <scanakis@Sebastians-MacBook-Pro-3.local>
+Date:   Tue Feb 11 19:26:40 2025 -0500
+
+    resolve conflict and pushing
+
+commit 5c05551d6fa561eb494b8a4b612e4ed3a32e1617
+Merge: 93d8b9d aa47962
+Author: jnf8565 <jnf8565@rit.edu>
+Date:   Tue Feb 11 19:26:30 2025 -0500
+
+    Merge branch 'main' of https://github.com/RIT-SWEN-261-05/team-project-team-3c
+    
+            modified:   README.md
+
+commit 93d8b9d0e3011c748e244b805e45e9d3aea164d7
+Author: jnf8565 <jnf8565@rit.edu>
+Date:   Tue Feb 11 19:22:18 2025 -0500
+
+            modified:   README.md
+
+commit aa4796252e5346f5dbde375d972cef7925d4fb63
+Merge: 9e54ffc 99c8a9b
+Author: Caden Esterman <ffe5712@rit.edu>
+Date:   Tue Feb 11 19:21:16 2025 -0500
+
+    Merge branch 'main' of https://github.com/RIT-SWEN-261-05/team-project-team-3c
+
+commit 9e54ffc8b2f8c729a9f0c1b21b659367673bb31b
+Author: Caden Esterman <ffe5712@rit.edu>
+Date:   Tue Feb 11 19:21:04 2025 -0500
+
+    added name to README
+
+commit 99c8a9b5bc31709361436c67246a932e5610d307
+Author: AkiriJones <145390014+AkiriJones@users.noreply.github.com>
+Date:   Tue Feb 11 19:19:59 2025 -0500
+
+    Update README.md
+    
+    Added new line and one of the Author name
+
+commit e6956050ed8247478b6c1899c2ad3e6d0aa56823
+Author: github-classroom[bot] <66690702+github-classroom[bot]@users.noreply.github.com>
+Date:   Tue Feb 11 02:16:24 2025 +0000
+
+    Initial commit
