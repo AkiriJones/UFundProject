@@ -8,7 +8,7 @@ An online U-Fund system built in Java **21** and ___ _replace with other platfor
 - Caden Esterman
 - Jack Faro
 - Giulia Spier
-- MEMBER4
+- Akiri Jones
 - Sebastian Canakis
 
 ## Prerequisites
