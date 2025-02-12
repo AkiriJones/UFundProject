@@ -6,8 +6,8 @@ An online U-Fund system built in Java **21** and ___ _replace with other platfor
 ## Team
 
 - Caden Esterman
-- MEMBER2
-- MEMBER3
+- Jack Faro
+- Giulia Spier
 - MEMBER4
 - Sebastian Canakis
 
