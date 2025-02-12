@@ -9,12 +9,7 @@ An online U-Fund system built in Java **21** and ___ _replace with other platfor
 - MEMBER2
 - MEMBER3
 - MEMBER4
-<<<<<<< HEAD
-- Akiri Jones
-
-=======
 - Sebastian Canakis
->>>>>>> 889feb6 (added my name)
 
 ## Prerequisites
 
