@@ -9,6 +9,7 @@ An online U-Fund system built in Java **21** and ___ _replace with other platfor
 - MEMBER2
 - MEMBER3
 - MEMBER4
+- Akiri Jones
 
 
 ## Prerequisites
