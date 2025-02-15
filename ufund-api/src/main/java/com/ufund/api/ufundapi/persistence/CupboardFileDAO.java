@@ -69,24 +69,26 @@ public class CupboardFileDAO implements CupboardDAO {
 
     @Override
     public Need[] findNeeds(String containsString) throws IOException {
-        synchronized(cupboard){
+        synchronized(cupboard) {
             return getNeedsArray(containsString);
         }
     }
 
     @Override
     public Need getNeed(String name) throws IOException {
-        synchronized(cupboard){
-            if(cupboard.containsKey(name))
+        synchronized(cupboard) {
+            if(cupboard.containsKey(name)) {
                 return cupboard.get(name);
-            else
+            }
+            else {
                 return null;
+            }
         }
     }
 
     @Override
     public Need createNeed(Need need) throws IOException {
-        synchronized(cupboard){
+        synchronized(cupboard) {
             Need newNeed = new Need(need.getName(), need.getCost(), need.getQuantity(), need.getType());
             cupboard.put(need.getName(),newNeed);
             save();
@@ -96,13 +98,27 @@ public class CupboardFileDAO implements CupboardDAO {
 
     @Override
     public Need updateNeed(Need need) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateNeed'");
+        synchronized(cupboard) {
+            if(cupboard.containsKey(need.getName()) == false) {
+                return null;
+            }
+
+            cupboard.put(need.getName(),need);
+            save();
+            return need;
+        }
     }
 
     @Override
     public boolean deleteNeed(String name) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteNeed'");
+        synchronized(cupboard) {
+            if(cupboard.containsKey(name)) {
+                cupboard.remove(name);
+                return save();
+            }
+            else {
+                return false;
+            }
+        }
     }
 }
