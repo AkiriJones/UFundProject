@@ -62,26 +62,36 @@ public class CupboardFileDAO implements CupboardDAO {
         
     @Override
     public Need[] getNeeds() throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getNeeds'");
+        synchronized(cupboard) {
+            return getNeedsArray();
+        }
     }
 
     @Override
     public Need[] findNeeds(String containsString) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findNeeds'");
+        synchronized(cupboard){
+            return getNeedsArray(containsString);
+        }
     }
 
     @Override
     public Need getNeed(String name) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getNeed'");
+        synchronized(cupboard){
+            if(cupboard.containsKey(name))
+                return cupboard.get(name);
+            else
+                return null;
+        }
     }
 
     @Override
     public Need createNeed(Need need) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createNeed'");
+        synchronized(cupboard){
+            Need newNeed = new Need(need.getName(), need.getCost(), need.getQuantity(), need.getType());
+            cupboard.put(need.getName(),newNeed);
+            save();
+            return newNeed;
+        }
     }
 
     @Override
