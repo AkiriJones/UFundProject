@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Cupboard {
     
-
     // ONlY ONE CUPBOARD
     // CONTAINS AN ARRAY OF NEEDS
     
@@ -21,10 +20,7 @@ public class Cupboard {
                 return needs[i];
             }
         } 
-
         return null;
-
-
     }
 
 
