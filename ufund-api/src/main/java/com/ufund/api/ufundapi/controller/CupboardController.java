@@ -52,12 +52,12 @@ public class CupboardController {
      */
 
     @GetMapping("/{name}")
-    public ResponseEntity<Need> getNeed(@PathVariable String name) {
+    public ResponseEntity<Need[]> getNeed(@PathVariable String name) {
         LOG.info("GET /needs/" + name);
         try {
-            Need need = cupboardDAO.getNeed(name);
+            Need[] need = cupboardDAO.findNeeds(name);
             if (need != null)
-                return new ResponseEntity<Need>(need,HttpStatus.OK);
+                return new ResponseEntity<Need[]>(need,HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
