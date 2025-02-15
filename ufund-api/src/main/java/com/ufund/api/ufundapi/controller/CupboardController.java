@@ -20,8 +20,9 @@ import com.ufund.api.ufundapi.persistence.CupboardDAO;
 import java.util.logging.Level;
 
 
-@RequestMapping
+
 @RestController
+@RequestMapping("data")
 public class CupboardController {
     private static final Logger LOG = Logger.getLogger(CupboardController.class.getName());
     private CupboardDAO cupboardDAO;
