@@ -11,9 +11,9 @@ public abstract interface CupboardDAO {
 
     Need getNeed(String name) throws IOException;
 
-    Need createNeed(String name, int cost, int quantity, String type) throws IOException;
+    Need createNeed(Need need) throws IOException;
 
-    Need updateNeed(String name) throws IOException;
+    Need updateNeed(Need need) throws IOException;
 
     boolean deleteNeed(String name) throws IOException;
 }
