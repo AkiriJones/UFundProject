@@ -19,8 +19,14 @@ import com.ufund.api.ufundapi.persistence.CupboardDAO;
 
 import java.util.logging.Level;
 
-
-
+/**
+ * Handles the REST API requests for the Need resource
+ * 
+ * {@literal @}RestController Spring annotation identifies this class as a REST API
+ * method handler to the Spring framework
+ * 
+ * @author Akiri Jones, Jack Faro, Caden Esterman, Sebastian Canakis Diaz, Giulia Spier
+ */
 @RestController
 @RequestMapping("needs")
 public class CupboardController {

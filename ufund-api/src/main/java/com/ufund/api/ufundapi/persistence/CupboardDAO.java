@@ -3,6 +3,11 @@ import java.io.IOException;
 
 import com.ufund.api.ufundapi.model.Need;
 
+/**
+ * Defines the interface for the Need object persistence
+ * 
+ * @author Akiri Jones, Jack Faro, Caden Esterman, Sebastian Canakis Diaz, Giulia Spier
+ */
 public abstract interface CupboardDAO {
     /**
      * Retrieves all {@linkplain Need need}

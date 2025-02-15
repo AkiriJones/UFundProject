@@ -13,6 +13,14 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.Need;
 
+/**
+ * Implements the functionality for JSON file-based persistence for Needs
+ * 
+ * {@literal @}Component Spring annotation instantiates a single instance of this
+ * class and injects the instance into other classes as needed
+ * 
+ * @author Akiri Jones, Jack Faro, Caden Esterman, Sebastian Canakis Diaz, Giulia Spier
+ */
 @Component
 public class CupboardFileDAO implements CupboardDAO {
     
