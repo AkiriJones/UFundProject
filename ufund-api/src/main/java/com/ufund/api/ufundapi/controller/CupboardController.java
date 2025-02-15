@@ -154,7 +154,7 @@ public class CupboardController {
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{name}")
     public ResponseEntity<Need> deteteNeed(@PathVariable String name) {
         LOG.info("DELETE /needs/" + name);
 
