@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 @Component
@@ -43,16 +44,20 @@ public class CupboardFileDAO implements CupboardDAO {
         needArrayList.toArray(needArray);
         return needArray;
     }
-    
+
     private boolean save() throws IOException {
         Need[] needsArray = getNeedsArray();
         objectMapper.writeValue(new File(filename), needsArray);
         return true;
     }
 
-    private void load() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'load'");
+    private boolean load() throws IOException{
+        cupboard = new TreeMap<>();
+        Need[] needsArray = objectMapper.readValue(new File(filename), Need[].class);
+        for(Need need : needsArray) {
+            cupboard.put(need.getName(), need);
+        }
+        return true;
     }
         
     @Override
