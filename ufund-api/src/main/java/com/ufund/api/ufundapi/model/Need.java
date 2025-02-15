@@ -27,6 +27,9 @@ public class Need {
     public void setCost(double cost){this.cost = cost;}
     public int getQuantity() {return quantity;}
     public void setQuantity(int quantity) {this.quantity = quantity;}
+    
+
+    // ENUM MUST BE IMPLEMENTED IN THE FUTURE FOR ENHANCMENTS. (Monetary, Physical)
     public String getType() {return type;}
     public void setType(String type){this.type = type;}
 
