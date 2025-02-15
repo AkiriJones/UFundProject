@@ -3,7 +3,7 @@ import java.io.IOException;
 
 import com.ufund.api.ufundapi.model.*;
 
-public interface CupboardDAO {
+public abstract interface CupboardDAO {
 
     Need[] getNeeds() throws IOException;
 
