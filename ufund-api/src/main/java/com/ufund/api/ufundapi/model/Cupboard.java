@@ -23,6 +23,17 @@ public class Cupboard {
         return null;
     }
 
+    public void updateNeed(String name, double cost, int quantity, String type) {
+        Need need = new Need(name, cost, quantity, type);
+        
+        for(int i = 0; i < needs.length; i++) {
+            if(needs[i].getName() == name) {
+                needs[i] = need;
+            }
+        } 
+        
+    }
+
 
 
 
