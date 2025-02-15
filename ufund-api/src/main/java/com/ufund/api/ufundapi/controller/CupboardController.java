@@ -22,7 +22,7 @@ import java.util.logging.Level;
 
 
 @RestController
-@RequestMapping("data")
+@RequestMapping("needs")
 public class CupboardController {
     private static final Logger LOG = Logger.getLogger(CupboardController.class.getName());
     private CupboardDAO cupboardDAO;
@@ -53,7 +53,7 @@ public class CupboardController {
 
     @GetMapping("/{name}")
     public ResponseEntity<Need> getNeed(@PathVariable String name) {
-        LOG.info("GET /need/" + name);
+        LOG.info("GET /needs/" + name);
         try {
             Need need = cupboardDAO.getNeed(name);
             if (need != null)
@@ -129,7 +129,7 @@ public class CupboardController {
 
     @PutMapping("")
     public ResponseEntity<Need> updateNeed(@RequestBody Need need) {
-        LOG.info("PUT /needs " + need);
+        LOG.info("PUT /needs/ " + need);
         try {
             Need theNeed = cupboardDAO.updateNeed(need);
 
