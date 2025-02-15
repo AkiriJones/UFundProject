@@ -27,10 +27,23 @@ public class CupboardFileDAO implements CupboardDAO {
     }
     
     private Need[] getNeedsArray() {
-        ArrayList<Need> needList = new ArrayList<>(cupboard.values());
-        return needList.toArray(new Need[0]);
+        return getNeedsArray(null);
     }
 
+    private Need[] getNeedsArray(String containsText) {
+        ArrayList<Need> needArrayList = new ArrayList<>();
+
+        for (Need need : cupboard.values()){
+            if(containsText == null || need.getName().contains(containsText)) {
+                needArrayList.add(need);
+            }
+        }
+
+        Need[] needArray = new Need[needArrayList.size()];
+        needArrayList.toArray(needArray);
+        return needArray;
+    }
+    
     private boolean save() throws IOException {
         Need[] needsArray = getNeedsArray();
         objectMapper.writeValue(new File(filename), needsArray);
