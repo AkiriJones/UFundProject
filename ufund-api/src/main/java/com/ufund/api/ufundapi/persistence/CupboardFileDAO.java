@@ -1,3 +1,5 @@
+package com.ufund.api.ufundapi.persistence;
+
 import org.springframework.stereotype.Component;
 
 import com.ufund.api.ufundapi.model.Need;
