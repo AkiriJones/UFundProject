@@ -88,6 +88,9 @@ public class CupboardFileDAO implements CupboardDAO {
         return true;
     }
         
+    /**
+    ** {@inheritDoc}
+     */
     @Override
     public Need[] getNeeds() throws IOException {
         synchronized(cupboard) {
@@ -95,6 +98,9 @@ public class CupboardFileDAO implements CupboardDAO {
         }
     }
 
+    /**
+    ** {@inheritDoc}
+     */
     @Override
     public Need[] findNeeds(String containsString) throws IOException {
         synchronized(cupboard) {
@@ -102,6 +108,9 @@ public class CupboardFileDAO implements CupboardDAO {
         }
     }
 
+    /**
+    ** {@inheritDoc}
+     */
     @Override
     public Need getNeed(String name) throws IOException {
         synchronized(cupboard) {
@@ -114,6 +123,9 @@ public class CupboardFileDAO implements CupboardDAO {
         }
     }
 
+    /**
+    ** {@inheritDoc}
+     */
     @Override
     public Need createNeed(Need need) throws IOException {
         synchronized(cupboard) {
@@ -124,6 +136,9 @@ public class CupboardFileDAO implements CupboardDAO {
         }
     }
 
+    /**
+    ** {@inheritDoc}
+     */
     @Override
     public Need updateNeed(Need need) throws IOException {
         synchronized(cupboard) {
@@ -137,6 +152,9 @@ public class CupboardFileDAO implements CupboardDAO {
         }
     }
 
+    /**
+    ** {@inheritDoc}
+     */
     @Override
     public boolean deleteNeed(String name) throws IOException {
         synchronized(cupboard) {
