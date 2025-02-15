@@ -27,11 +27,25 @@ public class CupboardFileDAO implements CupboardDAO {
         load();
     }
     
+    /**
+     * Generates an array of {@linkplain Need needs} from the tree map
+     * @return  The array of {@link Need needs}, may be empty
+     */
     private Need[] getNeedsArray() {
         return getNeedsArray(null);
     }
 
-    private Need[] getNeedsArray(String containsText) {
+    /**
+     * Generates an array of {@linkplain Need needs} from the tree map for any
+     * {@linkplain Need needs} that contains the text specified by containsText
+     * <br>
+     * If containsText is null, the array contains all of the {@linkplain Need needs}
+     * in the tree map
+     * 
+     * @param containsText
+     * @return  The array of {@link Need needs}, may be empty
+     */
+    private Need[] getNeedsArray(String containsText) { // if containsText == null, no filter
         ArrayList<Need> needArrayList = new ArrayList<>();
 
         for (Need need : cupboard.values()){
@@ -45,12 +59,26 @@ public class CupboardFileDAO implements CupboardDAO {
         return needArray;
     }
 
+    /**
+     * Saves the {@linkplain Need needs} from the map into the file as an array of JSON objects
+     * @return true if the {@link Need needs} were written successfully
+     * @throws IOException when file cannot be accessed or written to
+     */
     private boolean save() throws IOException {
         Need[] needsArray = getNeedsArray();
         objectMapper.writeValue(new File(filename), needsArray);
         return true;
     }
 
+    /**
+     * Loads {@linkplain Need needs} from the JSON file into the map
+     * <br>
+     * Also sets next id to one more than the greatest id found in the file
+     * 
+     * @return true if the file was read successfully
+     * 
+     * @throws IOException when file cannot be accessed or read from
+     */
     private boolean load() throws IOException{
         cupboard = new TreeMap<>();
         Need[] needsArray = objectMapper.readValue(new File(filename), Need[].class);

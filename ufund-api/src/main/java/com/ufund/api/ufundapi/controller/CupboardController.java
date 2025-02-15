@@ -78,7 +78,7 @@ public class CupboardController {
     @GetMapping("")
     public ResponseEntity<Need[]> getNeeds() {
 
-        LOG.info("GET /needs/");
+        LOG.info("GET /needs");
         try {
             Need[] needs = cupboardDAO.getNeeds();
             return new ResponseEntity<Need[]>(needs,HttpStatus.OK);
