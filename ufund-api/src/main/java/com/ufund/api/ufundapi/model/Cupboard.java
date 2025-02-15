@@ -13,6 +13,10 @@ public class Cupboard {
         this.needs = needs;
     }
 
+    /**
+     * Returns Need that matches the inputted string
+     * @param needString The string inputted that tries to match with a Need
+     */
     public Need getNeedByName(String needString) {
 
         for(int i = 0; i < needs.length; i++) {
@@ -23,6 +27,13 @@ public class Cupboard {
         return null;
     }
 
+    /**
+     * Updates a Need by creating a new Need that replaces a current Need
+     * @param Name The Need's name
+     * @param cost The price of the Need
+     * @param quantity The amount 
+     * @param type The type of Need
+     */
     public void updateNeed(String name, double cost, int quantity, String type) {
         Need need = new Need(name, cost, quantity, type);
         
