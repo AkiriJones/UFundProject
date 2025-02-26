@@ -55,7 +55,7 @@ This section describes the features of the application.
 
 This section describes the application domain.
 
-![Domain Model](domain-model-placeholder.png)
+![Domain Model](domain-model.png)
 
 > _**[Sprint 2 & 4]** Provide a high-level overview of the domain for this application. You
 > can discuss the more important domain entities and their relationship
@@ -72,7 +72,7 @@ The following Tiers/Layers model shows a high-level view of the webapp's archite
 **NOTE**: detailed diagrams are required in later sections of this document.
 > _**[Sprint 1]** (Augment this diagram with your **own** rendition and representations of sample system classes, placing them into the appropriate M/V/VM (orange rectangle) tier section. Focus on what is currently required to support **Sprint 1 - Demo requirements**. Make sure to describe your design choices in the corresponding _**Tier Section**_ and also in the _**OO Design Principles**_ section below.)_
 
-![The Tiers & Layers of the Architecture](architecture-tiers-and-layers.png)
+![The Tiers & Layers of the Architecture](tiers-and-layers-model.png)
 
 The web application, is built using the Model–View–ViewModel (MVVM) architecture pattern. 
 
@@ -110,7 +110,7 @@ This section describes the web interface flow; this is how the user views and in
  >* _Include other details such as attributes and method signatures that you think are needed to support the level of detail in your discussion._
 
 ### ViewModel Tier
-> _**[Sprint 1]** List the classes supporting this tier and provide a description of there purpose._
+> CupboardController’s purpose is to use methods in CupboardDAO and return an appropriate ResponseEntity.
 
 > _**[Sprint 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
@@ -119,10 +119,10 @@ This section describes the web interface flow; this is how the user views and in
 > _At appropriate places as part of this narrative provide **one** or more updated and **properly labeled**
 > static models (UML class diagrams) with some details such as associations (connections) between classes, and critical attributes and methods. (**Be sure** to revisit the Static **UML Review Sheet** to ensure your class diagrams are using correct format and syntax.)_
 > 
-![Replace with your ViewModel Tier class diagram 1, etc.](model-placeholder.png)
+![Replace with your ViewModel Tier class diagram 1, etc.](viewmodel.png)
 
 ### Model Tier
-> _**[Sprint 1]** List the classes supporting this tier and provide a description of there purpose._
+> _Need - Creates a Need with a given name with the parameters “name”, “cost”, “quantity”, “type”. Methods in this class get and set the name, cost, and quantity parameters of the Need. Additional methods return the Need with its parameters and checks if one Need is equal to another.
 
 > _**[Sprint 2, 3 & 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
@@ -131,11 +131,26 @@ This section describes the web interface flow; this is how the user views and in
 > _At appropriate places as part of this narrative provide **one** or more updated and **properly labeled**
 > static models (UML class diagrams) with some details such as associations (connections) between classes, and critical attributes and methods. (**Be sure** to revisit the Static **UML Review Sheet** to ensure your class diagrams are using correct format and syntax.)_
 > 
-![Replace with your Model Tier class diagram 1, etc.](model-placeholder.png)
+![Replace with your Model Tier class diagram 1, etc.](domain-model.png)
 
 ## OO Design Principles
 
-> _**[Sprint 1]** Name and describe the initial OO Principles that your team has considered in support of your design (and implementation) for this first Sprint._
+>_Single responsibility - CupboardController contains methods to call methods created by CupboardDAO and return an appropriate ResponseEntity. The CupboardController is used to manage the NeedsCupboard.
+
+>_Open/Closed - Open/Closed means that the classes we incorporate should be open for extension while being closed for modification. We’ve applied this concept by separating our classes by their functionality and using interfaces when needed.
+
+>_Low coupling - Only necessary classes have been created for the project, to maintain only the needed amount of relationships and to attempt to minimize the impact of changes in the system. As of Sprint 1, there are only 4 classes.
+
+>_Information expert - In our project the Need class handles all of the information that the Need holds so that the data is consolidated in one place. We also kept the logic for getting, setting, etc, in its own class in order to not duplicate the code but maintain cohesion.
+
+>_Dependency inversion/injection - CupboardController receives its dependency on the CupboardDAO through constructor-based dependency injection. The controller is not heavily coupled with the DAO, which itself is an implementation of an interface. 
+
+>_Law of Demeter - This principle was implemented with the 3 areas of functionality within the code. At the 1st level, the level where the user interacts with the system, is the view. The view only has access to the user input, and informs the user that it has received the information. The intermediate layer, that sits in between the data storage and user interaction, is the CupboardfileDAO. This file accesses the data, and modifies it without directly changing the data file itself. The last layer, the data layer, is where the data is stored. All the information that has been put into the application is stored in this layer. The user layer has no understanding of how it works, simply just how to use it, and it has no idea that the data storage layer exists. The intermediate layer has no idea of how to interpret the requests called by the user, only what to do with given information, needed for serializing and deserializing data to put it into the last layer. The last layer simply stores the information it is given by the intermediate layer, and has no idea how the information is received or what to do with it. The functionality of these layers properly integrate the Law of Demeter.
+
+>_Controller - The Cupboard controller in our app provides the coordination of the cURL commands that are received, and responds to the command on whether it has been received or executed. The controller receives a cURL command to enact on the data available in the data document, and responds accordingly depending on the command (Get and return a need, a set of needs, delete a need, create a need, or update a need). If the command is executed the user will receive a status value of 200, indicating that the controller executed the command, and everything worked as intended.
+
+>_Pure Fabrication - CupboardController is a class that does not represent a tangible aspect of the domain, but it does provide key functionality for communicating with the DAO. It serves as a messenger between layers.
+
 
 > _**[Sprint 2, 3 & 4]** Will eventually address upto **4 key OO Principles** in your final design. Follow guidance in augmenting those completed in previous Sprints as indicated to you by instructor. Be sure to include any diagrams (or clearly refer to ones elsewhere in your Tier sections above) to support your claims._
 
@@ -171,3 +186,4 @@ This section describes the web interface flow; this is how the user views and in
 
 ## Ongoing Rationale
 >_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**mayor**_ team decisions or design milestones/changes and corresponding justification._
+> (2025/02/15): Sprint 1 - the classes CupboardController, Need, CupboardDAO, and CupboardFileDAO were made.
