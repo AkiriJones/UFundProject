@@ -9,12 +9,13 @@ geometry: margin=1in
 > and appear in the generated PDF in italics but do so only **after** all team members agree that the requirements for that section and current Sprint have been met. **Do not** delete future Sprint expectations._
 
 ## Team Information
-* Team name: TEAMNAME
+* Team name: Team 3C
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Giulia Spier
+  * Jack Faro
+  * Sebastian Canakis Diaz
+  * Akiri Jones
+  * Caden Esterman
 
 ## Executive Summary
 
