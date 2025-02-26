@@ -160,12 +160,12 @@ public class CupboardController {
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @DeleteMapping("/{name}")
-    public ResponseEntity<Need> deteteNeed(@PathVariable String name) {
-        LOG.info("DELETE /needs/" + name);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Need> deteteNeed(@PathVariable int id) {
+        LOG.info("DELETE /needs/" + id);
 
         try {
-            boolean result = cupboardDAO.deleteNeed(name);
+            boolean result = cupboardDAO.deleteNeed(id);
             if(result != false) {
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {

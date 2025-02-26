@@ -26,6 +26,7 @@ public class CupboardFileDAO implements CupboardDAO {
     
     private static final Logger LOG = Logger.getLogger(CupboardFileDAO.class.getName());
     private Map<String, Need> cupboard;
+    private Map<Integer, Need> cupboardId;
     private ObjectMapper objectMapper;
     private String filename;
 
@@ -67,13 +68,26 @@ public class CupboardFileDAO implements CupboardDAO {
         return needArray;
     }
 
+    private Need[] getNeedsArrayId() { // if containsText == null, no filter
+        ArrayList<Need> needArrayList = new ArrayList<>();
+
+        for (Need need : cupboardId.values()){
+            needArrayList.add(need);
+        }
+
+        Need[] needArray = new Need[needArrayList.size()];
+        needArrayList.toArray(needArray);
+        return needArray;
+    }
+
+
     /**
      * Saves the {@linkplain Need needs} from the map into the file as an array of JSON objects
      * @return true if the {@link Need needs} were written successfully
      * @throws IOException when file cannot be accessed or written to
      */
     private boolean save() throws IOException {
-        Need[] needsArray = getNeedsArray();
+        Need[] needsArray = getNeedsArrayId();
         objectMapper.writeValue(new File(filename), needsArray);
         return true;
     }
@@ -89,9 +103,11 @@ public class CupboardFileDAO implements CupboardDAO {
      */
     private boolean load() throws IOException{
         cupboard = new TreeMap<>();
+        cupboardId = new TreeMap<>();
         Need[] needsArray = objectMapper.readValue(new File(filename), Need[].class);
         for(Need need : needsArray) {
             cupboard.put(need.getName(), need);
+            cupboardId.put(need.getId(), need);
         }
         return true;
     }
@@ -102,7 +118,9 @@ public class CupboardFileDAO implements CupboardDAO {
     @Override
     public Need[] getNeeds() throws IOException {
         synchronized(cupboard) {
-            return getNeedsArray();
+            synchronized(cupboardId) {
+                return getNeedsArray();
+            }
         }
     }
 
@@ -112,7 +130,9 @@ public class CupboardFileDAO implements CupboardDAO {
     @Override
     public Need[] findNeeds(String containsString) throws IOException {
         synchronized(cupboard) {
-            return getNeedsArray(containsString);
+            synchronized(cupboardId) {
+                return getNeedsArray(containsString);
+            }       
         }
     }
 
@@ -120,13 +140,15 @@ public class CupboardFileDAO implements CupboardDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Need getNeed(String name) throws IOException {
+    public Need getNeed(int id) throws IOException {
         synchronized(cupboard) {
-            if(cupboard.containsKey(name)) {
-                return cupboard.get(name);
-            }
-            else {
-                return null;
+            synchronized (cupboardId) {
+                if(cupboardId.containsKey(id)) {
+                    return cupboardId.get(id);
+                }
+                else {
+                    return null;
+                }
             }
         }
     }
@@ -137,10 +159,12 @@ public class CupboardFileDAO implements CupboardDAO {
     @Override
     public Need createNeed(Need need) throws IOException {
         synchronized(cupboard) {
-            Need newNeed = new Need(need.getName(), need.getCost(), need.getQuantity(), need.getType());
-            cupboard.put(need.getName(),newNeed);
-            save();
-            return newNeed;
+            synchronized(cupboardId) {
+                Need newNeed = new Need(need.getId(), need.getName(), need.getCost(), need.getQuantity(), need.getType());
+                cupboard.put(need.getName(),newNeed);
+                save();
+                return newNeed;
+            }
         }
     }
 
@@ -150,13 +174,15 @@ public class CupboardFileDAO implements CupboardDAO {
     @Override
     public Need updateNeed(Need need) throws IOException {
         synchronized(cupboard) {
-            if(cupboard.containsKey(need.getName()) == false) {
-                return null;
-            }
-
-            cupboard.put(need.getName(),need);
-            save();
-            return need;
+            synchronized(cupboardId) {
+                if(cupboardId.containsKey(need.getId()) == false) {
+                    return null;
+                }
+                cupboardId.put(need.getId(),need);
+                cupboard.put(need.getName(),need);
+                save();
+                return need;
+            }      
         }
     }
 
@@ -164,15 +190,18 @@ public class CupboardFileDAO implements CupboardDAO {
     ** {@inheritDoc}
      */
     @Override
-    public boolean deleteNeed(String name) throws IOException {
+    public boolean deleteNeed(int id) throws IOException {
         synchronized(cupboard) {
-            if(cupboard.containsKey(name)) {
-                cupboard.remove(name);
-                return save();
+            synchronized(cupboardId) {
+                if(cupboardId.containsKey(id)) {
+                    cupboardId.remove(id);
+                    return save();
+                }
+                else {
+                    return false;
+                }
             }
-            else {
-                return false;
-            }
+            
         }
     }
 }

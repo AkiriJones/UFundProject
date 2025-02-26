@@ -39,7 +39,7 @@ public abstract interface CupboardDAO {
      * 
      * @throws IOException if underlying storage cannot be accessed
      */
-    Need getNeed(String name) throws IOException;
+    Need getNeed(int id) throws IOException;
 
     /**
      * Creates and saves a new {@linkplain Need need}
@@ -74,5 +74,5 @@ public abstract interface CupboardDAO {
      * 
      * @throws IOException if underlying storage cannot be accessed
      */
-    boolean deleteNeed(String name) throws IOException;
+    boolean deleteNeed(int id) throws IOException;
 }

@@ -25,12 +25,21 @@ public class Need {
      * @param quantity The amount of said need present 
      * @param type The type of need (Physical or Monetary)
      */
-    public Need(@JsonProperty("name") String name, @JsonProperty("cost") double cost, @JsonProperty("quantity") int quantity, @JsonProperty("type") String type){
+    public Need(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("cost") double cost, @JsonProperty("quantity") int quantity, @JsonProperty("type") String type){
+        this.id = id;
         this.name = name;
         this.cost = cost;
         this.quantity = quantity;
         this.type = type;
     }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
     /**
      * Retrieves the name of a need
      * @return The name of the need
@@ -69,7 +78,7 @@ public class Need {
 
     @Override
     public String toString(){
-        return String.format(STRING_FORMAT,name,cost,quantity,type);
+        return String.format(STRING_FORMAT,id, name,cost,quantity,type);
     }
 
     @Override
