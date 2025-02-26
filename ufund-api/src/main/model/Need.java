@@ -11,14 +11,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Need {
     private static final Logger LOG = Logger.getLogger(Need.class.getName());
 
-    static final String STRING_FORMAT = "Need [name=%s, cost=%.2f, quantity=%d, type=%s]";
-
+    static final String STRING_FORMAT = "Need [id=%d, name=%s, cost=%.2f, quantity=%d, type=%s]";
+    @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
     @JsonProperty("cost") private double cost;
     @JsonProperty("quantity")private int quantity;
     @JsonProperty("type") private String type;
     /**
      * Create a Need with a given name
+     * @param id
      * @param name The name of the need
      * @param cost The cost of the need
      * @param quantity The amount of said need present 
