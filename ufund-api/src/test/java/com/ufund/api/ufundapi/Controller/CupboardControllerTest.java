@@ -63,6 +63,20 @@ public class CupboardControllerTest {
         // Analyze
         assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
     }
+
+    @Test
+    public void testGetNeedHandleException() throws Exception { // createNeed may throw IOException
+        // Setup
+        int needId = 99;
+        // When getHero is called on the Mock Hero DAO, throw an IOException
+        doThrow(new IOException()).when(cupboardDAO).getNeed(needId);
+
+        // Invoke
+        ResponseEntity<Need> response = cupboardController.getNeed(needId);
+
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+    }
     
     @Test
     public void deleteNeedTest() {
