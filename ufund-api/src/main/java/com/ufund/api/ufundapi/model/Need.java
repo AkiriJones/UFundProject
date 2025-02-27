@@ -33,11 +33,12 @@ public class Need {
         this.type = type;
     }
 
+    /**
+     * Retrieves the id of a need
+     * @return The id of the need
+     */
     public int getId() {
         return id;
-    }
-    public void setId(int id) {
-        this.id = id;
     }
 
     /**

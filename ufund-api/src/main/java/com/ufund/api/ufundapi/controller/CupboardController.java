@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ufund.api.ufundapi.model.Need;
@@ -40,7 +41,6 @@ public class CupboardController {
      * @param cupboardDAO Provides the Controller a DAO interface to work with.
      * 
      */
-
     public CupboardController(CupboardDAO cupboardDAO) {
         this.cupboardDAO = cupboardDAO;
     }
@@ -51,19 +51,19 @@ public class CupboardController {
      * 
      * Returns a Need Object based on the name parameter
      * 
-     * @param name 
+     * @param id The id used to locate the Need 
      * @return Response Entity with {@link Need} Object and HTTP Status OK if it returns the Need succesfully <br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
 
-    @GetMapping("/{name}")
-    public ResponseEntity<Need[]> getNeed(@PathVariable String name) {
-        LOG.info("GET /needs/" + name);
+    @GetMapping("/{id}")
+    public ResponseEntity<Need> getNeed(@PathVariable int id) {
+        LOG.info("GET /needs/" + id);
         try {
-            Need[] need = cupboardDAO.findNeeds(name);
+            Need need = cupboardDAO.getNeed(id);
             if (need != null)
-                return new ResponseEntity<Need[]>(need,HttpStatus.OK);
+                return new ResponseEntity<Need>(need,HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -94,6 +94,30 @@ public class CupboardController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * Responds to the GET request for all {@linkplain Need needs} whose name contains
+     * the text in name
+     * 
+     * @param name The name parameter which contains the text used to find the {@link Need needs}
+     * 
+     * @return ResponseEntity with array of {@link Need need} objects (may be empty) and
+     * HTTP status of OK<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @GetMapping("/")
+    public ResponseEntity<Need[]> searchHeroes(@RequestParam String name) {
+        LOG.info("GET /heroes/?name="+name);
+        try{
+            Need[] needs = cupboardDAO.findNeeds(name);
+            return new ResponseEntity<Need[]>(needs,HttpStatus.OK);
+        }
+        catch(IOException e){
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     /**
      * Endpoint to Add a new Need
      * 
@@ -133,9 +157,9 @@ public class CupboardController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
 
-    @PutMapping("")
-    public ResponseEntity<Need> updateNeed(@RequestBody Need need) {
-        LOG.info("PUT /needs/ " + need);
+    @PutMapping("/{id}")
+    public ResponseEntity<Need> updateNeed(@PathVariable("id") int id, @RequestBody Need need) {
+        LOG.info("PUT /needs/ " + id + " " + need);
         try {
             Need theNeed = cupboardDAO.updateNeed(need);
 

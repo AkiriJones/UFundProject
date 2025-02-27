@@ -25,15 +25,33 @@ import com.ufund.api.ufundapi.model.Need;
 public class CupboardFileDAO implements CupboardDAO {
     
     private static final Logger LOG = Logger.getLogger(CupboardFileDAO.class.getName());
-    public Map<String, Need> cupboard;
-    public Map<Integer, Need> cupboardId;
+    public Map<Integer, Need> cupboard;
     private ObjectMapper objectMapper;
+    private static int nextId;
     private String filename;
 
+    /**
+     * Creates a Need File Data Access Object
+     * 
+     * @param filename Filename to read from and write to
+     * @param objectMapper Provides JSON Object to/from Java Object serialization and deserialization
+     * @throws IOException when file cannot be accessed or read from
+     */
     public CupboardFileDAO(@Value("${cupboard.file}") String filename, ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
         load();
+    }
+
+    /**
+     * Generates the next id for a new {@linkplain Need need}
+     * 
+     * @return The next id
+     */
+    private synchronized static int nextId() {
+        int id = nextId;
+        ++nextId;
+        return id;
     }
     
     /**
@@ -68,26 +86,13 @@ public class CupboardFileDAO implements CupboardDAO {
         return needArray;
     }
 
-    private Need[] getNeedsArrayId() { // if containsText == null, no filter
-        ArrayList<Need> needArrayList = new ArrayList<>();
-
-        for (Need need : cupboardId.values()){
-            needArrayList.add(need);
-        }
-
-        Need[] needArray = new Need[needArrayList.size()];
-        needArrayList.toArray(needArray);
-        return needArray;
-    }
-
-
     /**
      * Saves the {@linkplain Need needs} from the map into the file as an array of JSON objects
      * @return true if the {@link Need needs} were written successfully
      * @throws IOException when file cannot be accessed or written to
      */
     private boolean save() throws IOException {
-        Need[] needsArray = getNeedsArrayId();
+        Need[] needsArray = getNeedsArray();
         objectMapper.writeValue(new File(filename), needsArray);
         return true;
     }
@@ -103,12 +108,15 @@ public class CupboardFileDAO implements CupboardDAO {
      */
     private boolean load() throws IOException{
         cupboard = new TreeMap<>();
-        cupboardId = new TreeMap<>();
+        nextId = 0;
+
         Need[] needsArray = objectMapper.readValue(new File(filename), Need[].class);
         for(Need need : needsArray) {
-            cupboard.put(need.getName(), need);
-            cupboardId.put(need.getId(), need);
+            cupboard.put(need.getId(), need);
+            if(need.getId() > nextId)
+                nextId = need.getId();
         }
+        ++nextId;
         return true;
     }
         
@@ -118,9 +126,7 @@ public class CupboardFileDAO implements CupboardDAO {
     @Override
     public Need[] getNeeds() throws IOException {
         synchronized(cupboard) {
-            synchronized(cupboardId) {
-                return getNeedsArray();
-            }
+            return getNeedsArray();
         }
     }
 
@@ -130,9 +136,7 @@ public class CupboardFileDAO implements CupboardDAO {
     @Override
     public Need[] findNeeds(String containsString) throws IOException {
         synchronized(cupboard) {
-            synchronized(cupboardId) {
-                return getNeedsArray(containsString);
-            }       
+            return getNeedsArray(containsString);   
         }
     }
 
@@ -142,13 +146,11 @@ public class CupboardFileDAO implements CupboardDAO {
     @Override
     public Need getNeed(int id) throws IOException {
         synchronized(cupboard) {
-            synchronized (cupboardId) {
-                if(cupboardId.containsKey(id)) {
-                    return cupboardId.get(id);
-                }
-                else {
-                    return null;
-                }
+            if(cupboard.containsKey(id)) {
+                return cupboard.get(id);
+            }
+            else {
+                return null;
             }
         }
     }
@@ -159,12 +161,10 @@ public class CupboardFileDAO implements CupboardDAO {
     @Override
     public Need createNeed(Need need) throws IOException {
         synchronized(cupboard) {
-            synchronized(cupboardId) {
-                Need newNeed = new Need(need.getId(), need.getName(), need.getCost(), need.getQuantity(), need.getType());
-                cupboard.put(need.getName(),newNeed);
-                save();
-                return newNeed;
-            }
+            Need newNeed = new Need(nextId(), need.getName(), need.getCost(), need.getQuantity(), need.getType());
+            cupboard.put(need.getId(),newNeed);
+            save();
+            return newNeed;
         }
     }
 
@@ -174,15 +174,12 @@ public class CupboardFileDAO implements CupboardDAO {
     @Override
     public Need updateNeed(Need need) throws IOException {
         synchronized(cupboard) {
-            synchronized(cupboardId) {
-                if(cupboardId.containsKey(need.getId()) == false) {
-                    return null;
-                }
-                cupboardId.put(need.getId(),need);
-                cupboard.put(need.getName(),need);
-                save();
-                return need;
-            }      
+            if(cupboard.containsKey(need.getId()) == false) {
+                return null;
+            }
+            cupboard.put(need.getId(),need);
+            save();
+            return need;   
         }
     }
 
@@ -192,16 +189,13 @@ public class CupboardFileDAO implements CupboardDAO {
     @Override
     public boolean deleteNeed(int id) throws IOException {
         synchronized(cupboard) {
-            synchronized(cupboardId) {
-                if(cupboardId.containsKey(id)) {
-                    cupboardId.remove(id);
-                    return save();
-                }
-                else {
-                    return false;
-                }
+            if(cupboard.containsKey(id)) {
+                cupboard.remove(id);
+                return save();
             }
-            
+            else {
+                return false;
+            }
         }
     }
 }
