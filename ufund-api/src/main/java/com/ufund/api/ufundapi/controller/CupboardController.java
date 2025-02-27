@@ -106,8 +106,8 @@ public class CupboardController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("/")
-    public ResponseEntity<Need[]> searchHeroes(@RequestParam String name) {
-        LOG.info("GET /heroes/?name="+name);
+    public ResponseEntity<Need[]> searchNeeds(@RequestParam String name) {
+        LOG.info("GET /needs/?name="+name);
         try{
             Need[] needs = cupboardDAO.findNeeds(name);
             return new ResponseEntity<Need[]>(needs,HttpStatus.OK);
