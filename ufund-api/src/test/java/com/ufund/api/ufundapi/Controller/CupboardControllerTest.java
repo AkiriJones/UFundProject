@@ -84,6 +84,26 @@ public class CupboardControllerTest {
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
+
+    /**
+     * @author Giulia Spier
+     */
+	@Test
+    public void testGetNeeds() throws IOException { // getNeeds may throw IOException
+        // Setup
+        Need[] needs = new Need[2];
+        needs[0] = new Need(12, "Sugar", 10.00, 100, "Food");
+        needs[1] = new Need(13, "Bread", 15.00, 100, "Food");
+        // When getNeeds is called return the needs created above
+        when(cupboardDAO.getNeeds()).thenReturn(needs);
+
+        // Invoke
+        ResponseEntity<Need[]> response = cupboardController.getNeeds();
+
+        // Analyze
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(needs,response.getBody());
+    }
     
     @Test
     public void deleteNeedTest() {
