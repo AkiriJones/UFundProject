@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
+
+import java.io.IOException;
 
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
@@ -28,6 +31,23 @@ public class CupboardControllerTest {
     public CupboardControllerTest(){
         MockitoAnnotations.openMocks(this);
     }
+
+    /**
+     * @author Giulia Spier
+     */
+	@Test
+	void cupboardControllerGetNeedSugar() throws IOException
+	{
+		//setup
+		Need need = new Need(12, "Sugar", 10.00, 100, "Food");
+		// When the same id is passed in, our mock Cupboard DAO will return the Need object
+        when(cupboardDAO.getNeed(need.getId())).thenReturn(need);
+		//invoke
+		ResponseEntity<Need> response = cupboardController.getNeed(need.getId());
+		//analyze
+		assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(need,response.getBody());
+	}
     
     @Test
     public void deleteNeedTest() {
