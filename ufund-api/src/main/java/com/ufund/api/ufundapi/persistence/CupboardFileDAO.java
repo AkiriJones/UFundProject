@@ -25,8 +25,8 @@ import com.ufund.api.ufundapi.model.Need;
 public class CupboardFileDAO implements CupboardDAO {
     
     private static final Logger LOG = Logger.getLogger(CupboardFileDAO.class.getName());
-    private Map<String, Need> cupboard;
-    private Map<Integer, Need> cupboardId;
+    public Map<String, Need> cupboard;
+    public Map<Integer, Need> cupboardId;
     private ObjectMapper objectMapper;
     private String filename;
 

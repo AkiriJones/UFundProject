@@ -10,6 +10,9 @@ import com.ufund.api.ufundapi.model.Need;
 @Tag("Model-tier")
 public class NeedTest {
 
+    /**
+     * @author Caden Esterman
+     */
     @Test
     public void testToString() {
         // Setup
@@ -28,6 +31,9 @@ public class NeedTest {
         assertEquals(expected_string, actual_string);
     }
 
+    /**
+     * @author Caden Esterman
+     */
     @Test
     public void testEqualsTrue() {
         // Setup
@@ -52,6 +58,9 @@ public class NeedTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * @author Caden Esterman
+     */
     @Test
     public void testEqualsFalse() {
         // Setup
