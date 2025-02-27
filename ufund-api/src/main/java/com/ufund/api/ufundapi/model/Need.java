@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Need {
     private static final Logger LOG = Logger.getLogger(Need.class.getName());
 
-    static final String STRING_FORMAT = "Need [id=%d, name=%s, cost=%.2f, quantity=%d, type=%s]";
+    public static final String STRING_FORMAT = "Need [id=%d, name=%s, cost=%.2f, quantity=%d, type=%s]";
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
     @JsonProperty("cost") private double cost;
@@ -86,6 +86,10 @@ public class Need {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Need need = (Need) obj;
-        return name.equals(need.name);
+        return this.id == need.id &&
+               this.quantity == need.quantity &&
+               Double.compare(need.cost, this.cost) == 0 &&
+               name.equals(need.name) &&
+               type.equals(need.type);
     }
 }
