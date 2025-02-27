@@ -48,6 +48,21 @@ public class CupboardControllerTest {
 		assertEquals(HttpStatus.OK,response.getStatusCode());
         assertEquals(need,response.getBody());
 	}
+
+    @Test
+    public void testGetNeedNotFound() throws Exception { // createNeed may throw IOException
+        // Setup
+        int needId = 99;
+        // When the same id is passed in, our mock Cupboard DAO will return null, simulating
+        // no hero found
+        when(cupboardDAO.getNeed(needId)).thenReturn(null);
+
+        // Invoke
+        ResponseEntity<Need> response = cupboardController.getNeed(needId);
+
+        // Analyze
+        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
+    }
     
     @Test
     public void deleteNeedTest() {
