@@ -36,8 +36,7 @@ public class CupboardControllerTest {
      * @author Giulia Spier
      */
 	@Test
-	void testGetNeed() throws IOException
-	{
+	void testGetNeed() throws IOException {
 		//setup
 		Need need = new Need(12, "Sugar", 10.00, 100, "Food");
 		// When the same id is passed in, our mock Cupboard DAO will return the Need object
@@ -142,7 +141,7 @@ public class CupboardControllerTest {
     }
 
     @Test
-    public void DeleteNeedNotFound(){
+    public void DeleteNeedNotFound() {
         int NeedID = 900;
         ResponseEntity<Need> expected = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         ResponseEntity<Need> actual = cupboardController.deleteNeed(NeedID);
@@ -151,7 +150,7 @@ public class CupboardControllerTest {
     }
 
     @Test
-    public void DeleteNeedInternalError(){
+    public void DeleteNeedInternalError() {
         int NeedID = 567;
         ResponseEntity<Need> expected = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         ResponseEntity<Need> actual = doThrow(new RuntimeException("Database error")).when(cupboardController.deleteNeed(NeedID));
