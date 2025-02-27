@@ -89,8 +89,7 @@ public class NeedTest {
      * @author Giulia Spier
      */
 	@Test
-	void testNeedGetNameSugar()
-	{
+	void testNeedGetNameSugar() {
 		//setup
 		Need sugar = new Need(12, "Sugar", 10.00, 100, "Food");
 		String expected = "Sugar";
@@ -104,8 +103,7 @@ public class NeedTest {
      * @author Giulia Spier
      */
     @Test
-	void testNeedGetCost10()
-	{
+	void testNeedGetCost10() {
 		//setup
 		Need sugar = new Need(12, "Sugar", 10.00, 100, "Food");
 		Double expected = 10.00;
@@ -119,8 +117,7 @@ public class NeedTest {
      * @author Giulia Spier
      */
     @Test
-	void testNeedGetQuantity100()
-	{
+	void testNeedGetQuantity100() {
 		//setup
 		Need sugar = new Need(12, "Sugar", 10.00, 100, "Food");
 		int expected = 100;
@@ -134,8 +131,7 @@ public class NeedTest {
      * @author Giulia Spier
      */
     @Test
-	void testNeedGetTypeFood()
-	{
+	void testNeedGetTypeFood() {
 		//setup
 		Need sugar = new Need(12, "Sugar", 10.00, 100, "Food");
 		String expected = "Food";
