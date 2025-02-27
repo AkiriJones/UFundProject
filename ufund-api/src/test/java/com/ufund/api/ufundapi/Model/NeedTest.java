@@ -85,4 +85,64 @@ public class NeedTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * @author Giulia Spier
+     */
+	@Test
+	void testNeedGetNameSugar()
+	{
+		//setup
+		Need sugar = new Need(12, "Sugar", 10.00, 100, "Food");
+		String expected = "Sugar";
+		//invoke
+		String actual = sugar.getName();
+		//analyze
+		assertEquals(expected, actual);
+	}
+
+	/**
+     * @author Giulia Spier
+     */
+    @Test
+	void testNeedGetCost10()
+	{
+		//setup
+		Need sugar = new Need(12, "Sugar", 10.00, 100, "Food");
+		Double expected = 10.00;
+		//invoke
+		Double actual = sugar.getCost();
+		//analyze
+		assertEquals(expected, actual);
+	}
+
+	/**
+     * @author Giulia Spier
+     */
+    @Test
+	void testNeedGetQuantity100()
+	{
+		//setup
+		Need sugar = new Need(12, "Sugar", 10.00, 100, "Food");
+		int expected = 100;
+		//invoke
+		int actual = sugar.getQuantity();
+		//analyze
+		assertEquals(expected, actual);
+	}
+
+	/**
+     * @author Giulia Spier
+     */
+    @Test
+	void testNeedGetTypeFood()
+	{
+		//setup
+		Need sugar = new Need(12, "Sugar", 10.00, 100, "Food");
+		String expected = "Food";
+		//invoke
+		String actual = sugar.getType();
+		//analyze
+		assertEquals(expected, actual);
+	}
+
 }
