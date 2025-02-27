@@ -157,9 +157,9 @@ public class CupboardController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
 
-    @PutMapping("")
-    public ResponseEntity<Need> updateNeed(@RequestBody Need need) {
-        LOG.info("PUT /needs/ " + need);
+    @PutMapping("/{id}")
+    public ResponseEntity<Need> updateNeed(@PathVariable("id") int id, @RequestBody Need need) {
+        LOG.info("PUT /needs/ " + id + " " + need);
         try {
             Need theNeed = cupboardDAO.updateNeed(need);
 
