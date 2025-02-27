@@ -119,7 +119,10 @@ public class CupboardControllerTest {
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
-    
+    /*
+     * @author Akiri Jones
+     */
+
     @Test
     public void deleteNeedTest() {
         //Setup
@@ -139,7 +142,9 @@ public class CupboardControllerTest {
         assertEquals(expected, actual);
         
     }
-
+    /*
+     * @author Akiri Jones
+     */
     @Test
     public void DeleteNeedNotFound() {
         int NeedID = 900;
@@ -148,7 +153,9 @@ public class CupboardControllerTest {
 
         assertEquals(expected, actual);
     }
-
+    /*
+     * @author Akiri Jones
+     */
     @Test
     public void DeleteNeedInternalError() {
         int NeedID = 567;
