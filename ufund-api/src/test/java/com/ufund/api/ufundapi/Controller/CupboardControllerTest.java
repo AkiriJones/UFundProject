@@ -36,7 +36,7 @@ public class CupboardControllerTest {
      * @author Giulia Spier
      */
 	@Test
-	void cupboardControllerGetNeedSugar() throws IOException
+	void testGetNeed() throws IOException
 	{
 		//setup
 		Need need = new Need(12, "Sugar", 10.00, 100, "Food");
