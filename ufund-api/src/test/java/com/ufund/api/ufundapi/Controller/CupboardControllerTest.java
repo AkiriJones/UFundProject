@@ -49,6 +49,10 @@ public class CupboardControllerTest {
         assertEquals(need,response.getBody());
 	}
 
+
+    /**
+     * @author Giulia Spier
+     */
     @Test
     public void testGetNeedNotFound() throws Exception { // createNeed may throw IOException
         // Setup
@@ -64,6 +68,9 @@ public class CupboardControllerTest {
         assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
     }
 
+    /**
+     * @author Giulia Spier
+     */
     @Test
     public void testGetNeedHandleException() throws Exception { // createNeed may throw IOException
         // Setup
