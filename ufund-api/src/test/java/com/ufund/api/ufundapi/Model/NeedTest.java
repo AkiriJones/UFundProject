@@ -29,7 +29,7 @@ public class NeedTest {
     }
 
     @Test
-    public void testEqualsTrue(){
+    public void testEqualsTrue() {
         // Setup
         int id1 = 12;
         String name1 = "Clothing";
@@ -53,7 +53,7 @@ public class NeedTest {
     }
 
     @Test
-    public void testEqualsFalse(){
+    public void testEqualsFalse() {
         // Setup
         int id1 = 12;
         String name1 = "Food";
