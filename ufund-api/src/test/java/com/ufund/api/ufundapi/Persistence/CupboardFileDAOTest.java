@@ -55,16 +55,53 @@ public class CupboardFileDAOTest {
      */
     @Test
     public void testCreateNeed() throws IOException {
-        Need newNeed = new Need(1, "Shirt", 10.0, 5, "Clothing");
+        //Setup
+        Need newNeed = new Need(4, "Shirt", 10.0, 5, "Clothing");
         doNothing().when(mockObjectMapper).writeValue(any(File.class), any(Need[].class));
 
+        //Invoke
         Need testNeed = cupboardFileDAO.createNeed(newNeed);
         
+        //Analyze
         assertNotNull(testNeed);
         assertEquals(newNeed.getId(), testNeed.getId());
         assertEquals(newNeed.getName(), testNeed.getName());
         assertEquals(newNeed.getCost(), testNeed.getCost());
         assertEquals(newNeed.getType(), testNeed.getType());
+    }
+
+    /**
+     * @author Jack Faro
+     * @throws IOException
+     */
+    @Test
+    public void testUpdateNeed() throws IOException {
+        //Setup
+        Need updatedNeed = new Need(2, "Bread", 8.0, 10, "Food");
+        doNothing().when(mockObjectMapper).writeValue(any(File.class), any(Need[].class));
+        
+        //Invoke
+        Need result = cupboardFileDAO.updateNeed(updatedNeed);
+        
+        //Analyze
+        assertNotNull(result);
+        assertEquals(updatedNeed.getCost(), result.getCost());
+        assertEquals(updatedNeed.getQuantity(), result.getQuantity());
+    }
+
+    /**
+     * @author Jack Faro
+     * @throws IOException
+     */
+    @Test
+    public void testFindNeeds() throws IOException {
+        //Setup
+        Need[] foundNeeds = cupboardFileDAO.findNeeds("Bread");
+        
+        //Analyze
+        assertEquals(1, foundNeeds.length);
+        assertEquals("Bread", foundNeeds[0].getName());
+
     }
 
     /**
@@ -94,18 +131,22 @@ public class CupboardFileDAOTest {
         assertEquals(need, null);
     }
 
-
+    /**
+     * @author Jack Faro
+     * @throws IOException
+     */
     @Test
     public void testDeleteNeed() throws IOException{
+        //Setup
         doNothing().when(mockObjectMapper).writeValue(any(File.class), any(Need[].class));
 
+        //Invoke
         boolean result = cupboardFileDAO.deleteNeed(2);
 
+        //Analyze
         assertEquals(result, true);
         assertNull(cupboardFileDAO.getNeed(2));
     }
-
-
 
     /**
      * @author Caden Esterman
