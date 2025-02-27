@@ -57,7 +57,7 @@ public class CupboardController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
 
-    @GetMapping("/{name}")
+    @GetMapping("/{id}")
     public ResponseEntity<Need> getNeed(@PathVariable int id) {
         LOG.info("GET /needs/" + id);
         try {
