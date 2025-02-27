@@ -104,6 +104,22 @@ public class CupboardControllerTest {
         assertEquals(HttpStatus.OK,response.getStatusCode());
         assertEquals(needs,response.getBody());
     }
+
+    /**
+     * @author Giulia Spier
+     */
+	@Test
+    public void testGetNeedsHandleException() throws IOException { // getNeeds may throw IOException
+        // Setup
+        // When getNeeds is called on the Mock Cupboard DAO, throw an IOException
+        doThrow(new IOException()).when(cupboardDAO).getNeeds();
+
+        // Invoke
+        ResponseEntity<Need[]> response = cupboardController.getNeeds();
+
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+    }
     
     @Test
     public void deleteNeedTest() {
