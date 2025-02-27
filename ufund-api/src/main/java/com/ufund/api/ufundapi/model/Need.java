@@ -19,7 +19,7 @@ public class Need {
     @JsonProperty("type") private String type;
     /**
      * Create a Need with a given name
-     * @param id
+     * @param id the id of a need
      * @param name The name of the need
      * @param cost The cost of the need
      * @param quantity The amount of said need present 
