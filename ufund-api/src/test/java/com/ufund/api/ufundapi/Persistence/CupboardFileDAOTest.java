@@ -6,6 +6,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -92,6 +93,19 @@ public class CupboardFileDAOTest {
         // Analyze
         assertEquals(need, null);
     }
+
+
+    @Test
+    public void testDeleteNeed() throws IOException{
+        doNothing().when(mockObjectMapper).writeValue(any(File.class), any(Need[].class));
+
+        boolean result = cupboardFileDAO.deleteNeed(2);
+
+        assertEquals(result, true);
+        assertNull(cupboardFileDAO.getNeed(2));
+    }
+
+
 
     /**
      * @author Caden Esterman
