@@ -3,12 +3,14 @@ package com.ufund.api.ufundapi.Controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -22,14 +24,13 @@ import com.ufund.api.ufundapi.persistence.CupboardDAO;
 
 @Tag("Controller-tier")
 public class CupboardControllerTest {
-    @Mock
-    private CupboardDAO cupboardDAO;
-
-    @InjectMocks
+    private CupboardDAO mockCupboardDAO;
     private CupboardController cupboardController;
 
-    public CupboardControllerTest(){
-        MockitoAnnotations.openMocks(this);
+    @BeforeEach
+    public void setupCupboardController(){
+        mockCupboardDAO = mock(CupboardDAO.class);
+        cupboardController = new CupboardController(mockCupboardDAO);
     }
 
     /**
@@ -40,7 +41,7 @@ public class CupboardControllerTest {
 		//setup
 		Need need = new Need(12, "Sugar", 10.00, 100, "Food");
 		// When the same id is passed in, our mock Cupboard DAO will return the Need object
-        when(cupboardDAO.getNeed(need.getId())).thenReturn(need);
+        when(mockCupboardDAO.getNeed(need.getId())).thenReturn(need);
 		//invoke
 		ResponseEntity<Need> response = cupboardController.getNeed(need.getId());
 		//analyze
@@ -58,7 +59,7 @@ public class CupboardControllerTest {
         int needId = 99;
         // When the same id is passed in, our mock Cupboard DAO will return null, simulating
         // no hero found
-        when(cupboardDAO.getNeed(needId)).thenReturn(null);
+        when(mockCupboardDAO.getNeed(needId)).thenReturn(null);
 
         // Invoke
         ResponseEntity<Need> response = cupboardController.getNeed(needId);
@@ -75,7 +76,7 @@ public class CupboardControllerTest {
         // Setup
         int needId = 99;
         // When getHero is called on the Mock Hero DAO, throw an IOException
-        doThrow(new IOException()).when(cupboardDAO).getNeed(needId);
+        doThrow(new IOException()).when(mockCupboardDAO).getNeed(needId);
 
         // Invoke
         ResponseEntity<Need> response = cupboardController.getNeed(needId);
@@ -94,7 +95,7 @@ public class CupboardControllerTest {
         needs[0] = new Need(12, "Sugar", 10.00, 100, "Food");
         needs[1] = new Need(13, "Bread", 15.00, 100, "Food");
         // When getNeeds is called return the needs created above
-        when(cupboardDAO.getNeeds()).thenReturn(needs);
+        when(mockCupboardDAO.getNeeds()).thenReturn(needs);
 
         // Invoke
         ResponseEntity<Need[]> response = cupboardController.getNeeds();
@@ -111,7 +112,7 @@ public class CupboardControllerTest {
     public void testGetNeedsHandleException() throws IOException { // getNeeds may throw IOException
         // Setup
         // When getNeeds is called on the Mock Cupboard DAO, throw an IOException
-        doThrow(new IOException()).when(cupboardDAO).getNeeds();
+        doThrow(new IOException()).when(mockCupboardDAO).getNeeds();
 
         // Invoke
         ResponseEntity<Need[]> response = cupboardController.getNeeds();
@@ -119,49 +120,46 @@ public class CupboardControllerTest {
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
+
     /*
      * @author Akiri Jones
      */
-
     @Test
-    public void deleteNeedTest() {
-        //Setup
-        // Need[] needs = cupboardDAO.getNeeds();
-        int NeedID = 19;
-        String name = "Wood";
-        int quantity = 5;
-        double cost = 10.0;
-        String type = "Physical";
-        Need need = new Need(NeedID, name, cost, quantity, type);
-
-        //Invoke goes here
-        ResponseEntity<Need> expected = new ResponseEntity<>(HttpStatus.OK);
-        ResponseEntity<Need> actual = cupboardController.deleteNeed(NeedID);
- 
-        assertNotNull(need);
-        assertEquals(expected, actual);
-        
+    public void deleteNeedTest() throws IOException{
+        // Setup
+        int id = 99;
+        when(mockCupboardDAO.deleteNeed(id)).thenReturn(true);
+        // Invoke
+        ResponseEntity<Need> response = cupboardController.deleteNeed(id);
+        // Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());   
     }
+
     /*
      * @author Akiri Jones
      */
     @Test
-    public void DeleteNeedNotFound() {
+    public void DeleteNeedNotFound() throws IOException {
+        // Setup
         int NeedID = 900;
-        ResponseEntity<Need> expected = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        ResponseEntity<Need> actual = cupboardController.deleteNeed(NeedID);
-
-        assertEquals(expected, actual);
+        when(mockCupboardDAO.deleteNeed(NeedID)).thenReturn(false);
+        // Invoke
+        ResponseEntity<Need> response = cupboardController.deleteNeed(NeedID);
+        // Analyze
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
+
     /*
      * @author Akiri Jones
      */
     @Test
-    public void DeleteNeedInternalError() {
+    public void DeleteNeedInternalError() throws IOException {
+        // Setup
         int NeedID = 567;
-        ResponseEntity<Need> expected = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        ResponseEntity<Need> actual = doThrow(new RuntimeException("Database error")).when(cupboardController.deleteNeed(NeedID));
-
-        assertEquals(expected, actual);
+        doThrow(new IOException()).when(mockCupboardDAO).deleteNeed(NeedID);
+        // Invoke
+        ResponseEntity<Need> response = cupboardController.deleteNeed(NeedID);
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 }
