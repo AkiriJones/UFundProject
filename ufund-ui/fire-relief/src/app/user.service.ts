@@ -100,6 +100,7 @@ export class UserService {
     }
 
     /**
+     * Used for error handling for the above methods
      * 
      * @param operation what was being done that caused the error
      * @param result observable optional value
