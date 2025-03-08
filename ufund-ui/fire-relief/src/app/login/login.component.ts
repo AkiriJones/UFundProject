@@ -8,49 +8,44 @@ import { UserService } from '../user.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
+
 export class LoginComponent {
 
   username: string = '';
 
   constructor(private router: Router, private userService: UserService) {}
-
   /**
-   * Upon logging in, the username entered is evaluated to see if it already exists or if a new user needs to be added to the system. 
+   * When the login button is clicked, this method uses the input username to navigate to different displays for manager vs. helpers
    */
-  onSubmit(): void {
-    if(!this.username.trim()) return; //preventing empty username submission
-
-    //saves username value in the browser's local storage, which persists after the page is refreshed or the browser is closed.
-    localStorage.setItem("username", this.username)
-
-    //check if user exists already
+  onSubmit(): void { 
+    if(this.username=="") {
+      return;
+    }
+    localStorage.setItem("username", this.username) //saves user data in browser using key value pair
     this.userService.getUser(this.username).subscribe(user => {
-      if(!user) {
-        //create new user if they don't exist
-        this.userService.addUser(this.username).subscribe(newUser => {
-          if(newUser) {
-            this.redirectUser(newUser.name);
+      if(user==undefined) { //if username doesn't exist in the system yet
+        this.userService.addUser(this.username).subscribe(user => { //add new user with that username
+          this.userService.getUser(this.username).subscribe(user => { //accesses user data
+            this.userService.user = user
+            console.log(user);
+          if(this.username === 'admin') {
+            this.router.navigate(['/manager-cupboard']); //if username is admin, redirects to manager display
           }
+          else {
+            this.router.navigate(['/cupboard']); //naviagtes to helper display
+          }
+          })
         });
+      } else {
+        this.userService.user = user
+        console.log(user);
+        if(this.username === 'admin') {
+          this.router.navigate(['/manager-cupboard']);
+        }
+        else {
+          this.router.navigate(['/cupboard']);
+        }
       }
-      else {
-        this.userService.setCurrentUser(user);
-        this.redirectUser(user.name); 
-      }
-    })
-  }
-
-  /**
-   * Handles logic for determining which cupboard view to route the user to, depending on whether they are a manager ("admin") or a helper.
-   * 
-   * @param username username input in login field
-   */
-  private redirectUser(username: string) {
-    if(this.username === 'admin') {
-      this.router.navigate(['/manager-cupboard']);
-    }
-    else {
-      this.router.navigate(['/cupboard']);
-    }
-  }
+  })
+}
 }

@@ -7,11 +7,10 @@ import { Basket } from "./basket";
 @Injectable({ providedIn: 'root'})
 
 export class UserService {
-    private apiUrl = 'http://localhost:8080/users';
-    private user!: User; 
+    user!: User;
 
     /**
-     * header establishes content type as application/json.
+     * Header establishes content type as application/json.
      */
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -20,96 +19,86 @@ export class UserService {
     constructor(private http: HttpClient) {}
 
     /**
-     * Gets a list of users from the system
+     * Gets a list of users from the system using HTTP GET request
      * 
-     * @returns Observable array of user objects
+     * @returns Observable that emits an array of User objects or empty array if error occurs
      */
     public getUsers(): Observable<User[]> {
-        return this.http.get<User[]>(this.apiUrl).pipe(catchError(this.handleError<User[]>('getUsers', [])));
+        return this.http.get<User[]>('http://localhost:8080/users').pipe(catchError(this.handleError<User[]>('getUsers',[])))
     }
 
     /**
-     * Finds a specific user matching a username
+     * Gets a specific User object that corresponds to given username using HTTP GET request
      * 
-     * @param username name of specific user in the system
-     * @returns Observable user if found or null if the user does not exist
+     * @param username Name used to access specific user
+     * @returns Observable that emits a User object 
      */
-    public getUser(username: string): Observable<User | null> {
-        if (!username.trim()) return of(null); //prevent invalid requests
-
-        return this.http.get<User>(`${this.apiUrl}/${username}`).pipe(
-            catchError(error => {
-                if (error.status === 404) {
-                    console.warn(`User '${username}' not found.`);
-                    return of(null); //return null if user is not found
-                }
-                return this.handleError<User>('getUser', undefined)(error);
-            })
-        );
+    public getUser(username: string) : Observable<User> {
+        return this.http.get<User>('http://localhost:8080/users/' + localStorage.getItem("username")).pipe(catchError(this.handleError<any>("getUser" + username)))
     }
 
     /**
-     * Gets the basket of a user in the system
+     * Adds a new user to the system usin HTTP POST request
      * 
-     * @returns basket of user or empty basket
+     * @param username Name used to create a new user
+     * @returns Observable that emits the results of user creation
      */
-    public getUserBasket() {
-        return this.user?.basket?.items || [];
+    public addUser(username: string) {
+        var basket = new Basket()
+        var name = username
+        const newUser : User = {name, basket} as User
+
+        return this.http.post<User[]>('http://localhost:8080/users', newUser, this.httpOptions)
     }
 
     /**
-     * Adds a user with the given username
+     * Updates user data by retrieving username from localstorage and sending
+     * HTTP PUT request to update the user data
      * 
-     * @param username specific username
-     * @returns Observable new user object
+     * @returns Observable that emits the server response or error
      */
-    public addUser(username: string): Observable<User> {
-        if (!username.trim()) return of(null as any); //prevent invalid usernames
-
-        const newUser: User = { name: username, basket: new Basket() };
-        return this.http.post<User>(this.apiUrl, newUser, this.httpOptions).pipe(
-            catchError(this.handleError<User>('addUser'))
-        );
+    public updateUser(): Observable<any> {
+        var name = localStorage.getItem("username")
+        var basket = this.user.basket
+        const anotherNewUser : User = {name, basket} as User
+        return this.http.put('http://localhost:8080/users', anotherNewUser, this.httpOptions).pipe(catchError(this.handleError<any>("Returning User")))
     }
 
     /**
-     * Stores user in the user service so it's data can be accessed later
+     * Sets current user
      * 
-     * @param user object containing user's data 
+     * @param user The user object to be set as current user
      */
     public setCurrentUser(user: User) {
         this.user = user;
     }
 
     /**
-     * Updates a user in the system
+     * Retrieves items from current user basket
      * 
-     * @returns Observable user being updated
+     * @returns Items in the user's basket
      */
-    public updateUser(): Observable<any> {
-        const username = localStorage.getItem("username") || "";
-        if (!username) {
-            console.error("No username found in localStorage.");
-            return of(null);
-        }
-
-        const updatedUser: User = { name: username, basket: this.user.basket };
-        return this.http.put(`${this.apiUrl}`, updatedUser, this.httpOptions).pipe(
-            catchError(this.handleError<any>("updateUser"))
-        );
+    public getUserBasket() {
+        return this.user.basket.items
     }
 
     /**
-     * Used for error handling for the above methods
+     * Handles HTTP request errors
      * 
-     * @param operation what was being done that caused the error
-     * @param result observable optional value
-     * @returns observable with safe result
+     * @param operation The name of the failed operation
+     * @param result Optional default value to return in case of error
+     * @returns Observable function logs error and returns fallback value
      */
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
-            console.error(`Error in ${operation}:`, error);
+            console.error(error);
+
+            if(operation.includes("getUser")) {
+                this.addUser(operation.slice(7)).subscribe(e => e)
+            }
+
             return of(result as T);
-        };
+        }
     }
+
 }
