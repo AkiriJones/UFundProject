@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.ufund.api.ufundapi.model.Basket;
 
+@Tag("Model-tier")
 public class BasketTest {
     private Basket basket;
 
