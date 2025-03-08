@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class User {
 
-    @JsonProperty("username") String name;
+    @JsonProperty("name") String name;
     @JsonProperty("basket") Basket basket;
 
     /**
@@ -16,7 +16,7 @@ public class User {
      * @param name the username of the user
      * @param basket the basket associated with the user; if null, a new Basket is created
      */
-    public User(@JsonProperty("username") String name, @JsonProperty("basket") Basket basket) {
+    public User(@JsonProperty("name") String name, @JsonProperty("basket") Basket basket) {
         this.name = name;
         this.basket = basket;
 
@@ -39,7 +39,7 @@ public class User {
      *
      * @return the basket
      */
-    public Basket gBasket() {
+    public Basket getBasket() {
         return basket;
     }
 }

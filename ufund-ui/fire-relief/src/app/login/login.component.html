@@ -1,1 +1,14 @@
-
+<div class="login-container">
+    <h2>Login</h2>
+    <form (submit)="onSubmit()">
+      <input 
+        type="text"
+        id="username"
+        [(ngModel)]="username" 
+        name="username"
+        required
+        placeholder="Enter Username"  
+      />
+      <button type="submit">Login</button>
+    </form>
+</div>

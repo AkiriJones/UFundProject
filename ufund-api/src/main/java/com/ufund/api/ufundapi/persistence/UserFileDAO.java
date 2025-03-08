@@ -88,7 +88,7 @@ public class UserFileDAO implements UserDAO {
     @Override
     public User createUser(User user) throws IOException {
         synchronized(users) {
-            User newUser = new User(user.getUsername(), user.gBasket());
+            User newUser = new User(user.getUsername(), user.getBasket());
             users.put(newUser.getUsername(), newUser);
             save();
             return newUser;
@@ -114,7 +114,7 @@ public class UserFileDAO implements UserDAO {
      */
     @Override
     public User[] getAllUsers() {
-        return getAllUsers();
+        return getAllUsers(null);
     }
 
     /**
