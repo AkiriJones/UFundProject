@@ -110,7 +110,9 @@ This section describes the web interface flow; this is how the user views and in
  >* _Include other details such as attributes and method signatures that you think are needed to support the level of detail in your discussion._
 
 ### ViewModel Tier
-> CupboardController’s purpose is to use methods in CupboardDAO and return an appropriate ResponseEntity.
+> Cupboard-Controller - CupboardController’s purpose is to use methods in CupboardDAO and return an appropriate ResponseEntity.
+
+> User-Controller - The UserController class is responsible for handling HTTP requests reagrding the data of users being stored in the system.
 
 > _**[Sprint 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
@@ -122,7 +124,13 @@ This section describes the web interface flow; this is how the user views and in
 ![Replace with your ViewModel Tier class diagram 1, etc.](viewmodel.png)
 
 ### Model Tier
-> _Need - Creates a Need with a given name with the parameters “name”, “cost”, “quantity”, “type”. Methods in this class get and set the name, cost, and quantity parameters of the Need. Additional methods return the Need with its parameters and checks if one Need is equal to another.
+
+> Need - Creates a Need with a given name with the parameters “name”, “cost”, “quantity”, “type”. Methods in this class get and set the name, cost, and quantity parameters of the Need. Additional methods return the Need with its parameters and checks if one Need is equal to another.
+
+> User - Creates a User with a given username and basket. Will create empty basket if none are provided. Getters for username and basket are included.
+
+> UserFileDAO - Manages user data by saving and loading user objects to/from a JSON data file.
+
 
 > _**[Sprint 2, 3 & 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
