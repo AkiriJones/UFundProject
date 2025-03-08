@@ -12,13 +12,17 @@ import { UserService } from '../user.service';
 export class LoginComponent {
 
   username: string = '';
+  errorMessage: string = '';
 
   constructor(private router: Router, private userService: UserService) {}
   /**
    * When the login button is clicked, this method uses the input username to navigate to different displays for manager vs. helpers
    */
   onSubmit(): void { 
+    this.errorMessage = '';
+
     if(this.username=="") {
+      this.errorMessage = 'Username is required to login!';
       return;
     }
     localStorage.setItem("username", this.username) //saves user data in browser using key value pair
