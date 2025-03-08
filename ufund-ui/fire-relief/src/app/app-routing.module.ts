@@ -9,7 +9,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'manager-cupboard', component: ManagerCupboardComponent},
   { path: 'cupboard', component: CupboardComponent},
-  { path: 'basket', component: BasketComponent}
+  { path: 'basket', component: BasketComponent},
+  { path: '', redirectTo: '/login', pathMatch:'full'}
 ];
 
 @NgModule({
