@@ -15,7 +15,7 @@ public interface UserDAO {
      * @param username the name of the user
      * @return the User object if found, otherwise null
      */
-    User getUser(String username);
+    User getUser(String name);
     
     /**
      * Creates a new user.
