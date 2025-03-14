@@ -79,5 +79,17 @@ export class ManagerCupboardComponent implements OnInit {
       this.isEmpty = false;
     }) 
   }
+
+  /**
+   * Deletes a need from the cupboard.
+   * 
+   * @param id The ID of the need to delete.
+   */
+  deleteNeed(id: number): void {
+    this.cupboardService.deleteNeed(id).subscribe(() => {
+      this.cupboard = this.cupboard.filter(need => need.id !== id);
+      this.isEmpty = this.cupboard.length === 0;
+    });
+  }
   
 }
