@@ -49,7 +49,7 @@ export class CupboardService {
      * @returns An Observable containing the new Need object added.
      */
     addNeed(need: Need): Observable<Need> {
-        return this.http.post<Need>(this.cupboardUrl, need, this.httpOptions).pipe(catchError(this.handleError<Need>('addNeed')))
+        return this.http.post<Need>(this.cupboardUrl, need, this.httpOptions).pipe(catchError(this.handleError<Need>('addNeed')));
     }
 
     /**

@@ -50,4 +50,34 @@ export class ManagerCupboardComponent implements OnInit {
     });
   }
   
+  /**
+   * Adds a need to the cupboard by calling HTTP request POST method from CupboardService.
+   * Ensures that when a need is added, isEmpty turns to false.
+   * 
+   * @param name name of the need to be added.
+   * @param cost cost of the need to be added.
+   * @param quantity quantity of the need to be added.
+   * @param type type of the need to be added.
+   */
+  addNeed(name: string, cost: number, quantity: number, type: string): void {
+    name = name.trim();
+    type = type.trim();
+    if(!name || !type || cost <= 0 || quantity <= 0) {
+      return;
+    }
+
+    const newNeed: Need = {
+      id: 0,
+      name: name,
+      cost: cost,
+      quantity: quantity,
+      type: type
+    };
+
+    this.cupboardService.addNeed(newNeed).subscribe((addedNeed) => {
+      this.cupboard.push(addedNeed);
+      this.isEmpty = false;
+    }) 
+  }
+  
 }
