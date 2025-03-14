@@ -17,8 +17,27 @@
 
     <ul *ngIf="!isEmpty" class="needs">
         <li *ngFor="let need of cupboard">
-            {{need.name}} - Count: {{need.quantity}} - ID: {{need.id}}
+            {{need.name}} - Cost: ${{need.cost}} - Quantity: {{need.quantity}} - Type: {{need.type}} - ID: {{need.id}}
             <button type="button" class="delete-button" title="delete need" (click)="deleteNeed(need.id)">x</button>
+            <button type="button" class="edit-button" (click)="editNeed(need)">Edit</button>
         </li>
     </ul>
+
+    <div *ngIf="selectedNeed" class="edit-form">
+        <h3>Edit Need</h3>
+        <label>Name:
+            <input [(ngModel)]="selectedNeed.name">
+        </label>
+        <label>Cost:
+            <input type="number" [(ngModel)]="selectedNeed.cost">
+        </label>
+        <label>Quantity
+            <input type="number" [(ngModel)]="selectedNeed.quantity">
+        </label>
+        <label>
+            <input [(ngModel)]="selectedNeed.type">
+        </label>
+        <button type="button" class="save-button" (click)="saveNeed()">Save</button>
+        <button type="button" class="cancel-button" (click)="cancelEdit()">Cancel</button>
+    </div>
 </div>
