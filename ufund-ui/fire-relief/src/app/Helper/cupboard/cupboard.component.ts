@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Need } from '../../need';
 import { CupboardService } from '../../cupboard.service';
-import { Router } from 'express';
 import { UserService } from '../../user.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 /**
  * Component responsible for displaying cupboard contents to helpers.
