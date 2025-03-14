@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 export class ManagerCupboardComponent implements OnInit {
   cupboard: Need[] = [];
   isEmpty: boolean = false;
+  selectedNeed: Need | null = null;
 
   /**
    * Constructs the ManagerCupboardComponent.
@@ -90,6 +91,37 @@ export class ManagerCupboardComponent implements OnInit {
       this.cupboard = this.cupboard.filter(need => need.id !== id);
       this.isEmpty = this.cupboard.length === 0;
     });
+  }
+
+  /**
+   * Selects need for editing.
+   * 
+   * @param need The need object to edit.
+   */
+  editNeed(need: Need): void {
+    this.selectedNeed = { ...need };
+  }
+
+  /**
+   * Saves the updated need to the cupboard.
+   */
+  saveNeed(): void {
+    if(this.selectedNeed) {
+      this.cupboardService.updateNeed(this.selectedNeed.id, this.selectedNeed).subscribe(updatedNeed => {
+        const index = this.cupboard.findIndex(n => n.id === updatedNeed.id);
+        if(index !== -1) {
+          this.cupboard[index] = updatedNeed;
+        }
+        this.selectedNeed = null;
+      });
+    }
+  }
+
+  /**
+   * Cancels the edit.
+   */
+  cancelEdit(): void {
+    this.selectedNeed = null;
   }
   
 }
