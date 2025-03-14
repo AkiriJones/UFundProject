@@ -18,6 +18,7 @@
     <ul *ngIf="!isEmpty" class="needs">
         <li *ngFor="let need of cupboard">
             {{need.name}} - Count: {{need.quantity}} - ID: {{need.id}}
+            <button type="button" class="delete-button" title="delete need" (click)="deleteNeed(need.id)">x</button>
         </li>
     </ul>
 </div>
