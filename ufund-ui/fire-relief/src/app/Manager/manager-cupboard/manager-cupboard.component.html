@@ -1,4 +1,17 @@
 <div class="container">
+
+    <h2>Add a Need</h2>
+    <div class="add-need">
+        <input #needName type="text" placeholder="Enter need name">
+        <input #needCost type="number" placeholder="Enter cost">
+        <input #needQuantity type="number" placeholder="Enter quantity">
+        <input #needType type="text" placeholder="Enter type">
+        <button type="button" class="add-button" (click)="addNeed(needName.value, +needCost.value, +needQuantity.value, needType.value);
+                                                                needName.value=''; needCost.value=''; needQuantity.value=''; needType.value=''">
+            Add Need
+        </button>
+    </div>
+
     <h2>Cupboard List</h2>
     <p *ngIf="isEmpty" class="empty-message">No needs available</p>
 
