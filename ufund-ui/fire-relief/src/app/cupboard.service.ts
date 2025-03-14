@@ -41,6 +41,17 @@ export class CupboardService {
         const url = `${this.cupboardUrl}/?id=${id}`;
         return this.http.get<Need>(url).pipe(catchError(this.handleError<Need>(`getNeed id=${id}`)));
     }
+
+    /**
+     * Adds a new need to the cupboard.
+     * 
+     * @param need The Need object to be added.
+     * @returns An Observable containing the new Need object added.
+     */
+    addNeed(need: Need): Observable<Need> {
+        return this.http.post<Need>(this.cupboardUrl, need, this.httpOptions).pipe(catchError(this.handleError<Need>('addNeed')))
+    }
+
     /**
      * Handles failed http operations, lets the app continue to run.
      * 
