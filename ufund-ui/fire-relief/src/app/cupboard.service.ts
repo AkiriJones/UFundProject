@@ -64,6 +64,18 @@ export class CupboardService {
     }
 
     /**
+     * Updates an existing need in the cupboard.
+     * 
+     * @param id The id of the need being updated.
+     * @param need The need object with updated values.
+     * @returns An Observable containing the updated Need object.
+     */
+    updateNeed(id: number, need: Need): Observable<Need> {
+        const url = `${this.cupboardUrl}/${id}`;
+        return this.http.put<Need>(url, need, this.httpOptions).pipe(catchError(this.handleError<Need>('UpdateNeed')));
+    }
+
+    /**
      * Handles failed http operations, lets the app continue to run.
      * 
      * @param operation The name of the operation that failed.
