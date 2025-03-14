@@ -1,6 +1,8 @@
 <div class="container">
     <h2>Cupboard List</h2>
-    <ul class = "needs">
+    <p *ngIf="isEmpty" class="empty-message">No needs available</p>
+
+    <ul *ngIf="!isEmpty" class="needs">
         <li *ngFor="let need of cupboard">
             {{need.name}} - Count: {{need.quantity}} - ID: {{need.id}}
         </li>

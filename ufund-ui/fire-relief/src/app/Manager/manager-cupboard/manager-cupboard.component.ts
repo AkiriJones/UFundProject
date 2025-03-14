@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 
 export class ManagerCupboardComponent implements OnInit {
   cupboard: Need[] = [];
+  isEmpty: boolean = false;
 
   /**
    * Constructs the ManagerCupboardComponent.
@@ -40,9 +41,13 @@ export class ManagerCupboardComponent implements OnInit {
 
   /**
    * Fetches the cupboard data from the CupboardService and updates the cupboard array.
+   * If the cupboard is empty, isEmpty turns to true.
    */
   getCupboard(): void {
-    this.cupboardService.getCupboard().subscribe(cupboard => this.cupboard = cupboard);
+    this.cupboardService.getCupboard().subscribe(cupboard => {
+      this.cupboard = cupboard;
+      this.isEmpty = cupboard.length === 0; 
+    });
   }
   
 }
