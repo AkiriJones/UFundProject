@@ -53,6 +53,17 @@ export class CupboardService {
     }
 
     /**
+     * Deletes a need from the cupboard.
+     * 
+     * @param id The ID of the Need object that is being deleted.
+     * @returns An Observable containing the deleted Need object.
+     */
+    deleteNeed(id: number): Observable<Need> {
+        const url =  `${this.cupboardUrl}/${id}`;
+        return this.http.delete<Need>(url, this.httpOptions).pipe(catchError(this.handleError<Need>('deleteNeed')));
+    }
+
+    /**
      * Handles failed http operations, lets the app continue to run.
      * 
      * @param operation The name of the operation that failed.
