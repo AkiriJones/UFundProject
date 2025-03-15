@@ -71,6 +71,15 @@ export class CupboardComponent {
   }
 
   /**
+   * Adds a need to the basket
+   * 
+   * @param need The need object being added to the basket.
+   */
+  addToBasket(need: Need): void {
+    this.basketService.addToBasket(need);
+  }
+
+  /**
    * Navigates to basket.
    */
   basketButton(): void {
