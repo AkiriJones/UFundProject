@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 export class CupboardComponent {
   needs: Need[] = [];
   observerHandler!: Subscription
+  searchTerm: string = '';
 
   /**
    * Constructs the CupboardComponent.
@@ -47,9 +48,23 @@ export class CupboardComponent {
    * Unsubscribes from active subscriptions to prevent memory leaks.
    */
   ngOnDestroy(): void {
-    if(this.needs) {
+    if(this.observerHandler) {
       this.observerHandler.unsubscribe();
     }
   }
- 
+
+  /**
+   * Searches for needs that match a given name, otherwise displays entire cupboard.
+   * 
+   * @returns Need list that matches the search term.
+   */
+  searchNeeds(): Need[] {
+    if(!this.searchTerm) {
+      return this.needs;
+    }
+
+    return this.needs.filter(need =>
+      need.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
 }
