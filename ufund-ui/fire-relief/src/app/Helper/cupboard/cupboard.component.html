@@ -1,4 +1,9 @@
-<div class="cupboard">
+<div class="nav-bar">
+    <button (click)="cupboardButton()" class="nav-button">Cupboard</button>
+    <button (click)="basketButton()" class="nav-button">Basket</button>
+</div>
+
+<div *ngIf="displayCupboard" class="cupboard">
     <h2>Cupboard</h2>
 
     <div class="search-container">

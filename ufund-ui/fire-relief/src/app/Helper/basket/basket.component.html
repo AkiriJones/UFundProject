@@ -1,1 +1,20 @@
-<p>basket works!</p>
+<div class="nav-bar">
+    <button (click)="cupboardButton()" class="nav-button">Cupboard</button>
+    <button (click)="basketButton()" class="nav-button">Basket</button>
+</div>
+
+<div>
+    <h2>Basket</h2>
+
+    <ul class="basket-list">
+        <li *ngFor="let item of basketItems" class="basket-item">
+            <div class="basket-item">
+                <h3>{{item.need.name}}</h3>
+                <p>Cost: ${{item.need.cost}}</p>
+                <p>Info: {{item.need.type}}</p>
+
+                <label for="quantity-{{item.need.id}}">Quantity: </label>
+            </div>
+        </li>
+    </ul>
+</div>

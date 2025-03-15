@@ -4,6 +4,7 @@ import { CupboardService } from '../../cupboard.service';
 import { UserService } from '../../user.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { BasketService } from '../../basket.service';
 
 /**
  * Component responsible for displaying cupboard contents to helpers.
@@ -18,6 +19,7 @@ export class CupboardComponent {
   needs: Need[] = [];
   observerHandler!: Subscription
   searchTerm: string = '';
+  displayCupboard: boolean = true;
 
   /**
    * Constructs the CupboardComponent.
@@ -28,7 +30,7 @@ export class CupboardComponent {
    */
   constructor(
     private cupboardService: CupboardService,
-    //private basketService: BasketService,
+    private basketService: BasketService,
     private userService: UserService,
     private router: Router
   ) {}
@@ -66,5 +68,21 @@ export class CupboardComponent {
     return this.needs.filter(need =>
       need.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+  }
+
+  /**
+   * Navigates to basket.
+   */
+  basketButton(): void {
+    this.router.navigate(['/basket']);
+    this.displayCupboard = false;
+  }
+
+  /**
+   * Navigates to cupboard.
+   */
+  cupboardButton(): void {
+    this.router.navigate(['/cupboard']);
+    this.displayCupboard = true;
   }
 }
