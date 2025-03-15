@@ -1,7 +1,12 @@
 <div class="cupboard">
     <h2>Cupboard</h2>
+
+    <div class="search-container">
+        <input type="text" [(ngModel)]="searchTerm" placeholder="Search needs" class="search-bar"/>
+    </div>
+
     <ul class="need-list">
-        <li *ngFor="let need of needs">
+        <li *ngFor="let need of searchNeeds()" class="need-item">
             <div class="need-container">
                 <div class="need-header">
                     <span class="id">{{need.id}}</span>
