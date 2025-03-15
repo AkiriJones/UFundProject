@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, Observable, of } from "rxjs";
+import { catchError, forkJoin, map, Observable, of } from "rxjs";
 import { Need } from "./need";
+import { UserService } from "./user.service";
 
 /**
  * Service to manage the contents of the cupboard.
@@ -19,8 +20,9 @@ export class CupboardService {
      * Constructs the service and injects HttpClient dependency.
      * 
      * @param http HttpClient service for making HTTP requests.
+     * @param userService service for managing user data.
      */
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private userService : UserService) {}
 
     /**
      * Fetches the entire list of needs from the cupboard.
@@ -76,6 +78,28 @@ export class CupboardService {
     }
 
     /**
+     * Fetches a list of needs from a user's basket.
+     * 
+     * @param basket An array of [needId, quantity] pairs representing needs in the basket.
+     * @returns An Observable containing an array of {need: Need, quantity: number} objects.
+     */
+    public getNeedsFromBasket(): Observable<{ need: Need; quantity: number}[]> {
+        const basket = this.userService.user?.basket.items ?? [];
+
+        if(basket.length === 0) {
+            return of([]);
+        }
+
+        const requests = basket.map(([needId, quantity]) =>
+            this.getNeed(needId).pipe(map(need => ({
+                need, quantity }))
+            )
+        );
+
+        return forkJoin(requests);
+    }
+    
+    /**
      * Handles failed http operations, lets the app continue to run.
      * 
      * @param operation The name of the operation that failed.
@@ -89,4 +113,6 @@ export class CupboardService {
             return of(result as T);
         }
     }
+
+
 }
