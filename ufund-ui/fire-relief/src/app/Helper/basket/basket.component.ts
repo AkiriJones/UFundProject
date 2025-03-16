@@ -55,6 +55,7 @@ export class BasketComponent implements OnInit {
       this.cupboardService.getCupboard().subscribe(needs => {
         console.log('All Needs:', needs);
         this.allNeeds = needs;
+        this.needs = needs;
       });
     }
     else {
