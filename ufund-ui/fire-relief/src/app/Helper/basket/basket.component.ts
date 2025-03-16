@@ -80,7 +80,10 @@ export class BasketComponent implements OnInit {
       existingItem.quantity++;
     }
   }
-
+  /**
+   * Lowers quantity or removes the need from the basket
+   * @param need Need to remove or lower quantity of from the basket
+   */
   removeFromBasket(need: Need): void{
     const existingItem = this.basketItems.find(item => item.need.id === need.id);
     if (existingItem){
