@@ -1,1 +1,43 @@
-<p>manager-cupboard works!</p>
+<div class="container">
+
+    <h2>Add a Need</h2>
+    <div class="add-need">
+        <input #needName type="text" placeholder="Enter need name">
+        <input #needCost type="number" placeholder="Enter cost">
+        <input #needQuantity type="number" placeholder="Enter quantity">
+        <input #needType type="text" placeholder="Enter type">
+        <button type="button" class="add-button" (click)="addNeed(needName.value, +needCost.value, +needQuantity.value, needType.value);
+                                                                needName.value=''; needCost.value=''; needQuantity.value=''; needType.value=''">
+            Add Need
+        </button>
+    </div>
+
+    <h2>Cupboard List</h2>
+    <p *ngIf="isEmpty" class="empty-message">No needs available</p>
+
+    <ul *ngIf="!isEmpty" class="needs">
+        <li *ngFor="let need of cupboard">
+            {{need.name}} - Cost: ${{need.cost}} - Quantity: {{need.quantity}} - Type: {{need.type}} - ID: {{need.id}}
+            <button type="button" class="delete-button" title="delete need" (click)="deleteNeed(need.id)">x</button>
+            <button type="button" class="edit-button" (click)="editNeed(need)">Edit</button>
+        </li>
+    </ul>
+
+    <div *ngIf="selectedNeed" class="edit-form">
+        <h3>Edit Need</h3>
+        <label>Name:
+            <input [(ngModel)]="selectedNeed.name">
+        </label>
+        <label>Cost:
+            <input type="number" [(ngModel)]="selectedNeed.cost">
+        </label>
+        <label>Quantity
+            <input type="number" [(ngModel)]="selectedNeed.quantity">
+        </label>
+        <label>
+            <input [(ngModel)]="selectedNeed.type">
+        </label>
+        <button type="button" class="save-button" (click)="saveNeed()">Save</button>
+        <button type="button" class="cancel-button" (click)="cancelEdit()">Cancel</button>
+    </div>
+</div>
