@@ -93,7 +93,7 @@ export class BasketComponent implements OnInit {
         this.cupboardService.updateNeed(element.need.id, needContents).subscribe();
     });
     this.basketService.clearBasket();
-    this.basketItems.forEach(element => this.basketItems.pop());
+    this.basketItems = [];
   }
   /**
    * Navigates to cupboard
