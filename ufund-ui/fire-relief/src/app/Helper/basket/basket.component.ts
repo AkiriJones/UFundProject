@@ -82,6 +82,19 @@ export class BasketComponent implements OnInit {
     }
   }
 
+  Checkout(): void{
+    this.basketItems.forEach(element =>{
+      const needContents : Need = {
+        id: element.need.id,
+        name: element.need.name,
+        cost: element.need.cost,
+        quantity: element.need.quantity + element.quantity, 
+        type: element.need.type}
+        this.cupboardService.updateNeed(element.need.id, needContents).subscribe();
+    });
+    this.basketService.clearBasket();
+    this.basketItems.forEach(element => this.basketItems.pop());
+  }
   /**
    * Navigates to cupboard
    */
