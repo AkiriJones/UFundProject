@@ -60,7 +60,10 @@ export class BasketComponent implements OnInit {
       console.log("No username found");
     }
   }
-
+  /**
+   * Searches for the needs that can be added to a basket.
+   * @returns List of needs corresponding to the search term.
+   */
   searchNeeds(): Need[] {
     if(!this.searchTerm) {
       return this.needs;
@@ -71,6 +74,10 @@ export class BasketComponent implements OnInit {
     );
   }
 
+  /**
+   * Adds a need to the basket for checkout.
+   * @param need Need to be added
+   */
   addToBasket(need: Need): void {
     const existingItem = this.basketItems.find(item => item.need.id === need.id);
     if (!existingItem){
