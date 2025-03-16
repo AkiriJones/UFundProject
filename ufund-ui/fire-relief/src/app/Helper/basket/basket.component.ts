@@ -85,7 +85,9 @@ export class BasketComponent implements OnInit {
           this.basketItems.push({need, quantity: 1});
     }
     else{
-      existingItem.quantity++;
+      if(existingItem.quantity < need.quantity){ //Can only add up the desired need quantity
+        existingItem.quantity++;
+      }
     }
   }
 
