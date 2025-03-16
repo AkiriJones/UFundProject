@@ -3,18 +3,40 @@
     <button (click)="basketButton()" class="nav-button">Basket</button>
 </div>
 
-<div>
+<div *ngIf="basketItems.length > 0; else emptyBasket">
     <h2>Basket</h2>
-
-    <ul class="basket-list">
-        <li *ngFor="let item of basketItems" class="basket-item">
-            <div class="basket-item">
-                <h3>{{item.need.name}}</h3>
-                <p>Cost: ${{item.need.cost}}</p>
-                <p>Info: {{item.need.type}}</p>
-
-                <label for="quantity-{{item.need.id}}">Quantity: </label>
-            </div>
+    <ul>
+        <li *ngFor="let item of basketItems">
+          {{ item.need.name }} - Quantity: {{ item.quantity }}
         </li>
-    </ul>
+      </ul>
+    
 </div>
+
+<ng-template #emptyBasket>
+    <p>Your basket is empty.</p>
+  </ng-template>
+<div>
+<h2>Add Need</h2>
+<div class="search-container">
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Search needs" class="search-bar" />
+</div>
+
+<ul class="need-list">
+    <li *ngFor="let need of searchNeeds()" class="need-item">
+    <div class="need-container">
+        <div class="need-header">
+        <span class="id">{{ need.id }}</span>
+        <span class="name"> - {{ need.name }}</span>
+        </div>
+        <div class="need-body">
+        <p class="cost">Cost: ${{ need.cost }}</p>
+        <p class="quantity">Quantity: {{ need.quantity }}</p>
+        <p class="type">Info: {{ need.type }}</p>
+        <button (click)="addToBasket(need)" class="add-button">Add</button>
+        </div>
+    </div>
+    </li>
+</ul>
+</div>
+

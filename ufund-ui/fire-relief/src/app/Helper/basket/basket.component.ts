@@ -16,7 +16,9 @@ import { Router } from '@angular/router';
 })
 export class BasketComponent implements OnInit {
   basketItems: { need: Need, quantity: number }[] = []
-
+  searchTerm: string = '';
+  needs: Need[] = [];
+  allNeeds: Need[] = [];
   /**
    * Constructs the BasketComponent.
    * 
@@ -37,6 +39,8 @@ export class BasketComponent implements OnInit {
    * Retrieves current user data based on username.
    */
   ngOnInit(): void {
+    console.log("Logged in...");
+    // const username = this.userService.getUser("username");
     const username = localStorage.getItem("username");
 
     if(username) {
@@ -47,10 +51,29 @@ export class BasketComponent implements OnInit {
         this.basketItems = needs;
       });
       });
+
+      this.cupboardService.getCupboard().subscribe(needs => {
+        console.log('All Needs:', needs);
+        this.allNeeds = needs;
+      });
     }
     else {
       console.log("No username found");
     }
+  }
+
+  searchNeeds(): Need[] {
+    if(!this.searchTerm) {
+      return this.needs;
+    }
+
+    return this.needs.filter(need =>
+      need.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+  addToBasket(need: Need): void {
+    this.basketService.addToBasket(need);
   }
 
   /**

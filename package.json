@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@angular/core": "^19.2.2",
+    "@angular/router": "^19.2.2"
+  },
+  "devDependencies": {
+    "@angular/cli": "^19.2.3"
+  }
+}
