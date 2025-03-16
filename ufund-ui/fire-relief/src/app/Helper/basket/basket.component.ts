@@ -53,7 +53,6 @@ export class BasketComponent implements OnInit {
       this.cupboardService.getCupboard().subscribe(needs => {
         console.log('All Needs:', needs);
         this.allNeeds = needs;
-        this.needs = needs;
       });
     }
     else {
@@ -63,7 +62,7 @@ export class BasketComponent implements OnInit {
 
   searchNeeds(): Need[] {
     if(!this.searchTerm) {
-      return this.needs;
+      return this.allNeeds;
     }
 
     return this.needs.filter(need =>
@@ -82,6 +81,19 @@ export class BasketComponent implements OnInit {
     }
   }
 
+  removeFromBasket(need: Need): void{
+    const existingItem = this.basketItems.find(item => item.need.id === need.id);
+    if (existingItem){
+      if(existingItem.quantity - 1 == 0){
+        this.basketItems = this.basketItems.filter(item => item.need.id !== need.id);
+        this.basketService.removeFromBasket(need);    
+      }
+      else{
+        existingItem.quantity--;
+      }
+    }
+
+  }
   /**
    * Navigates to cupboard
    */

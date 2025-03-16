@@ -8,7 +8,9 @@
     <ul>
         <li *ngFor="let item of basketItems">
           {{ item.need.name }} - Quantity: {{ item.quantity }}
+          <button (click)="removeFromBasket(item.need)" class="remove-button">Remove</button>
         </li>
+        
       </ul>
     
 </div>
