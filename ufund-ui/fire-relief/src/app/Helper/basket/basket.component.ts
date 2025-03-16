@@ -85,7 +85,9 @@ export class BasketComponent implements OnInit {
       this.calculateTotalCost();
     }
   }
-
+  /**
+   * Checks out the current Helper's basket
+   */
   Checkout(): void{
     this.basketItems.forEach(element =>{
       const needContents : Need = {
@@ -100,7 +102,9 @@ export class BasketComponent implements OnInit {
     this.calculateTotalCost();
     this.basketItems = [];
   }
-
+  /**
+   * Calculates the current total cost of the Helper's Basket.
+   */
   calculateTotalCost(): void {
     this.totalCost = this.basketItems.reduce((sum, item) => sum + (item.need.cost * item.quantity), 0);
   }
