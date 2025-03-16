@@ -75,8 +75,8 @@ export class BasketComponent implements OnInit {
   }
 
   /**
-   * Adds a need to the basket for checkout.
-   * @param need Need to be added
+   * Adds a need to the basket for checkout if it exist, otherwise increases it's quantity.
+   * @param need Need to be added or increased
    */
   addToBasket(need: Need): void {
     const existingItem = this.basketItems.find(item => item.need.id === need.id);
