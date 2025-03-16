@@ -39,8 +39,6 @@ export class BasketComponent implements OnInit {
    * Retrieves current user data based on username.
    */
   ngOnInit(): void {
-    console.log("Logged in...");
-    // const username = this.userService.getUser("username");
     const username = localStorage.getItem("username");
 
     if(username) {
@@ -74,7 +72,14 @@ export class BasketComponent implements OnInit {
   }
 
   addToBasket(need: Need): void {
-    this.basketService.addToBasket(need);
+    const existingItem = this.basketItems.find(item => item.need.id === need.id);
+    if (!existingItem){
+          this.basketService.addToBasket(need);
+          this.basketItems.push({need, quantity: 1});
+    }
+    else{
+      existingItem.quantity++;
+    }
   }
 
   /**
