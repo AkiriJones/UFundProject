@@ -61,7 +61,10 @@ export class BasketComponent implements OnInit {
       console.log("No username found");
     }
   }
-
+  /**
+   * Searches for the needs that can be added to a basket.
+   * @returns List of needs corresponding to the search term.
+   */
   searchNeeds(): Need[] {
     if(!this.searchTerm) {
       return this.allNeeds;
@@ -72,6 +75,10 @@ export class BasketComponent implements OnInit {
     );
   }
 
+  /**
+   * Adds a need to the basket for checkout if it exist, otherwise increases it's quantity.
+   * @param need Need to be added or increased
+   */
   addToBasket(need: Need): void {
     const existingItem = this.basketItems.find(item => item.need.id === need.id);
     if (!existingItem){
@@ -80,8 +87,10 @@ export class BasketComponent implements OnInit {
           this.calculateTotalCost();
     }
     else{
-      existingItem.quantity++;
-      this.calculateTotalCost();
+      if(existingItem.quantity < need.quantity){ //Can only add up the desired need quantity
+        existingItem.quantity++;
+        this.calculateTotalCost();
+      }
     }
   }
   /**
