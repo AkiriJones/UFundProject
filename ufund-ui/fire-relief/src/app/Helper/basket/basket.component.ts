@@ -19,6 +19,7 @@ export class BasketComponent implements OnInit {
   searchTerm: string = '';
   needs: Need[] = [];
   allNeeds: Need[] = [];
+  totalCost: number = 0
   /**
    * Constructs the BasketComponent.
    * 
@@ -47,6 +48,7 @@ export class BasketComponent implements OnInit {
 
       this.cupboardService.getNeedsFromBasket().subscribe(needs => {
         this.basketItems = needs;
+        this.calculateTotalCost();
       });
       });
 
@@ -75,10 +77,35 @@ export class BasketComponent implements OnInit {
     if (!existingItem){
           this.basketService.addToBasket(need);
           this.basketItems.push({need, quantity: 1});
+          this.calculateTotalCost();
     }
     else{
       existingItem.quantity++;
+      this.calculateTotalCost();
     }
+  }
+  /**
+   * Checks out the current Helper's basket
+   */
+  Checkout(): void{
+    this.basketItems.forEach(element =>{
+      const needContents : Need = {
+        id: element.need.id,
+        name: element.need.name,
+        cost: element.need.cost,
+        quantity: element.need.quantity - element.quantity, 
+        type: element.need.type}
+        this.cupboardService.updateNeed(element.need.id, needContents).subscribe();
+    });
+    this.basketService.clearBasket();
+    this.calculateTotalCost();
+    this.basketItems = [];
+  }
+  /**
+   * Calculates the current total cost of the Helper's Basket.
+   */
+  calculateTotalCost(): void {
+    this.totalCost = this.basketItems.reduce((sum, item) => sum + (item.need.cost * item.quantity), 0);
   }
   /**
    * Lowers quantity or removes the need from the basket
