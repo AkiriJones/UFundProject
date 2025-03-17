@@ -141,4 +141,76 @@ public class NeedTest {
 		assertEquals(expected, actual);
 	}
 
+    @Test
+    void testSetName() {
+        // setup
+        int id = 12;
+        String name = "Clothing";
+        int quantity = 4;
+        double cost = 5.0;
+        String type = "Physical";
+        Need need = new Need(id, name, cost, quantity, type);
+        String expected = "Socks";
+
+        // invoke
+        need.setName(expected);
+
+        // analyze
+        assertEquals(need.getName(), expected);
+    }
+
+    @Test
+    void testSetCost() {
+        // setup
+        int id = 12;
+        String name = "Clothing";
+        int quantity = 4;
+        double cost = 5.0;
+        String type = "Physical";
+        Need need = new Need(id, name, cost, quantity, type);
+        double expected = 2.0;
+
+        // invoke
+        need.setCost(expected);
+
+        // analyze
+        assertEquals(need.getCost(), expected);
+    }
+
+    @Test
+    void testSetQuantity() {
+        // setup
+        int id = 12;
+        String name = "Clothing";
+        int quantity = 4;
+        double cost = 5.0;
+        String type = "Physical";
+        Need need = new Need(id, name, cost, quantity, type);
+        int expected = 7;
+
+        // invoke
+        need.setQuantity(expected);
+
+        // analyze
+        assertEquals(need.getQuantity(), expected);
+    }
+
+    @Test
+    void testSetType() {
+        // setup
+        int id = 12;
+        String name = "T-Shirt";
+        int quantity = 4;
+        double cost = 5.0;
+        String type = "Physical";
+        Need need = new Need(id, name, cost, quantity, type);
+        String expected = "Clothing";
+
+        // invoke
+        need.setType(expected);
+
+        // analyze
+        assertEquals(need.getType(), expected);
+    }
+
 }
