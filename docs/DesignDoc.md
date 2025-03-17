@@ -23,14 +23,21 @@ This is a summary of the project.
 
 ### Purpose
 >  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
-> important user group and user goals._
+> important user group and user goals.
+
+>This project’s purpose is to create a web-based application that can fund needs created by U-Fund managers. Helpers can fund the needs created by managers by adding the need to their basket and then check it out to fund the needs. The user groups in this project are Managers which can create new needs and Helpers that can fund needs by adding needs from a list to their basket and then checking it out.
 
 ### Glossary and Acronyms
 > _**[Sprint 2 & 4]** Provide a table of terms and acronyms._
 
 | Term | Definition |
 |------|------------|
-| SPA | Single Page |
+| SPA  | Single Page |
+
+| Term | Definition |
+|------|------------|
+| APP  | application |
+
 
 
 ## Requirements
@@ -43,6 +50,8 @@ This section describes the features of the application.
 
 ### Definition of MVP
 > _**[Sprint 2 & 4]** Provide a simple description of the Minimum Viable Product._
+
+>(Sprint 2)The Minimum Viable Product is a web application that has both Managers and Helpers log in to give authorization. Managers are able to create, add, remove, and edit needs. Managers are also able to see the full list of needs. Helpers are able to browse and search needs and also are able to add or remove these needs from their basket. Helpers can also see their basket and finally check out their needs in order to fund it.
 
 ### MVP Features
 >  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP._
@@ -60,6 +69,9 @@ This section describes the application domain.
 > _**[Sprint 2 & 4]** Provide a high-level overview of the domain for this application. You
 > can discuss the more important domain entities and their relationship
 > to each other._
+
+>(Sprint 2)The uFund app is a web application that can create and manage “needs” that can then be funded by Helpers. Managers create and edit these needs.
+Key domain entities include the U-Fund Manager that creates, manages, and removes needs that get funded. These needs are stored in the Cupboard which holds all of the needs. The Needs Cupboard holds all needs that can get funded, they have attributes for cost, quantity, name and type. Helpers can browse the Cupboard for needs and also sort and search it. A Helper can select needs to fund from the Cupboard and add or remove needs from their Basket before finally checking out where a Transaction is recorded. The Basket holds the Helper’s selected needs before they check out. Transactions record the details of the funded need, it includes the date, cost, and items funded.
 
 
 ## Architecture and Design
@@ -90,6 +102,7 @@ This section describes the web interface flow; this is how the user views and in
 > _Provide a summary of the application's user interface.  Describe, from the user's perspective, the flow of the pages/navigation in the web application.
 >  (Add low-fidelity mockups prior to initiating your **[Sprint 2]**  work so you have a good idea of the user interactions.) Eventually replace with representative screen shots of your high-fidelity results as these become available and finally include future recommendations improvement recommendations for your **[Sprint 4]** )_
 
+![Sprint 2](UIDesignMockup.png)
 
 ### View Tier
 > _**[Sprint 4]** Provide a summary of the View Tier UI of your architecture.
@@ -162,6 +175,8 @@ This section describes the web interface flow; this is how the user views and in
 
 > _**[Sprint 2, 3 & 4]** Will eventually address upto **4 key OO Principles** in your final design. Follow guidance in augmenting those completed in previous Sprints as indicated to you by instructor. Be sure to include any diagrams (or clearly refer to ones elsewhere in your Tier sections above) to support your claims._
 
+>(Sprint 2) We utilize Encapsulation in our code. In multiple places we use this but we can look at the User class. The User class encapsulates the user data with private fields that are controlled by the getters. UserFileDAO interacts with the UserDAO interface which hides the details and has both load and save methods as private in order for data to be handled without being seen by users. Abstraction is also used here as the UserDAO interface defines the operations without exposing the details of implementation. Inheritance is also used as UserFileDAO implements the UserDAO interface, which inherits the method signatures. Polymorphism is in use as the UserDAO interface allows for different implementations such as UserFileDAO to be used interchangeably.
+
 > _**[Sprint 3 & 4]** OO Design Principles should span across **all tiers.**_
 
 ## Static Code Analysis/Future Design Improvements
@@ -183,6 +198,8 @@ This section describes the web interface flow; this is how the user views and in
 > have not had any testing yet. Highlight the issues found during
 > acceptance testing and if there are any concerns._
 
+>(Sprint 2) All user stories (7) have passed their acceptance criteria. We don’t have any user stories that haven’t had any testing. During our acceptance criteria testing, we found that we were successful in implementing our stories and don’t have any issues currently.
+
 ### Unit Testing and Code Coverage
 > _**[Sprint 4]** Discuss your unit testing strategy. Report on the code coverage
 > achieved from unit testing of the code base. Discuss the team's
@@ -192,6 +209,9 @@ This section describes the web interface flow; this is how the user views and in
 >_**[Sprint 2, 3 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
 
+![Sprint 2](Sprint2-CodeCoverageReport.png)
+
 ## Ongoing Rationale
 >_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**mayor**_ team decisions or design milestones/changes and corresponding justification._
 > (2025/02/15): Sprint 1 - the classes CupboardController, Need, CupboardDAO, and CupboardFileDAO were made.
+>(2025/03/17): Sprint 2 -  All features for the sprint are tested and completed.
