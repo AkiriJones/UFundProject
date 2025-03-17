@@ -162,4 +162,125 @@ public class CupboardControllerTest {
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
+
+    @Test
+    public void testUpdateNeed() throws IOException {
+        // setup
+        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine");
+
+        when(mockCupboardDAO.updateNeed(need)).thenReturn(need);
+        ResponseEntity<Need> response = cupboardController.updateNeed(12,need);
+        need.setName("Conditioner");
+
+        // invoke
+        response = cupboardController.updateNeed(12, need);
+
+        // analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(need, response.getBody());
+    }
+
+    @Test
+    public void testUpdateHeroFailed() throws IOException { 
+        // Setup
+        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine");
+
+        when(mockCupboardDAO.updateNeed(need)).thenReturn(null);
+
+        // Invoke
+        ResponseEntity<Need> response = cupboardController.updateNeed(12,need);
+
+        // Analyze
+        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
+    }
+
+    @Test
+    public void testUpdateNeedHandleException() throws IOException { 
+        // Setup
+        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine");
+
+        doThrow(new IOException()).when(mockCupboardDAO).updateNeed(need);
+
+        // Invoke
+        ResponseEntity<Need> response = cupboardController.updateNeed(12, need);
+
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+    }
+
+    @Test
+    public void testCreateNeed() throws IOException {
+        // setup
+        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine");
+
+        when(mockCupboardDAO.createNeed(need)).thenReturn(need);
+
+        // invoke
+        ResponseEntity<Need> response = cupboardController.createNeed(need);
+
+        // analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(need, response.getBody());
+    }
+
+    @Test
+    public void testCreateNeedFailed() throws IOException {
+        // Setup
+        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine");
+
+        when(mockCupboardDAO.createNeed(need)).thenReturn(null);
+
+        // Invoke
+        ResponseEntity<Need> response = cupboardController.createNeed(need);
+
+        // Analyze
+        assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
+    }
+
+    @Test
+    public void testCreateNeedHandleException() throws IOException {  
+        // Setup
+        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine");
+
+        doThrow(new IOException()).when(mockCupboardDAO).createNeed(need);
+
+        // Invoke
+        ResponseEntity<Need> response = cupboardController.createNeed(need);
+
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+    }
+
+
+    @Test
+    public void testSearchNeed() throws IOException {
+        // setup
+        String searchTerm = "sh";
+        Need[] needs = new Need[2];
+        needs[0] = new Need(12, "Shampoo", 3.0, 3, "Hygeine");
+        needs[0] = new Need(12, "Shark", 3.0, 3, "Creature");
+
+        when(mockCupboardDAO.findNeeds(searchTerm)).thenReturn(needs);
+
+        // invoke
+        ResponseEntity<Need[]> response = cupboardController.searchNeeds(searchTerm);
+
+        // analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(needs, response.getBody());
+    }
+
+    @Test
+    public void testSearchNeedsHandleException() throws IOException {
+        // Setup
+        String searchString = "am";
+        
+        doThrow(new IOException()).when(mockCupboardDAO).findNeeds(searchString);
+
+        // Invoke
+        ResponseEntity<Need[]> response = cupboardController.searchNeeds(searchString);
+
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+    }
 }
