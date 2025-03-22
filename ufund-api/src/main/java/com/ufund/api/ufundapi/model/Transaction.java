@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
 
 public class Transaction {
+
+    public static final String STRING_FORMAT = "Transaction [id=%d, needs=%s, total=%.2f, date=%s]";
     @JsonProperty("id") private int id;
     @JsonProperty("needs") private Need[] needs;
     @JsonProperty("total") private double total;
@@ -78,5 +80,11 @@ public class Transaction {
 
     public Date getDate() {
         return date;
+    }
+
+    @Override
+    public String toString() {
+        String string = String.format(STRING_FORMAT,id, needs, total, date);
+        return string;
     }
 }
