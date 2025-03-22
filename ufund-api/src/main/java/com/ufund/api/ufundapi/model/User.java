@@ -16,6 +16,7 @@ public class User {
      *
      * @param name the username of the user
      * @param basket the basket associated with the user; if null, a new Basket is created
+     * @param transactionHistory the transactions the user has made.
      */
     public User(@JsonProperty("name") String name, @JsonProperty("basket") Basket basket, @JsonProperty("transactionHistory") Transaction[] transactionHistory) {
         this.name = name;
