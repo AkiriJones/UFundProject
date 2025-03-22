@@ -25,4 +25,40 @@ public class Transaction {
         }
         this.date = new Date();
     }
+
+    /**
+     * Retrieves the ID of a transaction.
+     * @return The id of the transaction.
+     */
+
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Retrieves the needs in a transaction.
+     * @return The array of needs in the transaction.
+     */
+
+    public Need[] getNeeds() {
+        return needs;
+    }
+
+    /**
+     * Retrieves the total cost from a transaction.
+     * @return The total cost of the transaction.
+     */
+
+    public double getTotal() {
+        return total;
+    }
+
+    /**
+     * Retrieves the date a transaction was made.
+     * @return The date the transaction was made.
+     */
+
+    public Date getDate() {
+        return date;
+    }
 }
