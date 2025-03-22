@@ -9,7 +9,7 @@ h1 {
     margin-left: 10px;
 }
 body {
-    background-color: rgb(224, 224, 224);
+    background: linear-gradient(to bottom, rgb(168, 168, 168), rgb(75, 75, 75));
     margin-top: 0;
     margin-left: 0;
     margin-right: 0;
