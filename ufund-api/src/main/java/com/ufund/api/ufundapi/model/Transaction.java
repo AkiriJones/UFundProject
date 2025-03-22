@@ -87,4 +87,17 @@ public class Transaction {
         String string = String.format(STRING_FORMAT,id, needs, total, date);
         return string;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Transaction transaction = (Transaction) obj;
+
+        return this.id == transaction.id &&
+               this.date == transaction.date &&
+               Double.compare(transaction.total, this.total) == 0 &&
+               needs.equals(transaction.needs);
+    }
 }
