@@ -18,5 +18,11 @@ public class Transaction {
      public Transaction(@JsonProperty("id") int id, @JsonProperty("needs") Need[] needs){
         this.id = id;
         this.needs = needs;
+        //init, bool, operator
+        for(int i = 0; i < this.needs.length; i++)
+        {
+            this.total += (needs[i].getCost() * needs[i].getQuantity());
+        }
+        this.date = new Date();
     }
 }
