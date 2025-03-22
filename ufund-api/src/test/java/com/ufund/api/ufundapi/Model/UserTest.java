@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.ufund.api.ufundapi.model.Basket;
+import com.ufund.api.ufundapi.model.Transaction;
 import com.ufund.api.ufundapi.model.User;
 
 @Tag("Model-tier")
