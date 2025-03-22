@@ -45,12 +45,30 @@ public class Transaction {
     }
 
     /**
+     * Sets the needs in a transaction.
+     * @param needs The needs desired to buy.
+     */
+
+    public void setNeeds(Need[] needs) {
+        this.needs = needs;
+    }
+
+    /**
      * Retrieves the total cost from a transaction.
      * @return The total cost of the transaction.
      */
 
     public double getTotal() {
         return total;
+    }
+
+    /**
+     * Sets the total cost of a transaction.
+     * @param total The desired total cost.
+     */
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     /**
