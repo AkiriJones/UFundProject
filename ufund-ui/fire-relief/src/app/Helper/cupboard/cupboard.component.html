@@ -1,44 +1,30 @@
-<head>
-    <meta charset="utf-8">
-    <title>FireRelief - Helper Cupboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <base href="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-  </head>
+<div class="nav-bar">
+    <button (click)="cupboardButton()" class="nav-button">Cupboard</button>
+    <button (click)="basketButton()" class="nav-button">Basket</button>
+</div>
 
-<body>
-    <header>
-        <h1>FireRelief</h1>
-    </header>
+<div *ngIf="displayCupboard" class="cupboard">
 
-    <div class="nav-bar">
-        <button (click)="cupboardButton()" class="nav-button">Cupboard</button>
-        <button (click)="basketButton()" class="nav-button">Basket</button>
+    <h2>Cupboard</h2>
+
+    <div class="search-container">
+        <input type="text" [(ngModel)]="searchTerm" placeholder="Search needs" class="search-bar"/>
     </div>
 
-    <div *ngIf="displayCupboard" class="cupboard">
-
-        <h2>Cupboard</h2>
-
-        <div class="search-container">
-            <input type="text" [(ngModel)]="searchTerm" placeholder="Search needs" class="search-bar"/>
-        </div>
-
-        <ul class="need-list">
-            <li *ngFor="let need of searchNeeds()" class="need-item">
-                <div class="need-container">
-                    <div class="need-header">
-                        <span class="id">{{need.id}}</span>
-                        <span class="name"> - {{need.name}}</span>
-                    </div>
-                    <div class="need-body">
-                        <p class="cost">Cost: ${{need.cost}}</p>
-                        <p class="quantity">Quantity: {{need.quantity}}</p>
-                        <p class="type">Info: {{need.type}}</p>
-                    </div>
+    <ul class="need-list">
+        <li *ngFor="let need of searchNeeds()" class="need-item">
+            <div class="need-container">
+                <div class="need-header">
+                    <span class="id">{{need.id}}</span>
+                    <span class="name"> - {{need.name}}</span>
                 </div>
-            </li>
-        </ul>
-    </div>
-</body>
+                <div class="need-body">
+                    <p class="cost">Cost: ${{need.cost}}</p>
+                    <p class="quantity">Quantity: {{need.quantity}}</p>
+                    <p class="type">Info: {{need.type}}</p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
