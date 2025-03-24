@@ -84,6 +84,8 @@ export class BasketComponent implements OnInit {
     if (!existingItem){
           this.basketService.addToBasket(need);
           this.basketItems.push({need, quantity: 1});
+          console.log(this.needs);
+          console.log(this.allNeeds);
           this.calculateTotalCost();
     }
     else{

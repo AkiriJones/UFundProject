@@ -57,11 +57,14 @@ export class UserService {
      * 
      * @returns Observable that emits the server response or error
      */
-    public updateUser(): Observable<any> {
-        var name = localStorage.getItem("username")
-        var basket = this.user.basket
-        const anotherNewUser : User = {name, basket} as User
-        return this.http.put('http://localhost:8080/users', anotherNewUser, this.httpOptions).pipe(catchError(this.handleError<any>("Returning User")))
+    public updateUser(): Observable<User> {
+        var name = localStorage.getItem("username");
+        console.log(name);
+        var basket = this.user.basket;
+        console.log(basket);
+        const anotherNewUser : User = {name, basket} as User;
+        console.log(anotherNewUser);
+        return this.http.put<User>('http://localhost:8080/users', anotherNewUser, this.httpOptions).pipe(catchError(this.handleError<any>("Returning User")))
     }
 
     /**
