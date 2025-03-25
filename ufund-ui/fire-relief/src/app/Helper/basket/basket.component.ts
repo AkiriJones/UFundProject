@@ -92,6 +92,7 @@ export class BasketComponent implements OnInit {
     else{
       if(existingItem.quantity < need.quantity){ //Can only add up the desired need quantity
         existingItem.quantity++;
+        this.basketService.updateQuantity(need, existingItem.quantity); //fixed bug with quantity not being updated in backend.
         this.calculateTotalCost();
       }
     }
