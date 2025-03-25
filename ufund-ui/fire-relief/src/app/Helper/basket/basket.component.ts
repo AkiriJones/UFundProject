@@ -4,6 +4,7 @@ import { BasketService } from '../../basket.service';
 import { CupboardService } from '../../cupboard.service';
 import { UserService } from '../../user.service';
 import { Router } from '@angular/router';
+import { Transaction } from '../../transaction';
 
 /**
  * Component responsible for managing and displaying the user's basket.
@@ -146,4 +147,11 @@ export class BasketComponent implements OnInit {
   basketButton(): void {
     this.router.navigate(['/basket']);
   }
+
+  /**
+     * Shows transaction history.
+     */
+    transactionHistoryButton(): void {
+        
+    }
 }

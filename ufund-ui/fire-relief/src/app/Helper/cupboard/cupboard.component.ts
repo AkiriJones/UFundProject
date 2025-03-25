@@ -94,11 +94,4 @@ export class CupboardComponent {
     this.router.navigate(['/cupboard']);
     this.displayCupboard = true;
   }
-
-  /**
-   * Shows transaction history.
-   */
-  transactionHistoryButton(): void {
-    
-  }
 }

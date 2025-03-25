@@ -50,5 +50,15 @@
     </div>
     </li>
 </ul>
+
+<!-- Transaction history -->
+<button (click)="transactionHistoryButton()" class="nav-button">Transaction History</button>
+<li *ngFor="let Transaction of searchNeeds()" class="need-item">
+    <section class = "transaction-history-container">
+        <div class="transaction-history-header">
+            <span class="id">{{Transaction.id}}</span>
+        </div>
+    </section>
+</li>
 </div>
 
