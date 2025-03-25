@@ -41,13 +41,14 @@ export class BasketComponent implements OnInit {
    */
   ngOnInit(): void {
     const username = localStorage.getItem("username");
-
+    console.log(username);
     if(username) {
       this.userService.getUser(username).subscribe(user => {
         this.userService.user = user;
-
+        console.log("USER" + this.userService.user);
       this.cupboardService.getNeedsFromBasket().subscribe(needs => {
         this.basketItems = needs;
+        console.log("BASKET!!!" + this.basketItems);
         this.calculateTotalCost();
       });
       });
@@ -98,7 +99,7 @@ export class BasketComponent implements OnInit {
   /**
    * Checks out the current Helper's basket
    */
-  Checkout(): void{
+  checkout(): void{
     this.basketItems.forEach(element =>{
       const needContents : Need = {
         id: element.need.id,
