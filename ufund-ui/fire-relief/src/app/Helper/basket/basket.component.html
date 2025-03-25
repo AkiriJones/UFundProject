@@ -53,15 +53,15 @@
 
 <!-- Transaction history -->
 <button (click)="transactionHistoryButton()" class="nav-button">Transaction History</button>
-<li *ngFor="let Transaction of searchNeeds()" class="need-item">
+<li *ngFor="let transaction of transactionHistoryButton()" class="transaction-item">
     <section class = "transaction-history-container">
         <div class="transaction-history-header">
-            <span class="id">{{Transaction.id}}</span>
+            <span class="id">{{transaction.id}}</span>
         </div>
         <div class="transaction-body">
-          <!-- <p class="needs">Needs: {{ Transaction.needs }}</p>
-          <p class="total">Total: ${{ Transaction.total }}</p>
-          <p class="date">Date: {{ Transaction.date }}</p> -->
+          <p class="needs">Needs: {{ transaction.needs }}</p>
+          <p class="total">Total: ${{ transaction.total }}</p>
+          <p class="date">Date: {{ transaction.date }}</p>
         </div>
     </section>
 </li>

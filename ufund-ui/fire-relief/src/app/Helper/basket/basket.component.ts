@@ -21,6 +21,8 @@ export class BasketComponent implements OnInit {
   needs: Need[] = [];
   allNeeds: Need[] = [];
   totalCost: number = 0
+
+  transactionHistory: Transaction[] = [];
   /**
    * Constructs the BasketComponent.
    * 
@@ -151,7 +153,7 @@ export class BasketComponent implements OnInit {
   /**
      * Shows transaction history.
      */
-    transactionHistoryButton(): void {
-        
+    transactionHistoryButton(): Transaction[] {
+      return this.transactionHistory;
     }
 }
