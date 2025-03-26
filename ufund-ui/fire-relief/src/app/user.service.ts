@@ -46,6 +46,7 @@ export class UserService {
     public addUser(username: string) {
         var basket = new Basket()
         var name = username
+        // var transactionHistory = new Transaction[]
         const newUser : User = {name, basket} as User
 
         return this.http.post<User[]>('http://localhost:8080/users', newUser, this.httpOptions)
@@ -81,6 +82,16 @@ export class UserService {
     public getUserBasket() {
         return this.user.basket.items
     }
+
+    /**
+     * Retrieves items from the current user's transaction history
+     * 
+     * @returns Items in the user's transaction history
+     */
+
+    // public getUserTransactionHistory() {
+    //     return this.user
+    // }
 
     /**
      * Handles HTTP request errors

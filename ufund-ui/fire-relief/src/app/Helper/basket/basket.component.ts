@@ -21,8 +21,6 @@ export class BasketComponent implements OnInit {
   needs: Need[] = [];
   allNeeds: Need[] = [];
   totalCost: number = 0
-
-  transactionHistory: Transaction[] = [];
   /**
    * Constructs the BasketComponent.
    * 

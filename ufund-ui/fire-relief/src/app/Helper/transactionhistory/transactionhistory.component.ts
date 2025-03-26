@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Need } from '../../need';
-import { BasketService } from '../../transactionhistory.service';
 import { CupboardService } from '../../cupboard.service';
 import { UserService } from '../../user.service';
 import { Router } from '@angular/router';
 import { Transaction } from '../../transaction';
+import { TransactionHistoryService } from '../../transactionhistory.service';
 
 /**
  * Component responsible for managing and displaying the user's basket.
@@ -15,25 +15,20 @@ import { Transaction } from '../../transaction';
   templateUrl: './transactionhistory.component.html',
   styleUrl: './transactionhistory.component.css'
 })
-export class BasketComponent implements OnInit {
-  basketItems: { need: Need, quantity: number }[] = []
+export class TransactionHistoryComponent implements OnInit {
+  transactionHistoryItems: { id: number, needs: Array<Need>,  total: number, date: string }[] = []
+  
+  allTransactions: Transaction[] = [];
   searchTerm: string = '';
-  needs: Need[] = [];
-  allNeeds: Need[] = [];
-  totalCost: number = 0
-
-  transactionHistory: Transaction[] = [];
   /**
    * Constructs the BasketComponent.
    * 
-   * @param basketService Service for managing basket operations.
-   * @param cupboardService Service for retrieving cupboard data.
+   * @param transactionHistoryService Service for managing transaction history operations.
    * @param userService Service for managing user data.
    * @param router Servuce to handle navigation.
    */
   constructor(
-    private basketService: BasketService,
-    private cupboardService: CupboardService,
+    private transactionHistoryService: TransactionHistoryService,
     private userService: UserService,
     private router: Router
   ) {}
@@ -49,15 +44,15 @@ export class BasketComponent implements OnInit {
       this.userService.getUser(username).subscribe(user => {
         this.userService.user = user;
 
-      this.cupboardService.getNeedsFromBasket().subscribe(needs => {
-        this.basketItems = needs;
+      this.userService.getUserTransactionHistory().subscribe(transactionHistory => {
+        this.transactionHistoryItems = transactionHistory;
         this.calculateTotalCost();
       });
       });
 
-      this.cupboardService.getCupboard().subscribe(needs => {
-        console.log('All Needs:', needs);
-        this.allNeeds = needs;
+      this.transactionHistoryService.getTransactions().subscribe(transactionHistory => {
+        console.log('All Transactions:', transactionHistory);
+        this.allTransactions = transactionHistory;
       });
     }
     else {
