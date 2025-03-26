@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.*;
 
+
 /**
  * Represents a User in the system.
  */
@@ -11,7 +12,7 @@ public class User {
 
     @JsonProperty("name") String name;
     @JsonProperty("basket") Basket basket;
-    @JsonProperty("transactionHistory") Transaction[] transactionHistory;
+    @JsonProperty("transactionHistory") ArrayList<Transaction> transactionHistory;
 
     /**
      * Constructs a User with the specified username and basket.
@@ -22,7 +23,7 @@ public class User {
     public User(@JsonProperty("name") String name, @JsonProperty("basket") Basket basket) {
         this.name = name;
         this.basket = basket;
-        this.transactionHistory = new Transaction[1];
+        this.transactionHistory = new ArrayList<Transaction>();
 
         if(basket == null) {
             this.basket = new Basket();
@@ -52,7 +53,7 @@ public class User {
      *
      * @return the user's transaction history.
      */
-    public Transaction[] getTransactionHistory() {
+    public ArrayList<Transaction> getTransactionHistory() {
         return transactionHistory;
     }
 }
