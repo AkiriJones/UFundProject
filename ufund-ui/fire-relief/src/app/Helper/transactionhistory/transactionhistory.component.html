@@ -1,0 +1,69 @@
+<head>
+  <meta charset="utf-8">
+  <title>FireRelief - Helper Transaction History</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="basket.component.css" rel="stylesheet">
+</head>
+
+<div class="nav-bar">
+    <button (click)="cupboardButton()" class="nav-button">Cupboard</button>
+    <button (click)="basketButton()" class="nav-button">Basket</button>
+</div>
+
+<div *ngIf="basketItems.length > 0; else emptyBasket">
+    <h2>Transaction History</h2>
+    <ul>
+        <li *ngFor="let item of basketItems">
+          {{ item.need.name }} - Quantity: {{ item.quantity }}
+          <button (click)="removeFromBasket(item.need)" class="remove-button">Remove</button>
+        </li>
+        
+      </ul>
+      <p>Total Cost: ${{ totalCost.toFixed(2) }}</p>
+    <button (click)="Checkout()" class="checkout-button">Checkout</button>
+</div>
+
+<ng-template #emptyTransactionHistory>
+    <p>You have not made any transactions.</p>
+  </ng-template>
+<div>
+<h2>Add Need</h2>
+<div class="search-container">
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Search needs" class="search-bar" />
+</div>
+
+<ul class="need-list">
+    <li *ngFor="let need of searchNeeds()" class="need-item">
+    <div class="need-container">
+        <div class="need-header">
+        <span class="id">{{ need.id }}</span>
+        <span class="name"> - {{ need.name }}</span>
+        </div>
+        <div class="need-body">
+        <p class="cost">Cost: ${{ need.cost }}</p>
+        <p class="quantity">Quantity: {{ need.quantity }}</p>
+        <p class="type">Info: {{ need.type }}</p>
+        <button (click)="addToBasket(need)" class="add-button">Add</button>
+        </div>
+    </div>
+    </li>
+</ul>
+
+<!-- Transaction history -->
+<button (click)="transactionHistoryButton()" class="nav-button">Transaction History</button>
+<li *ngFor="let transaction of transactionHistoryButton()" class="transaction-item">
+    <section class = "transaction-history-container">
+        <div class="transaction-history-header">
+            <span class="id">{{transaction.id}}</span>
+        </div>
+        <div class="transaction-body">
+          <p class="needs">Needs: {{ transaction.needs }}</p>
+          <p class="total">Total: ${{ transaction.total }}</p>
+          <p class="date">Date: {{ transaction.date }}</p>
+        </div>
+    </section>
+</li>
+</div>
+
