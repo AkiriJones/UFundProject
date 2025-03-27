@@ -32,7 +32,7 @@ public class UserControllerTest {
     @Test
     public void testGetUser() {
         assertNotNull(userController);
-        when(userDao.getUser("User1")).thenReturn(new User("User1", null));
+        when(userDao.getUser("User1")).thenReturn(new User("User1", null,null));
         when(userDao.getUser("User2")).thenReturn(null);
 
         ResponseEntity<User> response = userController.getUser("User1");
@@ -57,7 +57,7 @@ public class UserControllerTest {
     @Test
     public void testCreateUser() {
         assertNotNull(userController);
-        User user = new User("User", null);
+        User user = new User("User", null, null);
 
         try {
             when(userDao.createUser(user)).thenReturn(user);
@@ -75,7 +75,7 @@ public class UserControllerTest {
     @Test
     public void testUpdateUser() {
         assertNotNull(userController);
-        User user = new User("User", null);
+        User user = new User("User", null, null);
         try {
             when(userDao.updateUser(user)).thenReturn(user);
             when(userDao.updateUser(null)).thenThrow(new IOException());

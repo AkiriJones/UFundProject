@@ -30,8 +30,8 @@ public class UserFileDAOTest {
         mapper = mock(ObjectMapper.class);
         users = new User[2];
 
-        users[0] = new User("User1", new Basket());
-        users[1] = new User("User2", new Basket());
+        users[0] = new User("User1", new Basket(), null);
+        users[1] = new User("User2", new Basket(), null);
 
         when(mapper.readValue(new File("file.txt"), User[].class)).thenReturn(users);
         userDao = new UserFileDAO("file.txt", mapper);
@@ -49,7 +49,7 @@ public class UserFileDAOTest {
 
     @Test
     public void testCreateUser() {
-        User user = new User("User3", new Basket());
+        User user = new User("User3", new Basket(), null);
         User created = assertDoesNotThrow(() -> userDao.createUser(user), "Exception thrown");
 
         assertNotNull(created);
@@ -61,7 +61,7 @@ public class UserFileDAOTest {
 
     @Test
     public void testUpdateUser() {
-        User user = new User("User1", new Basket());
+        User user = new User("User1", new Basket(), null);
 
         User updated = assertDoesNotThrow(() -> userDao.updateUser(user), "Exception thrown");
 
@@ -73,7 +73,7 @@ public class UserFileDAOTest {
 
     @Test
     public void testUpdateNonExistantUser() {
-        User user = new User("User98", new Basket());
+        User user = new User("User98", new Basket(), null);
         User updated = assertDoesNotThrow(() -> userDao.updateUser(user), "Exception thrown");
 
         assertNull(updated);

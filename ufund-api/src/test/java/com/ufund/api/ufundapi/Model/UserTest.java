@@ -17,7 +17,7 @@ public class UserTest {
     
     @BeforeEach
     public void setUp() {
-        user = new User("User1", new Basket());
+        user = new User("User1", new Basket(), null);
     }
 
     @Test
@@ -32,7 +32,7 @@ public class UserTest {
 
     @Test
     public void testNullBasket() {
-        User user = new User("User2", null);
+        User user = new User("User2", null, null);
         assertNotNull(user.getBasket());
     }
 }
