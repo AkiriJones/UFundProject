@@ -38,9 +38,9 @@ public class CupboardFileDAOTest {
         mockObjectMapper = mock(ObjectMapper.class);
 
         testNeeds = new Need[3];
-        testNeeds[0] = new Need(1,"Sugar",5.0,9,"Food");
-        testNeeds[1] = new Need(2,"Bread",7.0,8,"Food");
-        testNeeds[2] = new Need(3,"Shoes",12.0,3,"Clothing");
+        testNeeds[0] = new Need(1,"Sugar",5.0,9,"Food", "Los Angeles");
+        testNeeds[1] = new Need(2,"Bread",7.0,8,"Food", "Los Angeles");
+        testNeeds[2] = new Need(3,"Shoes",12.0,3,"Clothing", "Los Angeles");
 
         when(mockObjectMapper
                 .readValue(new File("irrelevant.txt"), Need[].class))
@@ -56,7 +56,7 @@ public class CupboardFileDAOTest {
     @Test
     public void testCreateNeed() throws IOException {
         //Setup
-        Need newNeed = new Need(4, "Shirt", 10.0, 5, "Clothing");
+        Need newNeed = new Need(4, "Shirt", 10.0, 5, "Clothing", "Los Angeles");
         doNothing().when(mockObjectMapper).writeValue(any(File.class), any(Need[].class));
 
         //Invoke
@@ -77,7 +77,7 @@ public class CupboardFileDAOTest {
     @Test
     public void testUpdateNeed() throws IOException {
         //Setup
-        Need updatedNeed = new Need(2, "Bread", 8.0, 10, "Food");
+        Need updatedNeed = new Need(2, "Bread", 8.0, 10, "Food", "Los Angeles");
         doNothing().when(mockObjectMapper).writeValue(any(File.class), any(Need[].class));
         
         //Invoke
@@ -112,7 +112,7 @@ public class CupboardFileDAOTest {
     public void testSaveException() throws IOException {
         doThrow(new IOException()).when(mockObjectMapper).writeValue(any(File.class),any(Need[].class));
 
-        Need need = new Need(4,"Shampoo",10.0,8,"Hygeine");
+        Need need = new Need(4,"Shampoo",10.0,8,"Hygeine", "Los Angeles");
 
         assertThrows(IOException.class, () -> cupboardFileDAO.createNeed(need),"IOException not thrown");
 
