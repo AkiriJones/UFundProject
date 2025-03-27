@@ -1,1 +1,50 @@
-[{"name":"Gabe","basket":{"items":[]},"username":"Gabe"},{"name":"admin","basket":{"items":[]},"username":"admin"},{"name":"asf","basket":{"items":[]},"username":"asf"},{"name":"cindy","basket":{"items":[]},"username":"cindy"},{"name":"gabe","basket":{"items":[]},"username":"gabe"}]
+[
+    {
+        "name": "Gabe",
+        "basket": {
+            "items": []
+        },
+        "username": "Gabe",
+        "transactionHistory": []
+    },
+    {
+        "name": "admin",
+        "basket": {
+            "items": []
+        },
+        "username": "admin",
+        "transactionHistory": []
+    },
+    {
+        "name": "asf",
+        "basket": {
+            "items": []
+        },
+        "username": "asf",
+        "transactionHistory": []
+    },
+    {
+        "name": "cindy",
+        "basket": {
+            "items": []
+        },
+        "username": "cindy",
+        "transactionHistory": []
+    },
+    {
+        "name": "elBicho",
+        "basket": {
+            "items": []
+        },
+        "username": "elBicho",
+        "transactionHistory": []
+    },
+    {
+        "name": "gabe",
+        "basket": {
+            "items": []
+        },
+        "username": "gabe",
+        "transactionHistory": []
+    }
+]

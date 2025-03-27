@@ -57,6 +57,7 @@ public class UserFileDAOTest {
         User actual = userDao.getUser("User3");
         assertEquals(created.getUsername(), actual.getUsername());
         assertEquals(created.getBasket(), actual.getBasket());
+        assertEquals(created.getTransactionHistory(), actual.getTransactionHistory());
     }
 
     @Test

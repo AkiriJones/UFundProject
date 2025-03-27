@@ -12,7 +12,7 @@ public class User {
 
     @JsonProperty("name") String name;
     @JsonProperty("basket") Basket basket;
-    @JsonProperty("transactionHistory") ArrayList<Transaction> transactionHistory;
+    @JsonProperty("tHistory") ArrayList<Transaction> tHistory;
 
     /**
      * Constructs a User with the specified username and basket.
@@ -23,10 +23,13 @@ public class User {
     public User(@JsonProperty("name") String name, @JsonProperty("basket") Basket basket, @JsonProperty("tHistory") ArrayList<Transaction>tHistory) {
         this.name = name;
         this.basket = basket;
-        this.transactionHistory = tHistory;
+        this.tHistory = tHistory;
 
         if(basket == null) {
             this.basket = new Basket();
+        }
+        if(tHistory == null) {
+            this.tHistory = new ArrayList<Transaction>();
         }
     }
 
@@ -54,6 +57,6 @@ public class User {
      * @return the user's transaction history.
      */
     public ArrayList<Transaction> getTransactionHistory() {
-        return transactionHistory;
+        return tHistory;
     }
 }
