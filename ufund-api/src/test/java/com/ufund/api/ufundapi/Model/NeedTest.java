@@ -173,7 +173,7 @@ public class NeedTest {
         double cost = 5.0;
         String type = "Physical";
         String location = "Los Angeles";
-        Need need = new Need(id, name, cost, quantity, type, "Los Angeles");
+        Need need = new Need(id, name, cost, quantity, type, location);
         double expected = 2.0;
 
         // invoke
@@ -192,7 +192,7 @@ public class NeedTest {
         double cost = 5.0;
         String type = "Physical";
         String location = "Los Angeles";
-        Need need = new Need(id, name, cost, quantity, type, "Los Angeles");
+        Need need = new Need(id, name, cost, quantity, type, location);
         int expected = 7;
 
         // invoke
@@ -220,5 +220,22 @@ public class NeedTest {
         // analyze
         assertEquals(need.getType(), expected);
     }
+
+    /**
+     * 
+     */
+    @Test
+    void testGetLocation(){
+        //
+    }
+
+    /**
+     * 
+     */
+    @Test
+    void testSetLocation(){
+        //
+    }
+
 
 }
