@@ -11,12 +11,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Need {
     private static final Logger LOG = Logger.getLogger(Need.class.getName());
 
-    public static final String STRING_FORMAT = "Need [id=%d, name=%s, cost=%.2f, quantity=%d, type=%s]";
+    public static final String STRING_FORMAT = "Need [id=%d, name=%s, cost=%.2f, quantity=%d, type=%s, location=%s]";
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
     @JsonProperty("cost") private double cost;
     @JsonProperty("quantity")private int quantity;
     @JsonProperty("type") private String type;
+    @JsonProperty("location") private String location;
     /**
      * Create a Need with a given name
      * @param id the id of a need
@@ -24,13 +25,15 @@ public class Need {
      * @param cost The cost of the need
      * @param quantity The amount of said need present 
      * @param type The type of need
+     * @param location Where the need will be
      */
-    public Need(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("cost") double cost, @JsonProperty("quantity") int quantity, @JsonProperty("type") String type){
+    public Need(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("cost") double cost, @JsonProperty("quantity") int quantity, @JsonProperty("type") String type, @JsonProperty("location") String location){
         this.id = id;
         this.name = name;
         this.cost = cost;
         this.quantity = quantity;
         this.type = type;
+        this.location = location;
     }
 
     /**
@@ -71,7 +74,19 @@ public class Need {
      * @param quantity The quantity of the need
      */
     public void setQuantity(int quantity) {this.quantity = quantity;}
-    
+   
+    /**
+     * Returns the location of the need
+     * @param location Where the need is located
+     * @return
+     */
+    public String getLocation(String location) {return location;}
+
+    /**
+     * Sets the location of the need
+     * @param location Where the need is located
+     */
+    public void setLocation(String location){this.location = location;}
 
     // ENUM MUST BE IMPLEMENTED IN THE FUTURE FOR ENHANCMENTS. (Monetary, Physical)
     public String getType() {return type;}
