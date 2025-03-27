@@ -80,7 +80,7 @@ public class Need {
      * @param location Where the need is located
      * @return
      */
-    public String getLocation(String location) {return location;}
+    public String getLocation() {return location;}
 
     /**
      * Sets the location of the need
