@@ -1,22 +1,16 @@
 package com.ufund.api.ufundapi.Controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.ResponseEntity;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
-import java.io.IOException;
-
-import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import com.ufund.api.ufundapi.controller.CupboardController;
 import com.ufund.api.ufundapi.model.Need;
@@ -39,7 +33,7 @@ public class CupboardControllerTest {
 	@Test
 	void testGetNeed() throws IOException {
 		//setup
-		Need need = new Need(12, "Sugar", 10.00, 100, "Food");
+		Need need = new Need(12, "Sugar", 10.00, 100, "Food", "Los Angeles");
 		// When the same id is passed in, our mock Cupboard DAO will return the Need object
         when(mockCupboardDAO.getNeed(need.getId())).thenReturn(need);
 		//invoke
@@ -92,8 +86,8 @@ public class CupboardControllerTest {
     public void testGetNeeds() throws IOException { // getNeeds may throw IOException
         // Setup
         Need[] needs = new Need[2];
-        needs[0] = new Need(12, "Sugar", 10.00, 100, "Food");
-        needs[1] = new Need(13, "Bread", 15.00, 100, "Food");
+        needs[0] = new Need(12, "Sugar", 10.00, 100, "Food", "Los Angeles");
+        needs[1] = new Need(13, "Bread", 15.00, 100, "Food", "Los Angeles");
         // When getNeeds is called return the needs created above
         when(mockCupboardDAO.getNeeds()).thenReturn(needs);
 
@@ -166,7 +160,7 @@ public class CupboardControllerTest {
     @Test
     public void testUpdateNeed() throws IOException {
         // setup
-        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine");
+        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine", "Los Angeles");
 
         when(mockCupboardDAO.updateNeed(need)).thenReturn(need);
         ResponseEntity<Need> response = cupboardController.updateNeed(12,need);
@@ -183,7 +177,7 @@ public class CupboardControllerTest {
     @Test
     public void testUpdateHeroFailed() throws IOException { 
         // Setup
-        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine");
+        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine", "Los Angeles");
 
         when(mockCupboardDAO.updateNeed(need)).thenReturn(null);
 
@@ -197,7 +191,7 @@ public class CupboardControllerTest {
     @Test
     public void testUpdateNeedHandleException() throws IOException { 
         // Setup
-        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine");
+        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine", "Los Angeles");
 
         doThrow(new IOException()).when(mockCupboardDAO).updateNeed(need);
 
@@ -211,7 +205,7 @@ public class CupboardControllerTest {
     @Test
     public void testCreateNeed() throws IOException {
         // setup
-        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine");
+        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine", "Los Angeles");
 
         when(mockCupboardDAO.createNeed(need)).thenReturn(need);
 
@@ -226,7 +220,7 @@ public class CupboardControllerTest {
     @Test
     public void testCreateNeedFailed() throws IOException {
         // Setup
-        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine");
+        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine", "Los Angeles");
 
         when(mockCupboardDAO.createNeed(need)).thenReturn(null);
 
@@ -240,7 +234,7 @@ public class CupboardControllerTest {
     @Test
     public void testCreateNeedHandleException() throws IOException {  
         // Setup
-        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine");
+        Need need = new Need(12, "Shampoo", 3.0, 5, "Hygeine", "Los Angeles");
 
         doThrow(new IOException()).when(mockCupboardDAO).createNeed(need);
 
@@ -257,8 +251,8 @@ public class CupboardControllerTest {
         // setup
         String searchTerm = "sh";
         Need[] needs = new Need[2];
-        needs[0] = new Need(12, "Shampoo", 3.0, 3, "Hygeine");
-        needs[0] = new Need(12, "Shark", 3.0, 3, "Creature");
+        needs[0] = new Need(12, "Shampoo", 3.0, 3, "Hygeine", "Los Angeles");
+        needs[0] = new Need(12, "Shark", 3.0, 3, "Creature", "Los Angeles");
 
         when(mockCupboardDAO.findNeeds(searchTerm)).thenReturn(needs);
 
