@@ -5,7 +5,7 @@
             "items": []
         },
         "username": "Gabe",
-        "transactionHistory": []
+        "tHistory": []
     },
     {
         "name": "admin",
@@ -13,7 +13,7 @@
             "items": []
         },
         "username": "admin",
-        "transactionHistory": []
+        "tHistory": []
     },
     {
         "name": "asf",
@@ -21,7 +21,7 @@
             "items": []
         },
         "username": "asf",
-        "transactionHistory": []
+        "tHistory": []
     },
     {
         "name": "cindy",
@@ -29,7 +29,7 @@
             "items": []
         },
         "username": "cindy",
-        "transactionHistory": []
+        "tHistory": []
     },
     {
         "name": "elBicho",
@@ -37,7 +37,7 @@
             "items": []
         },
         "username": "elBicho",
-        "transactionHistory": []
+        "tHistory": []
     },
     {
         "name": "gabe",
@@ -45,6 +45,6 @@
             "items": []
         },
         "username": "gabe",
-        "transactionHistory": []
+        "tHistory": []
     }
 ]
