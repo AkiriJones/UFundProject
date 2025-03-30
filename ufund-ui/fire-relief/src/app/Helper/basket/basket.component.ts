@@ -4,6 +4,7 @@ import { BasketService } from '../../basket.service';
 import { CupboardService } from '../../cupboard.service';
 import { UserService } from '../../user.service';
 import { Router } from '@angular/router';
+import { Console } from 'node:console';
 
 /**
  * Component responsible for managing and displaying the user's basket.
@@ -83,19 +84,31 @@ export class BasketComponent implements OnInit {
   addToBasket(need: Need): void {
     const existingItem = this.basketItems.find(item => item.need.id === need.id);
     if (!existingItem){
-          this.basketService.addToBasket(need);
-          this.basketItems.push({need, quantity: 1});
-          console.log(this.needs);
-          console.log(this.allNeeds);
-          this.calculateTotalCost();
+      if( need.quantity > 0){
+            console.log("Nothing wrong with the quantity..")
+            this.basketService.addToBasket(need);
+            this.basketItems.push({need, quantity: 1});
+            console.log(this.needs);
+            console.log(this.allNeeds);
+            this.calculateTotalCost();
+      }
+      else{
+        console.log("Not enough stock.")
+      }
+  }
+  else{
+    if(existingItem.quantity+1 <= need.quantity){ //Can only add up the desired need quantity
+      existingItem.quantity++;
+      this.basketService.updateQuantity(need, existingItem.quantity); //fixed bug with quantity not being updated in backend.
+      this.calculateTotalCost();
     }
     else{
-      if(existingItem.quantity < need.quantity){ //Can only add up the desired need quantity
-        existingItem.quantity++;
-        this.basketService.updateQuantity(need, existingItem.quantity); //fixed bug with quantity not being updated in backend.
-        this.calculateTotalCost();
-      }
+      console.log("Cannot add more than stock available.");
+      
     }
+  }
+  
+
   }
   /**
    * Checks out the current Helper's basket
@@ -129,10 +142,12 @@ export class BasketComponent implements OnInit {
     if (existingItem){
       if(existingItem.quantity - 1 == 0){
         this.basketItems = this.basketItems.filter(item => item.need.id !== need.id);
-        this.basketService.removeFromBasket(need);    
+        this.basketService.removeFromBasket(need);  
+        this.calculateTotalCost()  
       }
       else{
         existingItem.quantity--;
+        this.calculateTotalCost()
       }
     }
 
