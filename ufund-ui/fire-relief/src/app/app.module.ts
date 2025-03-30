@@ -9,6 +9,7 @@ import { ManagerCupboardComponent } from './Manager/manager-cupboard/manager-cup
 import { CupboardComponent } from './Helper/cupboard/cupboard.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { TransactionHistoryComponent } from './Helper/transactionhistory/transactionhistory.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     BasketComponent,
     ManagerCupboardComponent,
-    CupboardComponent
+    CupboardComponent,
+    TransactionHistoryComponent
   ],
   imports: [
     BrowserModule,
