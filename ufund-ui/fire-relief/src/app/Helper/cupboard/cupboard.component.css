@@ -1,8 +1,8 @@
-header {
+/*header {
     display: flex;
     margin: 0;
     margin-left: 0px;
-    /* height: 35vh; */
+    
     background: linear-gradient(to bottom, rgb(255, 153, 0), rgb(255, 94, 0));
 }
 h1 {
@@ -26,7 +26,7 @@ info {
 
 login {
     background: linear-gradient(to bottom, rgb(255, 153, 0), rgb(255, 94, 0));
-    /* Margins */
+   
     padding: 10px 60px 30px 60px;
 
     border-radius: 10px;
@@ -34,7 +34,6 @@ login {
     text-align: center;
     font-size: larger;
 
-    position: fixed; /* or absolute */
     top: 30%;
     left: 40%;
 }
@@ -42,7 +41,7 @@ login {
 button {
     background: linear-gradient(to bottom, rgb(40, 40, 40), rgb(0, 0, 0));
     color: rgb(255, 94, 0);
-    /* Margins */
+    
     padding: 10px 30px 10px 30px;
 
     border-radius: 10px;
@@ -52,7 +51,7 @@ button {
 div {
     text-align: center;
 
-    position: fixed; /* or absolute */
+    position: fixed;
     top: 30%;
     left: 35%;
-}
+}*/
