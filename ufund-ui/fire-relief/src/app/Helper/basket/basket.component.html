@@ -1,12 +1,3 @@
-<head>
-  <meta charset="utf-8">
-  <title>FireRelief - Helper Basket</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link href="basket.component.css" rel="stylesheet">
-</head>
-
 <div class="nav-bar">
     <button (click)="cupboardButton()" class="nav-button">Cupboard</button>
     <button (click)="basketButton()" class="nav-button">Basket</button>
@@ -51,19 +42,4 @@
     </li>
 </ul>
 
-<!-- Transaction history -->
-<button (click)="transactionHistoryButton()" class="nav-button">Transaction History</button>
-<li *ngFor="let transaction of transactionHistoryButton()" class="transaction-item">
-    <section class = "transaction-history-container">
-        <div class="transaction-history-header">
-            <span class="id">{{transaction.id}}</span>
-        </div>
-        <div class="transaction-body">
-          <p class="needs">Needs: {{ transaction.needs }}</p>
-          <p class="total">Total: ${{ transaction.total }}</p>
-          <p class="date">Date: {{ transaction.date }}</p>
-        </div>
-    </section>
-</li>
-</div>
 

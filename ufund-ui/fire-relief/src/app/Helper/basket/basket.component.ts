@@ -147,11 +147,4 @@ export class BasketComponent implements OnInit {
   basketButton(): void {
     this.router.navigate(['/basket']);
   }
-
-  /**
-     * Shows transaction history.
-     */
-    transactionHistoryButton(): Transaction[] {
-      return this.transactionHistory;
-    }
 }
