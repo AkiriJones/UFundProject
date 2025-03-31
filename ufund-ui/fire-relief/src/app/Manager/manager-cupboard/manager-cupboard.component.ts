@@ -59,11 +59,13 @@ export class ManagerCupboardComponent implements OnInit {
    * @param cost cost of the need to be added.
    * @param quantity quantity of the need to be added.
    * @param type type of the need to be added.
+   * @param location location of the need
    */
-  addNeed(name: string, cost: number, quantity: number, type: string): void {
+  addNeed(name: string, cost: number, quantity: number, type: string, location: string): void {
     name = name.trim();
     type = type.trim();
-    if(!name || !type || cost <= 0 || quantity <= 0) {
+    location = location.trim();
+    if(!name || !type || cost <= 0 || quantity <= 0 || !location) {
       return;
     }
 
@@ -72,7 +74,8 @@ export class ManagerCupboardComponent implements OnInit {
       name: name,
       cost: cost,
       quantity: quantity,
-      type: type
+      type: type,
+      location: location
     };
 
     this.cupboardService.addNeed(newNeed).subscribe((addedNeed) => {

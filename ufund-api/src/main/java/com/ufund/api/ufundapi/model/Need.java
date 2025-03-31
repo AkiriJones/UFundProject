@@ -78,7 +78,7 @@ public class Need {
     /**
      * Returns the location of the need
      * @param location Where the need is located
-     * @return
+     * @return The location of the need
      */
     public String getLocation() {return location;}
 
@@ -94,7 +94,7 @@ public class Need {
 
     @Override
     public String toString(){
-        return String.format(STRING_FORMAT,id, name,cost,quantity,type);
+        return String.format(STRING_FORMAT,id, name,cost,quantity,type,location);
     }
 
     @Override
@@ -106,6 +106,7 @@ public class Need {
                this.quantity == need.quantity &&
                Double.compare(need.cost, this.cost) == 0 &&
                name.equals(need.name) &&
-               type.equals(need.type);
+               type.equals(need.type) &&
+               location.equals(need.location);
     }
 }
