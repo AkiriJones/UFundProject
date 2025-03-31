@@ -136,49 +136,6 @@ export class CupboardComponent {
   }
 
   /**
-   * Generates a dynamic list of unique need types based on the existing needs.
-   * If no valid types are found, only "All" is retained.
-   * Ensures `selectedType` remains valid after updating the list.
-   * 
-   * @returns {void}
-   */
-  dynamicNeedTypeList(): void {
-    const typeSet = new Set<string>();
-
-    this.needs.forEach(need => {
-      if (need.type && need.type.trim() !== '') {
-        typeSet.add(need.type.trim());
-      }
-    });
-
-    this.needTypes = ['All', ...Array.from(typeSet)];
-
-    if (this.needTypes.length === 1) {
-      this.needTypes = ['All'];
-    }
-
-    if (this.selectedType !== 'All' && !this.needTypes.includes(this.selectedType)) {
-      this.selectedType = 'All';
-    }
-  }
-  
-  /**
-   * Filters the list of needs based on the selected type and search term.
-   * If  the selectedType is "All", all needs are included.
-   * If a searchTerm is provided, filters needs whose names contain the type.
-   * 
-   * @returns {void}
-   */
-filterNeeds(): void {
-    this.filteredNeeds = this.needs.filter(need => {
-      const matchesType = this.selectedType === 'All' || need.type === this.selectedType;
-      const matchesSearch = this.searchTerm === '' || need.name.toLowerCase().includes(this.searchTerm.toLowerCase());
-      
-      return matchesType && matchesSearch;
-    });
-  }
-
-  /**
    * Adds a need to the basket
    * 
    * @param need The need object being added to the basket.
@@ -215,12 +172,12 @@ filterNeeds(): void {
   }
   }
 
-    /**
+  /**
    * Calculates the current total cost of the Helper's Basket.
    */
-    calculateTotalCost(): void {
-      this.totalCost = this.basketItems.reduce((sum, item) => sum + (item.need.cost * item.quantity), 0);
-    }
+  calculateTotalCost(): void {
+    this.totalCost = this.basketItems.reduce((sum, item) => sum + (item.need.cost * item.quantity), 0);
+  }
 
   /**
    * Navigates to basket.
@@ -247,6 +204,6 @@ filterNeeds(): void {
 
   logoutButton(): void {
     this.router.navigate(['/login']);
-}
+  }
 
 }
