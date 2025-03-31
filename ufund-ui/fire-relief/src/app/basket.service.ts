@@ -34,7 +34,11 @@ export class BasketService {
             newBasket.push([this.basket[i].need.id, this.basket[i].quantity])
         }
         this.userService.user.basket.items = newBasket
-        this.userService.updateUser();
+        this.userService.updateUser().subscribe({
+            next: (response) => console.log("User updated successfully:", response),
+            error: (err) => console.error("Error updating user:", err)
+        });
+        /*console.log("zip-zap-zop");*/
     }
 
     /**

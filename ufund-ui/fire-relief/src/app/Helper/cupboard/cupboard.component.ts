@@ -29,6 +29,7 @@ export class CupboardComponent {
   needTypes: string[] = ['All'];
   needLocations: string[] = ['All'];
 
+
   /**
    * Constructs the CupboardComponent.
    * 
@@ -49,6 +50,7 @@ export class CupboardComponent {
    */
 
   ngOnInit(): void {
+    const username = localStorage.getItem("username")
     this.cupboardService.getCupboard().subscribe((needs: Need[]) => {
         this.needs = needs;
         this.filteredNeeds = [...this.needs];
@@ -134,13 +136,91 @@ export class CupboardComponent {
   }
 
   /**
+   * Generates a dynamic list of unique need types based on the existing needs.
+   * If no valid types are found, only "All" is retained.
+   * Ensures `selectedType` remains valid after updating the list.
+   * 
+   * @returns {void}
+   */
+  dynamicNeedTypeList(): void {
+    const typeSet = new Set<string>();
+
+    this.needs.forEach(need => {
+      if (need.type && need.type.trim() !== '') {
+        typeSet.add(need.type.trim());
+      }
+    });
+
+    this.needTypes = ['All', ...Array.from(typeSet)];
+
+    if (this.needTypes.length === 1) {
+      this.needTypes = ['All'];
+    }
+
+    if (this.selectedType !== 'All' && !this.needTypes.includes(this.selectedType)) {
+      this.selectedType = 'All';
+    }
+  }
+  
+  /**
+   * Filters the list of needs based on the selected type and search term.
+   * If  the selectedType is "All", all needs are included.
+   * If a searchTerm is provided, filters needs whose names contain the type.
+   * 
+   * @returns {void}
+   */
+filterNeeds(): void {
+    this.filteredNeeds = this.needs.filter(need => {
+      const matchesType = this.selectedType === 'All' || need.type === this.selectedType;
+      const matchesSearch = this.searchTerm === '' || need.name.toLowerCase().includes(this.searchTerm.toLowerCase());
+      
+      return matchesType && matchesSearch;
+    });
+  }
+
+  /**
    * Adds a need to the basket
    * 
    * @param need The need object being added to the basket.
    */
   addToBasket(need: Need): void {
-    this.basketService.addToBasket(need);
+    console.log("Basket items:" + this.basketItems)
+    const existingItem = this.basketItems.find(item => item.need.id === need.id);
+    console.log("found need: " + existingItem?.need)
+    if (!existingItem){
+      if( need.quantity > 0){
+            console.log("Nothing wrong with the quantity..")
+            this.basketService.addToBasket(need);
+            this.basketItems.push({need, quantity: 1});
+            console.log(this.needs);
+            console.log(this.allNeeds);
+            this.calculateTotalCost();
+      }
+      else{
+        console.log("Not enough stock.")
+      }
   }
+  else{
+    if(existingItem.quantity+1 <= need.quantity){ //Can only add up the desired need quantity
+      existingItem.quantity++;
+      console.log("Quantity before updating: " + existingItem.quantity)
+      this.basketService.updateQuantity(need, existingItem.quantity); //fixed bug with quantity not being updated in backend.
+      console.log("Quantity after updating: " + existingItem.quantity)
+      this.calculateTotalCost();
+    }
+    else{
+      console.log("Cannot add more than stock available.");
+      
+    }
+  }
+  }
+
+    /**
+   * Calculates the current total cost of the Helper's Basket.
+   */
+    calculateTotalCost(): void {
+      this.totalCost = this.basketItems.reduce((sum, item) => sum + (item.need.cost * item.quantity), 0);
+    }
 
   /**
    * Navigates to basket.
@@ -157,4 +237,16 @@ export class CupboardComponent {
     this.router.navigate(['/cupboard']);
     this.displayCupboard = true;
   }
+
+  /**
+   * Navigates to transaction history page
+   */
+  transactionsButton(): void {
+    this.router.navigate(['/transactionhistory']);
+  }
+
+  logoutButton(): void {
+    this.router.navigate(['/login']);
+}
+
 }

@@ -1,0 +1,26 @@
+<div class="nav-bar">
+    <button (click)="cupboardButton()" class="nav-button">Cupboard</button>
+    <button (click)="basketButton()" class="nav-button">Basket</button>
+    <button (click)="transactionsButton()" class="nav-button">Transactions</button>
+</div>
+
+<!-- Transaction history -->
+<h2>Transaction History</h2>
+
+<div *ngIf="allTransactions.length === 0">
+    <p>No transaction history.</p>
+</div>
+
+<div *ngFor="let transaction of allTransactions" class="transaction">
+    <h3>Transaction ID: {{ transaction.id }}</h3>
+    <p>Date: {{ transaction.date | date:'yyyy-MM-dd' }}</p>
+    <p>Total Cost: ${{ transaction.total }}</p>
+    <h4>Items:</h4>
+    <ul>
+        <li *ngFor="let item of transaction.needs">
+            {{ item.name }} - {{ item.quantity }} x ${{ item.cost }}
+        </li>
+    </ul>
+    <hr />
+</div>
+

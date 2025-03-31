@@ -49,7 +49,7 @@ public class UserFileDAO implements UserDAO {
         User[] userArray = objectMapper.readValue(new File(filename), User[].class);
 
         for(User user : userArray) {
-            users.put(user.getUsername(), user);
+            users.put(user.getName(), user);
         }
         return true;
     }
@@ -88,8 +88,8 @@ public class UserFileDAO implements UserDAO {
     @Override
     public User createUser(User user) throws IOException {
         synchronized(users) {
-            User newUser = new User(user.getUsername(), user.getBasket());
-            users.put(newUser.getUsername(), newUser);
+            User newUser = new User(user.getName(), user.getBasket(), user.fetchTHistory());
+            users.put(newUser.getName(), newUser);
             save();
             return newUser;
         }
@@ -101,10 +101,11 @@ public class UserFileDAO implements UserDAO {
     @Override
     public User updateUser(User user) throws IOException {
         synchronized(users) {
-            if(users.containsKey(user.getUsername()) == false) {
+            if(users.containsKey(user.getName()) == false) {
                 return null;
             }
-            users.put(user.getUsername(), user);
+            users.put(user.getName(), user);
+            save();
             return user;
         }
     }
@@ -127,7 +128,7 @@ public class UserFileDAO implements UserDAO {
         ArrayList<User> userList = new ArrayList<>();
 
         for(User user : users.values()) {
-            if(containsText == null || user.getUsername().contains(containsText)) {
+            if(containsText == null || user.getName().contains(containsText)) {
                 userList.add(user);
             }
         }
