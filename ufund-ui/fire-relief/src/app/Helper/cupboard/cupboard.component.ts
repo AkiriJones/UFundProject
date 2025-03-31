@@ -197,4 +197,9 @@ filterNeeds(): void {
   transactionsButton(): void {
     this.router.navigate(['/transactionhistory']);
   }
+
+  logoutButton(): void {
+    this.router.navigate(['/login']);
+}
+
 }
