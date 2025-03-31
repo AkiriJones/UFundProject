@@ -20,6 +20,12 @@ export class BasketComponent implements OnInit {
   needs: Need[] = [];
   allNeeds: Need[] = [];
   totalCost: number = 0
+  selectedType: string = '';
+  selectedLocation: string = '';
+  needTypes: string[] = [];
+  needLocations: string[] = [];
+  filteredNeeds: Need[] = [];
+  
   /**
    * Constructs the BasketComponent.
    * 
@@ -53,27 +59,26 @@ export class BasketComponent implements OnInit {
       });
 
       this.cupboardService.getCupboard().subscribe(needs => {
-        console.log('All Needs:', needs);
         this.allNeeds = needs;
-      });
-    }
-    else {
-      console.log("No username found");
-    }
+        this.needTypes = [...new Set(needs.map(need => need.type))];
+        this.needLocations = [...new Set(needs.map(need => need.location))];
+        this.filterNeeds();
+    });
+} else {
+    console.log("No username found");
+}
   }
-  /**
-   * Searches for the needs that can be added to a basket.
-   * @returns List of needs corresponding to the search term.
-   */
-  searchNeeds(): Need[] {
-    if(!this.searchTerm) {
-      return this.allNeeds;
-    }
 
-    return this.needs.filter(need =>
-      need.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-  }
+  filterNeeds(): void {
+    this.filteredNeeds = this.allNeeds.filter(need => {
+        return (
+            (!this.searchTerm || need.name.toLowerCase().includes(this.searchTerm.toLowerCase())) &&
+            (!this.selectedType || need.type === this.selectedType) &&
+            (!this.selectedLocation || need.location === this.selectedLocation)
+        );
+    });
+}
+
 
   /**
    * Adds a need to the basket for checkout if it exist, otherwise increases it's quantity.
@@ -103,7 +108,8 @@ export class BasketComponent implements OnInit {
         name: element.need.name,
         cost: element.need.cost,
         quantity: element.need.quantity - element.quantity, 
-        type: element.need.type}
+        type: element.need.type,
+        location: element.need.location}
         this.cupboardService.updateNeed(element.need.id, needContents).subscribe();
     });
     this.basketService.clearBasket();
