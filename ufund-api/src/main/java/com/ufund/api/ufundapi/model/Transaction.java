@@ -2,6 +2,7 @@ package com.ufund.api.ufundapi.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
+import java.text.SimpleDateFormat;;
 
 public class Transaction {
 
@@ -78,8 +79,10 @@ public class Transaction {
      * @return The date the transaction was made.
      */
 
-    public Date getDate() {
-        return date;
+    public String getDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = formatter.format(date);
+        return formattedDate;
     }
 
     @Override
