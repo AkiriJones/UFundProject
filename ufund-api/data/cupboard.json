@@ -1,1 +1,1 @@
-[{"id":48,"name":"T-Shirts","cost":14.0,"quantity":6,"type":"Clothing"},{"id":49,"name":"Shampoo","cost":10.0,"quantity":0,"type":"Hygeine"}]
+[{"id":48,"name":"T-Shirts","cost":14.0,"quantity":4,"type":"Clothing","location":"Los Angeles"},{"id":49,"name":"Shoes","cost":32.0,"quantity":19,"type":"Clothing","location":"Santa Monica"}]
