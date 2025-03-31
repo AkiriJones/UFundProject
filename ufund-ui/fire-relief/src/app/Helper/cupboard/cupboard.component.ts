@@ -46,10 +46,20 @@ export class CupboardComponent {
    * Fetches cupboard data and assigns it to needs array.
    */
   ngOnInit(): void {
+    const username = localStorage.getItem("username")
     this.cupboardService.getCupboard().subscribe((needs: Need[]) => {
       this.needs = needs;
       this.dynamicNeedTypeList();
       this.filterNeeds();
+      if(username){
+        this.userService.getUser(username).subscribe(user =>{
+          this.userService.user = user;
+          this.cupboardService.getNeedsFromBasket().subscribe(needs =>{
+            this.basketItems = needs;
+            this.calculateTotalCost();
+          })
+        })
+      }
     })
   }
 
@@ -127,7 +137,9 @@ filterNeeds(): void {
    * @param need The need object being added to the basket.
    */
   addToBasket(need: Need): void {
+    console.log("Basket items:" + this.basketItems)
     const existingItem = this.basketItems.find(item => item.need.id === need.id);
+    console.log("found need: " + existingItem?.need)
     if (!existingItem){
       if( need.quantity > 0){
             console.log("Nothing wrong with the quantity..")
@@ -144,7 +156,9 @@ filterNeeds(): void {
   else{
     if(existingItem.quantity+1 <= need.quantity){ //Can only add up the desired need quantity
       existingItem.quantity++;
+      console.log("Quantity before updating: " + existingItem.quantity)
       this.basketService.updateQuantity(need, existingItem.quantity); //fixed bug with quantity not being updated in backend.
+      console.log("Quantity after updating: " + existingItem.quantity)
       this.calculateTotalCost();
     }
     else{

@@ -147,6 +147,7 @@ export class BasketComponent implements OnInit {
       }
       else{
         existingItem.quantity--;
+        this.basketService.updateQuantity(need, existingItem.quantity);
         this.calculateTotalCost()
       }
     }
