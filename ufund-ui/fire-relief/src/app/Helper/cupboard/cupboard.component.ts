@@ -176,4 +176,11 @@ filterNeeds(): void {
     this.router.navigate(['/cupboard']);
     this.displayCupboard = true;
   }
+
+  /**
+   * Navigates to transaction history page
+   */
+  transactionsButton(): void {
+    this.router.navigate(['/transactionhistory']);
+  }
 }

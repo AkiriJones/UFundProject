@@ -1,6 +1,7 @@
 <div class="nav-bar">
     <button (click)="cupboardButton()" class="nav-button">Cupboard</button>
     <button (click)="basketButton()" class="nav-button">Basket</button>
+    <button (click)="transactionsButton()" class="nav-button">Transactions</button>
 </div>
 
 <div *ngIf="basketItems.length > 0; else emptyBasket">

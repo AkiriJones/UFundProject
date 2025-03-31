@@ -15,17 +15,20 @@ export class TransactionHistoryService {
     public transactionHistory: Transaction[] = [];
 
     constructor(private userService: UserService) {
-        this.transactionHistory = this.userService.user.transactionHistory || [];
+        this.transactionHistory = this.userService.user.tHistory || [];
     }
 
     addTransaction(transaction: Transaction): void {
         this.transactionHistory.push(transaction);
-        this.userService.user.transactionHistory = [...this.transactionHistory];
-        this.userService.updateUser()
+        this.userService.user.tHistory = [...this.transactionHistory];
+        this.userService.updateUser().subscribe({
+            next: (response) => console.log("User updated successfully:", response),
+            error: (err) => console.error("Error updating user:", err)
+        });
     }
 
     getTransactionHistory(): Observable<Transaction[]> {
-        return of(this.userService.user.transactionHistory || []);
+        return of(this.userService.user.tHistory || []);
     }
 }
     
