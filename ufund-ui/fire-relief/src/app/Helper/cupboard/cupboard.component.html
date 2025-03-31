@@ -1,6 +1,3 @@
- <h1>FireRelief</h1>
-
-
 <div class="nav-bar">
     <button (click)="cupboardButton()" class="nav-button">Cupboard</button>
     <button (click)="basketButton()" class="nav-button">Basket</button>
@@ -25,6 +22,7 @@
                     <p class="cost">Cost: ${{need.cost}}</p>
                     <p class="quantity">Quantity: {{need.quantity}}</p>
                     <p class="type">Info: {{need.type}}</p>
+                    <button (click)="addToBasket(need)" class="add-button">Add</button>
                 </div>
             </div>
         </li>
