@@ -7,4 +7,20 @@
 <!-- Transaction history -->
 <h2>Transaction History</h2>
 
+<div *ngIf="allTransactions.length === 0">
+    <p>No transaction history.</p>
+</div>
+
+<div *ngFor="let transaction of allTransactions" class="transaction">
+    <h3>Transaction ID: {{ transaction.id }}</h3>
+    <p>Date: {{ transaction.date | date:'short' }}</p>
+    <p>Total Cost: ${{ transaction.total }}</p>
+    <h4>Items:</h4>
+    <ul>
+        <li *ngFor="let item of transaction.needs">
+            {{ item.name }} - {{ item.quantity }} x ${{ item.cost }}
+        </li>
+    </ul>
+    <hr />
+</div>
 

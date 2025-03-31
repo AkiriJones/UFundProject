@@ -5,6 +5,8 @@ import { CupboardService } from '../../cupboard.service';
 import { UserService } from '../../user.service';
 import { Router } from '@angular/router';
 import { Console } from 'node:console';
+import { Transaction } from '../../transaction';
+import { TransactionHistoryService } from '../../transactionhistory.service';
 
 /**
  * Component responsible for managing and displaying the user's basket.
@@ -27,12 +29,14 @@ export class BasketComponent implements OnInit {
    * @param basketService Service for managing basket operations.
    * @param cupboardService Service for retrieving cupboard data.
    * @param userService Service for managing user data.
+   * @param transactionHistoryService Service for managing transaction data.
    * @param router Servuce to handle navigation.
    */
   constructor(
     private basketService: BasketService,
     private cupboardService: CupboardService,
     private userService: UserService,
+    private transactionHistoryService: TransactionHistoryService,
     private router: Router
   ) {}
 
@@ -113,20 +117,46 @@ export class BasketComponent implements OnInit {
   /**
    * Checks out the current Helper's basket
    */
-  checkout(): void{
-    this.basketItems.forEach(element =>{
-      const needContents : Need = {
+  checkout(): void {
+    if (this.basketItems.length === 0) {
+      console.log("Basket is empty. Cannot checkout.");
+      return;
+    }
+  
+    const newTransaction: Transaction = {
+      id: new Date().getTime(),
+      needs: this.basketItems.map(item => ({
+        id: item.need.id,
+        name: item.need.name,
+        cost: item.need.cost,
+        quantity: item.quantity,
+        type: item.need.type
+      })),
+      total: this.totalCost,
+      date: new Date().toISOString().split('T')[0]
+    };
+  
+    this.userService.user.tHistory.push(newTransaction);
+    this.transactionHistoryService.addTransaction(newTransaction);
+  
+    this.basketItems.forEach(element => {
+      const updatedNeed: Need = {
         id: element.need.id,
         name: element.need.name,
         cost: element.need.cost,
-        quantity: element.need.quantity - element.quantity, 
-        type: element.need.type}
-        this.cupboardService.updateNeed(element.need.id, needContents).subscribe();
+        quantity: element.need.quantity - element.quantity,
+        type: element.need.type
+      };
+      this.cupboardService.updateNeed(element.need.id, updatedNeed).subscribe();
     });
+  
     this.basketService.clearBasket();
-    this.calculateTotalCost();
     this.basketItems = [];
+    this.totalCost = 0;
+  
+    console.log("Checkout successful! Transaction added.");
   }
+
   /**
    * Calculates the current total cost of the Helper's Basket.
    */

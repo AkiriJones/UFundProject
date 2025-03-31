@@ -1,6 +1,8 @@
+import { Need } from "./need";
+
 export interface Transaction {
     id: number;
-    needs: string;
+    needs: Need[];
     total: number;
-    date: number;
+    date: string;
 }

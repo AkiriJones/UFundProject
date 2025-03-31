@@ -24,7 +24,7 @@ public class UserTest {
 
     @Test
     public void testGetUsername() {
-        assertEquals("User1", user.getUsername());
+        assertEquals("User1", user.getName());
     }
 
     @Test
@@ -34,13 +34,13 @@ public class UserTest {
 
     @Test
     public void testGetTHistory() {
-        assertNotNull(user.getTransactionHistory());
+        assertNotNull(user.fetchTHistory());
     }
 
     @Test
     public void testNullBasket() {
         User user = new User("User2", null, null);
         assertNotNull(user.getBasket());
-        assertNotNull(user.getTransactionHistory());
+        assertNotNull(user.fetchTHistory());
     }
 }

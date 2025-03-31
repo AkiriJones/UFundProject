@@ -38,7 +38,7 @@ public class User {
      *
      * @return the username
      */
-    public String getUsername() {
+    public String getName() {
         return name;
     }
 
@@ -56,7 +56,7 @@ public class User {
      *
      * @return the user's transaction history.
      */
-    public ArrayList<Transaction> getTransactionHistory() {
+    public ArrayList<Transaction> fetchTHistory() {
         return tHistory;
     }
 }

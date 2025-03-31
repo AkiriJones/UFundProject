@@ -16,11 +16,11 @@ import { TransactionHistoryService } from '../../transactionhistory.service';
   styleUrl: './transactionhistory.component.css'
 })
 export class TransactionHistoryComponent implements OnInit {
-  transactionHistoryItems: { id: number, needs: Array<Need>,  total: number, date: string }[] = []
   
   allTransactions: Transaction[] = [];
+
   /**
-   * Constructs the BasketComponent.
+   * Constructs the TransactionHistory Component.
    * 
    * @param transactionHistoryService Service for managing transaction history operations.
    * @param userService Service for managing user data.
@@ -31,10 +31,29 @@ export class TransactionHistoryComponent implements OnInit {
     private userService: UserService,
     private router: Router
   ) {}
+
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    const username = localStorage.getItem("username");
+
+    if(username) {
+      this.userService.getUser(username).subscribe(user => {
+        this.userService.user = user;
+        this.loadTransactionHistory();
+      });
+    }
+
+    else {
+      console.log("No username found");
+    }
   }
 
+  loadTransactionHistory(): void {
+    this.transactionHistoryService.getTransactionHistory().subscribe(transactions => {
+      this.allTransactions = transactions;
+      console.log("Transaction history loaded successfully:", this.allTransactions);
+    });
+  }
+  
   /**
    * Navigates to cupboard
    */
