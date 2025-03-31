@@ -4,7 +4,9 @@ import { BasketService } from '../../basket.service';
 import { CupboardService } from '../../cupboard.service';
 import { UserService } from '../../user.service';
 import { Router } from '@angular/router';
+import { Console } from 'node:console';
 import { Transaction } from '../../transaction';
+import { TransactionHistoryService } from '../../transactionhistory.service';
 
 /**
  * Component responsible for managing and displaying the user's basket.
@@ -27,12 +29,14 @@ export class BasketComponent implements OnInit {
    * @param basketService Service for managing basket operations.
    * @param cupboardService Service for retrieving cupboard data.
    * @param userService Service for managing user data.
+   * @param transactionHistoryService Service for managing transaction data.
    * @param router Servuce to handle navigation.
    */
   constructor(
     private basketService: BasketService,
     private cupboardService: CupboardService,
     private userService: UserService,
+    private transactionHistoryService: TransactionHistoryService,
     private router: Router
   ) {}
 
@@ -42,13 +46,14 @@ export class BasketComponent implements OnInit {
    */
   ngOnInit(): void {
     const username = localStorage.getItem("username");
-
+    console.log(username);
     if(username) {
       this.userService.getUser(username).subscribe(user => {
         this.userService.user = user;
-
+        console.log("USER" + this.userService.user);
       this.cupboardService.getNeedsFromBasket().subscribe(needs => {
         this.basketItems = needs;
+        console.log("BASKET!!!" + this.basketItems);
         this.calculateTotalCost();
       });
       });
@@ -83,34 +88,71 @@ export class BasketComponent implements OnInit {
   addToBasket(need: Need): void {
     const existingItem = this.basketItems.find(item => item.need.id === need.id);
     if (!existingItem){
-          this.basketService.addToBasket(need);
-          this.basketItems.push({need, quantity: 1});
-          this.calculateTotalCost();
+      if( need.quantity > 0){
+            console.log("Nothing wrong with the quantity..")
+            this.basketService.addToBasket(need);
+            this.basketItems.push({need, quantity: 1});
+            console.log(this.needs);
+            console.log(this.allNeeds);
+            this.calculateTotalCost();
+      }
+      else{
+        console.log("Not enough stock.")
+      }
+  }
+  else{
+    if(existingItem.quantity+1 <= need.quantity){ //Can only add up the desired need quantity
+      existingItem.quantity++;
+      this.basketService.updateQuantity(need, existingItem.quantity); //fixed bug with quantity not being updated in backend.
+      this.calculateTotalCost();
     }
     else{
-      if(existingItem.quantity < need.quantity){ //Can only add up the desired need quantity
-        existingItem.quantity++;
-        this.calculateTotalCost();
-      }
+      console.log("Cannot add more than stock available.");
+      
     }
+  }
+  
+
   }
   /**
    * Checks out the current Helper's basket
    */
-  Checkout(): void{
-    this.basketItems.forEach(element =>{
-      const needContents : Need = {
+  checkout(): void {
+    
+    /* This code breaks the checkout functionality - needs fixing!!!
+    
+    const newTransaction: Transaction = {
+      id: new Date().getTime(),
+      needs: this.basketItems.map(item => ({
+        id: item.need.id,
+        name: item.need.name,
+        cost: item.need.cost,
+        quantity: item.quantity,
+        type: item.need.type
+      })),
+      total: this.totalCost,
+      date: new Date().toISOString().split('T')[0]
+    };
+  
+    this.userService.user.tHistory.push(newTransaction);
+    this.transactionHistoryService.addTransaction(newTransaction);
+    */ 
+    this.basketItems.forEach(element => {
+      const updatedNeed: Need = {
         id: element.need.id,
         name: element.need.name,
         cost: element.need.cost,
-        quantity: element.need.quantity - element.quantity, 
-        type: element.need.type}
-        this.cupboardService.updateNeed(element.need.id, needContents).subscribe();
+        quantity: element.need.quantity - element.quantity,
+        type: element.need.type
+      };
+      this.cupboardService.updateNeed(element.need.id, updatedNeed).subscribe();
     });
+  
     this.basketService.clearBasket();
-    this.calculateTotalCost();
     this.basketItems = [];
+    this.totalCost = 0;
   }
+
   /**
    * Calculates the current total cost of the Helper's Basket.
    */
@@ -126,10 +168,13 @@ export class BasketComponent implements OnInit {
     if (existingItem){
       if(existingItem.quantity - 1 == 0){
         this.basketItems = this.basketItems.filter(item => item.need.id !== need.id);
-        this.basketService.removeFromBasket(need);    
+        this.basketService.removeFromBasket(need);  
+        this.calculateTotalCost()  
       }
       else{
         existingItem.quantity--;
+        this.basketService.updateQuantity(need, existingItem.quantity);
+        this.calculateTotalCost()
       }
     }
 
@@ -149,9 +194,9 @@ export class BasketComponent implements OnInit {
   }
 
   /**
-     * Shows transaction history.
-     */
-    transactionHistoryButton(): Transaction[] {
-      return this.transactionHistory;
-    }
+   * Navigates to transaction history page
+   */
+  transactionsButton(): void {
+    this.router.navigate(['/transactionhistory']);
+  }
 }

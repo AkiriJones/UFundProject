@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>FireRelief - Helper Cupboard</title>
@@ -7,7 +5,6 @@
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="cupboard.component.css">
   </head>
 
 <body>
@@ -18,30 +15,32 @@
     <div class="nav-bar">
         <button (click)="cupboardButton()" class="nav-button">Cupboard</button>
         <button (click)="basketButton()" class="nav-button">Basket</button>
+        <button (click)="transactionsButton()" class="nav-button">Transactions</button>
     </div>
 
-    <div *ngIf="displayCupboard" class="cupboard">
+<div *ngIf="displayCupboard" class="cupboard">
 
-        <h2>Cupboard</h2>
+    <h2>Cupboard</h2>
 
-        <div class="search-container">
-            <input type="text" [(ngModel)]="searchTerm" placeholder="Search needs" class="search-bar"/>
-        </div>
+    <div class="search-container">
+        <input type="text" [(ngModel)]="searchTerm" placeholder="Search needs" class="search-bar"/>
+    </div>
 
-        <ul class="need-list">
-            <li *ngFor="let need of searchNeeds()" class="need-item">
-                <div class="need-container">
-                    <div class="need-header">
-                        <span class="id">{{need.id}}</span>
-                        <span class="name"> - {{need.name}}</span>
-                    </div>
-                    <div class="need-body">
-                        <p class="cost">Cost: ${{need.cost}}</p>
-                        <p class="quantity">Quantity: {{need.quantity}}</p>
-                        <p class="type">Info: {{need.type}}</p>
-                    </div>
+    <ul class="need-list">
+        <li *ngFor="let need of searchNeeds()" class="need-item">
+            <div class="need-container">
+                <div class="need-header">
+                    <span class="id">{{need.id}}</span>
+                    <span class="name"> - {{need.name}}</span>
                 </div>
-            </li>
-        </ul>
-    </div>
-</body>
+                <div class="need-body">
+                    <p class="cost">Cost: ${{need.cost}}</p>
+                    <p class="quantity">Quantity: {{need.quantity}}</p>
+                    <p class="type">Info: {{need.type}}</p>
+                    <button (click)="addToBasket(need)" class="add-button">Add</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+

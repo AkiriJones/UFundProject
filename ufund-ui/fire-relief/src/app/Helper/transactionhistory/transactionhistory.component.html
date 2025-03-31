@@ -1,34 +1,26 @@
-<head>
-  <meta charset="utf-8">
-  <title>FireRelief - Helper Transaction History</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link href="basket.component.css" rel="stylesheet">
-</head>
-
 <div class="nav-bar">
     <button (click)="cupboardButton()" class="nav-button">Cupboard</button>
     <button (click)="basketButton()" class="nav-button">Basket</button>
+    <button (click)="transactionsButton()" class="nav-button">Transactions</button>
 </div>
 
 <!-- Transaction history -->
-<h2>Helper - Transaction History</h2>
-<ng-template #emptyTransactionHistory>
-  <p>You have not made any transactions.</p>
-</ng-template>
-<div>
-<li *ngFor="let transaction of transactionHistoryButton()" class="transaction-item">
-    <section class = "transaction-history-container">
-        <div class="transaction-history-header">
-            <span class="id">{{transaction.id}}</span>
-        </div>
-        <div class="transaction-body">
-          <p class="needs">Needs: {{ transaction.needs }}</p>
-          <p class="total">Total: ${{ transaction.total }}</p>
-          <p class="date">Date: {{ transaction.date }}</p>
-        </div>
-    </section>
-</li>
+<h2>Transaction History</h2>
+
+<div *ngIf="allTransactions.length === 0">
+    <p>No transaction history.</p>
+</div>
+
+<div *ngFor="let transaction of allTransactions" class="transaction">
+    <h3>Transaction ID: {{ transaction.id }}</h3>
+    <p>Date: {{ transaction.date | date:'short' }}</p>
+    <p>Total Cost: ${{ transaction.total }}</p>
+    <h4>Items:</h4>
+    <ul>
+        <li *ngFor="let item of transaction.needs">
+            {{ item.name }} - {{ item.quantity }} x ${{ item.cost }}
+        </li>
+    </ul>
+    <hr />
 </div>
 
