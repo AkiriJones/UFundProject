@@ -124,4 +124,8 @@ export class ManagerCupboardComponent implements OnInit {
     this.selectedNeed = null;
   }
   
+  logoutButton(): void {
+    this.router.navigate(['/login']);
+  }
+
 }

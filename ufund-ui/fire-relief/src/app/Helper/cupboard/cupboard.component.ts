@@ -179,6 +179,5 @@ filterNeeds(): void {
 
   logoutButton(): void {
     this.router.navigate(['/login']);
-    this.displayCupboard = true;
   }
 }
