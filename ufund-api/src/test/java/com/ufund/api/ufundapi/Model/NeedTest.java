@@ -1,7 +1,6 @@
 package com.ufund.api.ufundapi.Model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -21,8 +20,9 @@ public class NeedTest {
         int quantity = 4;
         double cost = 5.0;
         String type = "Physical";
-        String expected_string = String.format(Need.STRING_FORMAT,id, name,cost,quantity,type);
-        Need need = new Need(id, name, cost, quantity, type);
+        String location = "Los Angeles";
+        String expected_string = String.format(Need.STRING_FORMAT,id, name,cost,quantity,type, location);
+        Need need = new Need(id, name, cost, quantity, type, location);
 
         // Invoke
         String actual_string = need.toString();
@@ -42,14 +42,16 @@ public class NeedTest {
         int quantity1 = 4;
         double cost1 = 5.0;
         String type1 = "Physical";
-        Need need1 = new Need(id1, name1, cost1, quantity1, type1);
+        String location1 = "Los Angeles";
+        Need need1 = new Need(id1, name1, cost1, quantity1, type1, location1);
 
         int id2 = 12;
         String name2 = "Clothing";
         int quantity2 = 4;
         double cost2 = 5.0;
         String type2 = "Physical";
-        Need need2 = new Need(id2, name2, cost2, quantity2, type2);
+        String location2 = "Los Angeles";
+        Need need2 = new Need(id2, name2, cost2, quantity2, type2, location2);
         boolean expected = true;
         // Invoke
         boolean actual = need1.equals(need2);
@@ -69,14 +71,16 @@ public class NeedTest {
         int quantity1 = 4;
         double cost1 = 5.0;
         String type1 = "Physical";
-        Need need1 = new Need(id1, name1, cost1, quantity1, type1);
+        String location1 = "Los Angeles";
+        Need need1 = new Need(id1, name1, cost1, quantity1, type1, location1);
 
         int id2 = 12;
         String name2 = "Clothing";
         int quantity2 = 4;
         double cost2 = 5.0;
         String type2 = "Physical";
-        Need need2 = new Need(id2, name2, cost2, quantity2, type2);
+        String location2 = "Los Angeles";
+        Need need2 = new Need(id2, name2, cost2, quantity2, type2, location2);
         boolean expected = false;
         // Invoke
         boolean actual = need1.equals(need2);
@@ -91,7 +95,7 @@ public class NeedTest {
 	@Test
 	void testNeedGetNameSugar() {
 		//setup
-		Need sugar = new Need(12, "Sugar", 10.00, 100, "Food");
+		Need sugar = new Need(12, "Sugar", 10.00, 100, "Food", "Los Angeles");
 		String expected = "Sugar";
 		//invoke
 		String actual = sugar.getName();
@@ -105,7 +109,7 @@ public class NeedTest {
     @Test
 	void testNeedGetCost10() {
 		//setup
-		Need sugar = new Need(12, "Sugar", 10.00, 100, "Food");
+		Need sugar = new Need(12, "Sugar", 10.00, 100, "Food", "Los Angeles");
 		Double expected = 10.00;
 		//invoke
 		Double actual = sugar.getCost();
@@ -119,7 +123,7 @@ public class NeedTest {
     @Test
 	void testNeedGetQuantity100() {
 		//setup
-		Need sugar = new Need(12, "Sugar", 10.00, 100, "Food");
+		Need sugar = new Need(12, "Sugar", 10.00, 100, "Food", "Los Angeles");
 		int expected = 100;
 		//invoke
 		int actual = sugar.getQuantity();
@@ -133,7 +137,7 @@ public class NeedTest {
     @Test
 	void testNeedGetTypeFood() {
 		//setup
-		Need sugar = new Need(12, "Sugar", 10.00, 100, "Food");
+		Need sugar = new Need(12, "Sugar", 10.00, 100, "Food", "Los Angeles");
 		String expected = "Food";
 		//invoke
 		String actual = sugar.getType();
@@ -149,7 +153,8 @@ public class NeedTest {
         int quantity = 4;
         double cost = 5.0;
         String type = "Physical";
-        Need need = new Need(id, name, cost, quantity, type);
+        String location = "Los Angeles";
+        Need need = new Need(id, name, cost, quantity, type, location);
         String expected = "Socks";
 
         // invoke
@@ -167,7 +172,8 @@ public class NeedTest {
         int quantity = 4;
         double cost = 5.0;
         String type = "Physical";
-        Need need = new Need(id, name, cost, quantity, type);
+        String location = "Los Angeles";
+        Need need = new Need(id, name, cost, quantity, type, location);
         double expected = 2.0;
 
         // invoke
@@ -185,7 +191,8 @@ public class NeedTest {
         int quantity = 4;
         double cost = 5.0;
         String type = "Physical";
-        Need need = new Need(id, name, cost, quantity, type);
+        String location = "Los Angeles";
+        Need need = new Need(id, name, cost, quantity, type, location);
         int expected = 7;
 
         // invoke
@@ -203,7 +210,8 @@ public class NeedTest {
         int quantity = 4;
         double cost = 5.0;
         String type = "Physical";
-        Need need = new Need(id, name, cost, quantity, type);
+        String location = "Los Angeles";
+        Need need = new Need(id, name, cost, quantity, type, location);
         String expected = "Clothing";
 
         // invoke
@@ -212,5 +220,22 @@ public class NeedTest {
         // analyze
         assertEquals(need.getType(), expected);
     }
+
+    /**
+     * 
+     */
+    @Test
+    void testGetLocation(){
+        //
+    }
+
+    /**
+     * 
+     */
+    @Test
+    void testSetLocation(){
+        //
+    }
+
 
 }

@@ -10,8 +10,10 @@
         <input #needCost type="number" placeholder="Enter cost">
         <input #needQuantity type="number" placeholder="Enter quantity">
         <input #needType type="text" placeholder="Enter type">
-        <button type="button" class="add-button" (click)="addNeed(needName.value, +needCost.value, +needQuantity.value, needType.value);
-                                                                needName.value=''; needCost.value=''; needQuantity.value=''; needType.value=''">
+        <input #needLocation type="text" placeholder="Enter location">
+        <button type="button" class="add-button" 
+            (click)="addNeed(needName.value, +needCost.value, +needQuantity.value, needType.value, needLocation.value);
+                      needName.value=''; needCost.value=''; needQuantity.value=''; needType.value=''; needLocation.value=''">
             Add Need
         </button>
     </div>
@@ -21,7 +23,7 @@
 
     <ul *ngIf="!isEmpty" class="needs">
         <li *ngFor="let need of cupboard">
-            {{need.name}} - Cost: ${{need.cost}} - Quantity: {{need.quantity}} - Type: {{need.type}} - ID: {{need.id}}
+            {{need.name}} - Cost: ${{need.cost}} - Quantity: {{need.quantity}} - Type: {{need.type}} - ID: {{need.id}} - Location: {{need.location}}
             <button type="button" class="delete-button" title="delete need" (click)="deleteNeed(need.id)">x</button>
             <button type="button" class="edit-button" (click)="editNeed(need)">Edit</button>
         </li>
@@ -35,11 +37,14 @@
         <label>Cost:
             <input type="number" [(ngModel)]="selectedNeed.cost">
         </label>
-        <label>Quantity
+        <label>Quantity:
             <input type="number" [(ngModel)]="selectedNeed.quantity">
         </label>
-        <label>
+        <label>Type:
             <input [(ngModel)]="selectedNeed.type">
+        </label>
+        <label>Location:
+            <input [(ngModel)]="selectedNeed.location">
         </label>
         <button type="button" class="save-button" (click)="saveNeed()">Save</button>
         <button type="button" class="cancel-button" (click)="cancelEdit()">Cancel</button>

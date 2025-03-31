@@ -20,8 +20,8 @@ public class TransactionTest {
     @BeforeEach
     void setUp() {
         needs = new Need[] {
-            new Need(2, "sugar", 2.0, 38, "food"),
-            new Need(3, "milk", 2.0, 39, "food"),
+            new Need(2, "sugar", 2.0, 38, "food", "Santa Monica"),
+            new Need(3, "milk", 2.0, 39, "food", "Los Angeles"),
         };
         transaction = new Transaction(1, needs);
     }
@@ -36,7 +36,7 @@ public class TransactionTest {
 
     @Test
     void testSetNeeds() {
-        Need[] newNeeds = { new Need(3, "water", 1.0, 10, "food")};
+        Need[] newNeeds = { new Need(3, "water", 1.0, 10, "food", "Hollywood")};
         transaction.setNeeds(newNeeds);
         assertArrayEquals(newNeeds, transaction.getNeeds());
     }
