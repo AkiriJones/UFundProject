@@ -176,4 +176,9 @@ filterNeeds(): void {
     this.router.navigate(['/cupboard']);
     this.displayCupboard = true;
   }
+
+  logoutButton(): void {
+    this.router.navigate(['/login']);
+    this.displayCupboard = true;
+  }
 }
