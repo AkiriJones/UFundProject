@@ -226,16 +226,32 @@ public class NeedTest {
      */
     @Test
     void testGetLocation(){
-        //
-    }
+    // Setup
+    Need need = new Need(12, "Clothing", 5.0, 4, "Physical", "Los Angeles");
+    String expected = "Los Angeles";
+
+    // Invoke
+    String actual = need.getLocation();
+
+    // Analyze
+    assertEquals(expected, actual);
+}
 
     /**
      * 
      */
     @Test
     void testSetLocation(){
-        //
-    }
+    // Setup
+    Need need = new Need(12, "Clothing", 5.0, 4, "Physical", "Los Angeles");
+    String expected = "New York";
+
+    // Invoke
+    need.setLocation(expected);
+
+    // Analyze
+    assertEquals(expected, need.getLocation());
+}
 
 
 }

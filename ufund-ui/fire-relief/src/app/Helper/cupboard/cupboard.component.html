@@ -1,4 +1,3 @@
-<h1>FireRelief</h1>
 <div>
     <button (click) = "logoutButton()" class="nav-button">Logout</button>
 </div>
@@ -10,27 +9,42 @@
 
 <div *ngIf="displayCupboard" class="cupboard">
 
-<h2>Cupboard</h2>
+  <h2>Cupboard</h2>
+  <div class="search-container">
+        <input type="text" [(ngModel)]="searchTerm" (input)="filterNeeds()" placeholder="Search needs" class="search-bar"/>
+        
+        <div class="filter-group">
+            <!-- Type Filter -->
+            <label for="type-filter" class="filter-label">Filter by Type:</label>
+            <select id="type-filter" [(ngModel)]="selectedType" (change)="filterNeeds()" class="type-filter">
+                <option *ngFor="let type of needTypes" [value]="type">{{ type }}</option>
+            </select>
 
-<div class="search-container">
-    <input type="text" [(ngModel)]="searchTerm" placeholder="Search needs" class="search-bar"/>
-</div>
-
-<ul class="need-list">
-    <li *ngFor="let need of searchNeeds()" class="need-item">
-        <div class="need-container">
-            <div class="need-header">
-                <span class="id">{{need.id}}</span>
-                <span class="name"> - {{need.name}}</span>
-            </div>
-            <div class="need-body">
-                <p class="cost">Cost: ${{need.cost}}</p>
-                <p class="quantity">Quantity: {{need.quantity}}</p>
-                <p class="type">Info: {{need.type}}</p>
-                <button (click)="addToBasket(need)" class="add-button">Add</button>
-            </div>
+            <!-- Location Filter (added to the right) -->
+            <label for="location-filter" class="filter-label">Filter by Location:</label>
+            <select id="location-filter" [(ngModel)]="selectedLocation" (change)="filterNeeds()" class="location-filter">
+                <option *ngFor="let location of needLocations" [value]="location">{{ location }}</option>
+            </select>
         </div>
-    </li>
-</ul>
-</div>
+    </div>
+
+    <ul class="need-list">
+        <li *ngFor="let need of filteredNeeds" class="need-item">
+            <div class="need-container">
+                <div class="need-header">
+                    <span class="id">{{need.id}}</span>
+                    <span class="name"> - {{need.name}}</span>
+                </div>
+                <div class="need-body">
+                    <p class="cost">Cost: ${{need.cost}}</p>
+                    <p class="quantity">Quantity: {{need.quantity}}</p>
+                    <p class="type">Type: {{need.type}}</p>
+                    <p class="location">Location: {{need.location}}</p>
+                    <button (click)="addToBasket(need)" class="add-button">Add</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+  </div>
+
 
