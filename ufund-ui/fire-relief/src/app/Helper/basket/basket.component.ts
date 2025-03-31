@@ -118,11 +118,9 @@ export class BasketComponent implements OnInit {
    * Checks out the current Helper's basket
    */
   checkout(): void {
-    if (this.basketItems.length === 0) {
-      console.log("Basket is empty. Cannot checkout.");
-      return;
-    }
-  
+    
+    /* This code breaks the checkout functionality - needs fixing!!!
+    
     const newTransaction: Transaction = {
       id: new Date().getTime(),
       needs: this.basketItems.map(item => ({
@@ -138,7 +136,7 @@ export class BasketComponent implements OnInit {
   
     this.userService.user.tHistory.push(newTransaction);
     this.transactionHistoryService.addTransaction(newTransaction);
-  
+    */ 
     this.basketItems.forEach(element => {
       const updatedNeed: Need = {
         id: element.need.id,
@@ -153,8 +151,6 @@ export class BasketComponent implements OnInit {
     this.basketService.clearBasket();
     this.basketItems = [];
     this.totalCost = 0;
-  
-    console.log("Checkout successful! Transaction added.");
   }
 
   /**
