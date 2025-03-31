@@ -63,8 +63,8 @@ export class UserService {
         console.log(name);
         var basket = this.user.basket;
         console.log(basket);
-        const anotherNewUser : User = {name, basket, tHistory: this.user.tHistory} as User;
-        console.log(anotherNewUser);
+        const anotherNewUser : User = {name, basket, tHistory: this.user.tHistory || []} as User;
+        console.log("Sending PUT request with:", JSON.stringify(anotherNewUser));
         return this.http.put<User>('http://localhost:8080/users', anotherNewUser, this.httpOptions).pipe(catchError(this.handleError<any>("Returning User")))
     }
 

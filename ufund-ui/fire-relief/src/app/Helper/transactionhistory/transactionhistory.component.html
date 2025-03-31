@@ -13,7 +13,7 @@
 
 <div *ngFor="let transaction of allTransactions" class="transaction">
     <h3>Transaction ID: {{ transaction.id }}</h3>
-    <p>Date: {{ transaction.date | date:'short' }}</p>
+    <p>Date: {{ transaction.date | date:'yyyy-MM-dd' }}</p>
     <p>Total Cost: ${{ transaction.total }}</p>
     <h4>Items:</h4>
     <ul>

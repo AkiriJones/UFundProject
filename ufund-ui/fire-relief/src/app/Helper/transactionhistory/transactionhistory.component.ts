@@ -7,7 +7,7 @@ import { Transaction } from '../../transaction';
 import { TransactionHistoryService } from '../../transactionhistory.service';
 
 /**
- * Component responsible for managing and displaying the user's basket.
+ * Component responsible for managing and displaying the user's transaction history.
  */
 @Component({
   selector: 'app-basket',
@@ -32,6 +32,10 @@ export class TransactionHistoryComponent implements OnInit {
     private router: Router
   ) {}
 
+  /**
+   * Lifecycle hook that is called when the component is initialized.
+   * It retrieves the username from localStorage and loads the user's transaction history.
+   */
   ngOnInit(): void {
     const username = localStorage.getItem("username");
 
@@ -47,6 +51,9 @@ export class TransactionHistoryComponent implements OnInit {
     }
   }
 
+  /**
+   * Loads the user's transaction history by making a request to the transaction history service.
+   */
   loadTransactionHistory(): void {
     this.transactionHistoryService.getTransactionHistory().subscribe(transactions => {
       this.allTransactions = transactions;

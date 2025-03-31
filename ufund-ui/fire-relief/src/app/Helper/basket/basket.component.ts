@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Console } from 'node:console';
 import { Transaction } from '../../transaction';
 import { TransactionHistoryService } from '../../transactionhistory.service';
+import { forkJoin } from 'rxjs';
 
 /**
  * Component responsible for managing and displaying the user's basket.
@@ -118,11 +119,8 @@ export class BasketComponent implements OnInit {
    * Checks out the current Helper's basket
    */
   checkout(): void {
-    
-    /* This code breaks the checkout functionality - needs fixing!!!
-    
     const newTransaction: Transaction = {
-      id: new Date().getTime(),
+      id: Date.now() % 2147483647,
       needs: this.basketItems.map(item => ({
         id: item.need.id,
         name: item.need.name,
@@ -131,13 +129,12 @@ export class BasketComponent implements OnInit {
         type: item.need.type
       })),
       total: this.totalCost,
-      date: new Date().toISOString().split('T')[0]
+      date: new Date().toISOString()
     };
   
     this.userService.user.tHistory.push(newTransaction);
     this.transactionHistoryService.addTransaction(newTransaction);
-    */ 
-    this.basketItems.forEach(element => {
+    const updateObservables = this.basketItems.map(element => {
       const updatedNeed: Need = {
         id: element.need.id,
         name: element.need.name,
@@ -145,12 +142,15 @@ export class BasketComponent implements OnInit {
         quantity: element.need.quantity - element.quantity,
         type: element.need.type
       };
-      this.cupboardService.updateNeed(element.need.id, updatedNeed).subscribe();
+      return this.cupboardService.updateNeed(element.need.id, updatedNeed);
     });
-  
-    this.basketService.clearBasket();
-    this.basketItems = [];
-    this.totalCost = 0;
+
+    forkJoin(updateObservables).subscribe(() => {
+      this.basketService.clearBasket();
+      this.basketItems = [];
+      this.totalCost = 0;
+      console.log("Basket cleared");
+    });
   }
 
   /**
