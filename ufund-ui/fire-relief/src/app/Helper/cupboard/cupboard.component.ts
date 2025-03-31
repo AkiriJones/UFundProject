@@ -17,6 +17,9 @@ import { BasketService } from '../../basket.service';
 })
 export class CupboardComponent {
   needs: Need[] = [];
+  allNeeds: Need[] = [];
+  basketItems: { need: Need, quantity: number }[] = []
+  totalCost: number = 0
   observerHandler!: Subscription
   searchTerm: string = '';
   displayCupboard: boolean = true;
@@ -124,8 +127,39 @@ filterNeeds(): void {
    * @param need The need object being added to the basket.
    */
   addToBasket(need: Need): void {
-    this.basketService.addToBasket(need);
+    const existingItem = this.basketItems.find(item => item.need.id === need.id);
+    if (!existingItem){
+      if( need.quantity > 0){
+            console.log("Nothing wrong with the quantity..")
+            this.basketService.addToBasket(need);
+            this.basketItems.push({need, quantity: 1});
+            console.log(this.needs);
+            console.log(this.allNeeds);
+            this.calculateTotalCost();
+      }
+      else{
+        console.log("Not enough stock.")
+      }
   }
+  else{
+    if(existingItem.quantity+1 <= need.quantity){ //Can only add up the desired need quantity
+      existingItem.quantity++;
+      this.basketService.updateQuantity(need, existingItem.quantity); //fixed bug with quantity not being updated in backend.
+      this.calculateTotalCost();
+    }
+    else{
+      console.log("Cannot add more than stock available.");
+      
+    }
+  }
+  }
+
+    /**
+   * Calculates the current total cost of the Helper's Basket.
+   */
+    calculateTotalCost(): void {
+      this.totalCost = this.basketItems.reduce((sum, item) => sum + (item.need.cost * item.quantity), 0);
+    }
 
   /**
    * Navigates to basket.

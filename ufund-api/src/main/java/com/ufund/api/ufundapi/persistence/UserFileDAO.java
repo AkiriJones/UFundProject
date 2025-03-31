@@ -105,6 +105,7 @@ public class UserFileDAO implements UserDAO {
                 return null;
             }
             users.put(user.getUsername(), user);
+            save();
             return user;
         }
     }

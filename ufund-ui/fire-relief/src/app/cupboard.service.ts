@@ -40,7 +40,7 @@ export class CupboardService {
      * @returns An Observable containing the requested Need object.
      */
     getNeed(id: number): Observable<Need> {
-        const url = `${this.cupboardUrl}/?id=${id}`;
+        const url = `${this.cupboardUrl}/${id}`;
         return this.http.get<Need>(url).pipe(catchError(this.handleError<Need>(`getNeed id=${id}`)));
     }
 
@@ -89,7 +89,7 @@ export class CupboardService {
         if(basket.length === 0) {
             return of([]);
         }
-
+        
         const requests = basket.map(([needId, quantity]) =>
             this.getNeed(needId).pipe(map(need => ({
                 need, quantity }))

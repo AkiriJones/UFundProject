@@ -22,33 +22,11 @@
         
       </ul>
       <p>Total Cost: ${{ totalCost.toFixed(2) }}</p>
-    <button (click)="Checkout()" class="checkout-button">Checkout</button>
+    <button (click)="checkout()" class="checkout-button">Checkout</button>
 </div>
 
 <ng-template #emptyBasket>
     <p>Your basket is empty.</p>
   </ng-template>
 <div>
-<h2>Add Need</h2>
-<div class="search-container">
-    <input type="text" [(ngModel)]="searchTerm" placeholder="Search needs" class="search-bar" />
-</div>
-
-<ul class="need-list">
-    <li *ngFor="let need of searchNeeds()" class="need-item">
-    <div class="need-container">
-        <div class="need-header">
-        <span class="id">{{ need.id }}</span>
-        <span class="name"> - {{ need.name }}</span>
-        </div>
-        <div class="need-body">
-        <p class="cost">Cost: ${{ need.cost }}</p>
-        <p class="quantity">Quantity: {{ need.quantity }}</p>
-        <p class="type">Info: {{ need.type }}</p>
-        <button (click)="addToBasket(need)" class="add-button">Add</button>
-        </div>
-    </div>
-    </li>
-</ul>
-</div>
 
