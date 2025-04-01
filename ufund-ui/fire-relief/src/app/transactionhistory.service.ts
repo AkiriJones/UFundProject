@@ -20,7 +20,7 @@ export class TransactionHistoryService {
      * @param userService The service responsible for managing user data.
      */
     constructor(private userService: UserService) {
-        this.transactionHistory = this.userService.user.tHistory || [];
+        this.loadTransactionHistory();
     }
 
     /**
@@ -42,7 +42,15 @@ export class TransactionHistoryService {
      * @returns an observable of the user's transaction history.
      */
     getTransactionHistory(): Observable<Transaction[]> {
-        return of(this.userService.user.tHistory || []);
+        this.loadTransactionHistory();
+        return of(this.transactionHistory);
+    }
+
+    /**
+     * Loads the current user's transaction history. Updates local transaction history array.
+     */
+    public loadTransactionHistory(): void {
+        this.transactionHistory = this.userService.user.tHistory || [];
     }
 }
     
