@@ -42,6 +42,7 @@ export class TransactionHistoryComponent implements OnInit {
     if(username) {
       this.userService.getUser(username).subscribe(user => {
         this.userService.user = user;
+        this.transactionHistoryService.loadTransactionHistory();
         this.loadTransactionHistory();
       });
     }

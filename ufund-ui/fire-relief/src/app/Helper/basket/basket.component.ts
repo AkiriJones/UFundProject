@@ -131,9 +131,10 @@ export class BasketComponent implements OnInit {
       total: this.totalCost,
       date: new Date().toISOString()
     };
-  
-    this.userService.user.tHistory.push(newTransaction);
+
+    this.transactionHistoryService.loadTransactionHistory();
     this.transactionHistoryService.addTransaction(newTransaction);
+
     const updateObservables = this.basketItems.map(element => {
       const updatedNeed: Need = {
         id: element.need.id,
