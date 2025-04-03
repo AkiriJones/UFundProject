@@ -1,1 +1,8 @@
-
+body {
+    background: linear-gradient(to left, rgb(168, 168, 168), rgb(97, 97, 97));
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
