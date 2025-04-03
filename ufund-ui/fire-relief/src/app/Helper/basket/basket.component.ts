@@ -124,6 +124,13 @@ export class BasketComponent implements OnInit {
    * Checks out the current Helper's basket
    */
   checkout(): void {
+    const invalidItem = this.basketItems.filter(item => item.quantity > item.need.quantity)
+
+    if (invalidItem.length > 0){
+      console.log("Erroneous quantity checkout attempted.")
+      return;
+    }
+
     const newTransaction: Transaction = {
       id: Date.now() % 2147483647,
       needs: this.basketItems.map(item => ({
