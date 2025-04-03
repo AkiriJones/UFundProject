@@ -1,0 +1,55 @@
+header {
+    display: flex;
+    margin: 0;
+    margin-left: 0px;
+     height: 35vh; 
+    background: linear-gradient(to bottom, rgb(255, 153, 0), rgb(255, 94, 0));
+}
+h1 {
+    margin-left: 10px;
+}
+h2 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+h3 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+body {
+    background: linear-gradient(to bottom, rgb(168, 168, 168), rgb(75, 75, 75));
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.transaction {
+    background: linear-gradient(to bottom, rgb(255, 153, 0), rgb(255, 94, 0));
+    font-family: Arial, Helvetica, sans-serif;
+    /* Margins */
+    padding: 10px 60px 30px 60px;
+
+    border-radius: 10px;
+
+    text-align: center;
+    font-size: larger;
+
+    position: fixed;
+    top: 20%;
+    left: 35%;
+}
+
+button {
+    background: linear-gradient(to bottom, rgb(40, 40, 40), rgb(0, 0, 0));
+    color: rgb(255, 94, 0);
+    
+    padding: 10px 30px 10px 30px;
+
+    border-radius: 10px;
+    font-size: larger;
+}
+
+div {
+    text-align: center;
+}
