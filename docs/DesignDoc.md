@@ -144,6 +144,10 @@ This section describes the web interface flow; this is how the user views and in
 
 > UserFileDAO - Manages user data by saving and loading user objects to/from a JSON data file.
 
+> Basket - Creates an object for the User that contains the needs they wish to checkout. These needs can then be removed or checked out.
+
+> Transaction - Creates transaction data asscoiated with checking out a need. The transaction is tied to the Helper/User
+
 
 > _**[Sprint 2, 3 & 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
@@ -179,6 +183,8 @@ This section describes the web interface flow; this is how the user views and in
 
 > _**[Sprint 3 & 4]** OO Design Principles should span across **all tiers.**_
 
+>(Sprint 3) Our principles we have applied previously have continued to span across all tiers. An example of this is how we have implemented the users from the model to persistance with UserDao and UserFileDAO. We continue to utilize encapsulation, polymorphism, and abstraction in similar was as before. As they have already been described the OO Principles we put into practice span across all tiers.
+
 ## Static Code Analysis/Future Design Improvements
 > _**[Sprint 4]** With the results from the Static Code Analysis exercise, 
 > **Identify 3-4** areas within your code that have been flagged by the Static Code 
@@ -211,7 +217,10 @@ This section describes the web interface flow; this is how the user views and in
 
 ![Sprint 2](Sprint2-CodeCoverageReport.png)
 
+![Sprint 3](Sprint3-CodeCoverageReport.png)
+
 ## Ongoing Rationale
 >_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**mayor**_ team decisions or design milestones/changes and corresponding justification._
 > (2025/02/15): Sprint 1 - the classes CupboardController, Need, CupboardDAO, and CupboardFileDAO were made.
 >(2025/03/17): Sprint 2 -  All features for the sprint are tested and completed.
+>(2025/03/31): Sprint 3 - All features/enhancements for the sprint are implemented and functional
