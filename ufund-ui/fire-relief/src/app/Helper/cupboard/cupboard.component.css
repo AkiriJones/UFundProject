@@ -3,11 +3,9 @@ header {
     margin: 0;
     margin-left: 0px;
      height: 35vh; 
-    background: linear-gradient(to bottom, rgb(255, 153, 0), rgb(255, 94, 0));
+    background: linear-gradient(to bottom, rgb(255, 123, 0), yellow);
 }
-h1 {
-    margin-left: 10px;
-}
+
 h2 {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
@@ -22,12 +20,14 @@ body {
 
 .search-container {
     background: linear-gradient(to bottom, rgb(40, 40, 40), rgb(0, 0, 0));
-    color: rgb(255, 94, 0);
+    color: yellow;
     font-family: Arial, Helvetica, sans-serif;
     /* Margins */
     padding: 10px 60px 30px 60px;
 
     border-radius: 10px;
+    border-color: yellow;
+    border-width: 2px;
 
     text-align: center;
     font-size: larger;
@@ -38,7 +38,7 @@ body {
 }
 
 .need-list {
-    background: linear-gradient(to bottom, rgb(255, 153, 0), rgb(255, 94, 0));
+    background: linear-gradient(to bottom, rgb(255, 123, 0), yellow);
     font-family: Arial, Helvetica, sans-serif;
     /* Margins */
     padding: 10px 60px 30px 60px;
@@ -55,11 +55,15 @@ body {
 
 button {
     background: linear-gradient(to bottom, rgb(40, 40, 40), rgb(0, 0, 0));
-    color: rgb(255, 94, 0);
+    color: yellow;
     
     padding: 10px 30px 10px 30px;
+    margin-left: 10px;
+    margin-bottom: 10px;
 
     border-radius: 10px;
+    border-color: yellow;
+    border-width: 2px;
     font-size: larger;
 }
 
