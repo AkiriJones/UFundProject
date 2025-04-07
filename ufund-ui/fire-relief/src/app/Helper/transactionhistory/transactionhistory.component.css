@@ -1,0 +1,68 @@
+header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    height: 35vh;
+    background: linear-gradient(to bottom, rgb(255, 153, 0), rgb(255, 94, 0));
+}
+
+h2, h3, h4 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    margin-top: 20px;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(to bottom, rgb(168, 168, 168), rgb(75, 75, 75));
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nav-bar {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.nav-button,
+button {
+    background: linear-gradient(to bottom, rgb(40, 40, 40), rgb(0, 0, 0));
+    color: yellow;
+    padding: 10px 30px;
+    margin: 10px 5px;
+    border-radius: 10px;
+    border: 2px solid yellow;
+    font-size: larger;
+    cursor: pointer;
+}
+
+.transaction {
+    background: linear-gradient(to bottom, rgb(255, 123, 0), yellow);
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 12px;
+    font-size: larger;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: left;
+}
+
+.transaction ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.transaction li {
+    margin-bottom: 5px;
+}
+
+.transaction hr {
+    margin-top: 20px;
+    border: none;
+    border-top: 1px solid #333;
+}
+
+div {
+    text-align: center;
+}

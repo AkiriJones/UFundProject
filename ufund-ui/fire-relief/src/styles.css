@@ -1,1 +1,14 @@
+h1 {
+    background: linear-gradient(to bottom, rgb(255, 123, 0), yellow);
+    width: 100vw;
+    padding-left: 30px;
+}
 
+body {
+    background: black;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

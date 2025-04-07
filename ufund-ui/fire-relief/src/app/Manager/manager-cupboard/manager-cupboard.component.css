@@ -1,0 +1,73 @@
+button {
+    background: linear-gradient(to bottom, rgb(40, 40, 40), rgb(0, 0, 0));
+    color: yellow;
+    padding: 10px 30px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 2px solid yellow;
+    font-size: larger;
+    cursor: pointer;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.add-need {
+    background: linear-gradient(to bottom, rgb(255, 123, 0), yellow);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: larger;
+    margin-bottom: 30px;
+}
+
+.add-need input {
+    margin: 5px;
+    padding: 8px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.needs {
+    list-style: none;
+    padding: 0;
+}
+
+.needs li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.edit-form {
+    margin-top: 30px;
+    background-color: #eaeaea;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.edit-form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.edit-form input {
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 1em;
+}
+
+.empty-message {
+    font-style: italic;
+    color: red;
+}

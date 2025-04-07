@@ -1,58 +1,114 @@
-/**header {
+header {
     display: flex;
-    margin: 0;
-    margin-left: 0px;
-    /* height: 35vh; 
-    background: linear-gradient(to bottom, rgb(255, 153, 0), rgb(255, 94, 0));
+    align-items: center;
+    padding: 20px;
+    height: 35vh;
+    background: linear-gradient(to bottom, rgb(255, 123, 0), yellow);
 }
-h1 {
-    margin-left: 10px;
+
+h2 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    margin-top: 20px;
 }
+
 body {
+    margin: 0;
     background: linear-gradient(to bottom, rgb(168, 168, 168), rgb(75, 75, 75));
-    margin-top: 0;
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-info {
-    margin-top: 0;
-    margin-right: 10px;
-    margin-bottom: 0;
-    margin-left: 10px;
+
+.nav-bar {
     text-align: center;
+    margin-top: 20px;
 }
 
-login {
-    background: linear-gradient(to bottom, rgb(255, 153, 0), rgb(255, 94, 0));
-    /* Margins 
-    padding: 10px 60px 30px 60px;
-
-    border-radius: 10px;
-
-    text-align: center;
-    font-size: larger;
-
-    position: fixed;
-    top: 30%;
-    left: 40%;
-}
-
+.nav-button,
 button {
     background: linear-gradient(to bottom, rgb(40, 40, 40), rgb(0, 0, 0));
-    color: rgb(255, 94, 0);
-    
-    padding: 10px 30px 10px 30px;
-
+    color: yellow;
+    padding: 10px 30px;
+    margin: 10px 5px;
     border-radius: 10px;
+    border: 2px solid yellow;
     font-size: larger;
+    cursor: pointer;
 }
 
-div {
+.search-container {
+    background: linear-gradient(to bottom, rgb(40, 40, 40), rgb(0, 0, 0));
+    color: yellow;
+    padding: 20px;
+    border: 2px solid yellow;
+    border-radius: 10px;
     text-align: center;
+    font-size: larger;
+    width: 90%;
+    max-width: 800px;
+    margin: 30px auto;
+}
 
-    position: fixed;
-    top: 30%;
-    left: 35%;
-}*/
+.search-bar {
+    padding: 10px;
+    font-size: 1em;
+    margin-bottom: 15px;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.filter-label {
+    margin-right: 5px;
+}
+
+select {
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 1em;
+}
+
+.need-list {
+    list-style: none;
+    padding: 20px;
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    background: linear-gradient(to bottom, rgb(255, 123, 0), yellow);
+    border-radius: 10px;
+}
+
+.need-item {
+    background: #fff3d6;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.need-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.need-header {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.need-body p {
+    margin: 4px 0;
+}
+
+.add-button {
+    margin-top: 10px;
+}
