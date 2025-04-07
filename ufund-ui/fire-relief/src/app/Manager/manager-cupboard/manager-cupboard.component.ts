@@ -70,7 +70,7 @@ export class ManagerCupboardComponent implements OnInit {
     }
 
     const newNeed: Need = {
-      id: 0,
+      id: undefined as any,
       name: name,
       cost: cost,
       quantity: quantity,
@@ -80,6 +80,7 @@ export class ManagerCupboardComponent implements OnInit {
 
     this.cupboardService.addNeed(newNeed).subscribe((addedNeed) => {
       this.cupboard.push(addedNeed);
+      console.log("Cupboard list: " + this.cupboard)
       this.isEmpty = false;
     }) 
   }
