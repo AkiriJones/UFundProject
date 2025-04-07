@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, forkJoin, map, Observable, of } from "rxjs";
 import { Need } from "./need";
+import { User } from "./user";
+import { switchMap } from "rxjs";
 import { UserService } from "./user.service";
 
 /**
@@ -60,11 +62,51 @@ export class CupboardService {
      * @param id The ID of the Need object that is being deleted.
      * @returns An Observable indicating operation result.
      */
-    deleteNeed(id: number): Observable<void> {
-        const url =  `${this.cupboardUrl}/${id}`;
-        return this.http.delete<void>(url, this.httpOptions).pipe(catchError(this.handleError<void>('deleteNeed')));
-    }
+    // deleteNeed(id: number): Observable<void> {
+    //     const url =  `${this.cupboardUrl}/${id}`;
+    //     // this.getUsersWithNeedInBasket(id).subscribe(users =>{
+    //     //     if(users.length > 0){
+    //     //         users.forEach
+    //     //     }
 
+    //     // })
+    //     return this.http.delete<void>(url, this.httpOptions).pipe(catchError(this.handleError<void>('deleteNeed')));
+    // }
+
+    deleteNeed(id: number): Observable<void> {
+        return this.userService.getUsers().pipe(
+          switchMap(users => {
+            const updateObservables: Observable<User>[] = [];
+      
+            users.forEach(user => {
+              const updatedItems = user.basket.items.filter(([needId, _]) => needId !== id);
+              if (updatedItems.length !== user.basket.items.length) {
+                user.basket.items = updatedItems;
+                updateObservables.push(this.http.put<User>('http://localhost:8080/users', user, this.httpOptions));
+              }
+            });
+      
+            return forkJoin([updateObservables.length ? updateObservables : [of(null)]]);
+          }),
+          switchMap(() => {
+            const url = `${this.cupboardUrl}/${id}`;
+            return this.http.delete<void>(url, this.httpOptions);
+          }),
+          catchError(this.handleError<void>('deleteNeed'))
+        );
+      }
+
+    getUsersWithNeedInBasket(needId: number): Observable<User[]> {
+        return this.userService.getUsers().pipe(
+          map(users =>
+            users.filter(user =>
+              user.basket.items.some(item => item[0] === needId)
+            )
+          )
+        );
+      }
+
+      
     /**
      * Updates an existing need in the cupboard.
      * 
@@ -89,7 +131,7 @@ export class CupboardService {
         if(basket.length === 0) {
             return of([]);
         }
-        
+        //
         const requests = basket.map(([needId, quantity]) =>
             this.getNeed(needId).pipe(map(need => ({
                 need, quantity }))
