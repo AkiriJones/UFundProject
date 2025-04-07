@@ -70,7 +70,7 @@ export class ManagerCupboardComponent implements OnInit {
     }
 
     const newNeed: Need = {
-      id: 0,
+      id: undefined as any,
       name: name,
       cost: cost,
       quantity: quantity,
@@ -80,6 +80,7 @@ export class ManagerCupboardComponent implements OnInit {
 
     this.cupboardService.addNeed(newNeed).subscribe((addedNeed) => {
       this.cupboard.push(addedNeed);
+      console.log("Cupboard list: " + this.cupboard)
       this.isEmpty = false;
     }) 
   }
@@ -101,7 +102,7 @@ export class ManagerCupboardComponent implements OnInit {
    * 
    * @param need The need object to edit.
    */
-  editNeed(need: Need): void {
+  editNeed(need: Need): void {  
     this.selectedNeed = { ...need };
   }
 
@@ -110,13 +111,20 @@ export class ManagerCupboardComponent implements OnInit {
    */
   saveNeed(): void {
     if(this.selectedNeed) {
-      this.cupboardService.updateNeed(this.selectedNeed.id, this.selectedNeed).subscribe(updatedNeed => {
+      console.log("Selected Need: " + this.selectedNeed.name + ", cost: " + this.selectedNeed.cost+", quantity" + this.selectedNeed.quantity)
+      if(this.selectedNeed.cost < 0 || this.selectedNeed.quantity < 0){
+        console.log("Invalid cost or quantity, try again.")
+      }
+      else{
+        this.cupboardService.updateNeed(this.selectedNeed.id, this.selectedNeed).subscribe(updatedNeed => {
         const index = this.cupboard.findIndex(n => n.id === updatedNeed.id);
         if(index !== -1) {
           this.cupboard[index] = updatedNeed;
         }
         this.selectedNeed = null;
       });
+      }
+      
     }
   }
 
