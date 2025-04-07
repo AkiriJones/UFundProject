@@ -26,12 +26,12 @@ ul {
     /* Margins */
     padding: 10px 60px 30px 60px;
 
-    border-radius: 10px;
+    /* border-radius: 10px; */
 
     text-align: center;
     font-size: larger;
 
-    position: fixed;
+    /* position: fixed; */
     top: 40%;
     left: 35%;
 }
